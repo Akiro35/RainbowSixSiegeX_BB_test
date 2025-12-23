@@ -1,0 +1,11 @@
+@use '../../foundation' as *;
+
+.u-font {
+  &--ja {
+    font-family: var(--font--ja);
+  }
+
+  &--en {
+    font-family: var(--font--en);
+  }
+}

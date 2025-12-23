@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select operators | R6SXBB</title>
+  <meta name="description" content="レインボーシックスシージの作戦ボード。作戦の検討にお役立てください。">
+  <meta name="keywords" content="Rainbow, Siege, R6SX, briefing, tactics, strategy, レインボーシックスシージ, シージ, 作戦ボード">
+  <!--OGP-->
+  <!--favicon-->
+  <link rel="icon" type="image/webp" href="image/logo--small.webp">
+  <!--font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Zen+Kurenaido&display=swap" rel="stylesheet">
+  <!--css-->
+  <link rel="stylesheet" href="css/style.css">
+  <!--JavaScript-->
+  <script src="js/modal.js" defer></script>
+  <script src="js/session--operators.js" defer></script>
+</head>
+<body class="l-body">
+  <div class="l-body__head--operators"></div>
+  <div class="l-body__body">
+    <img src="image/logo--large.svg" alt="R6SXBriefingBoard ロゴ" class="l-body__logo">
+    <div class="l-body__maps--selected">
+      <button class="c-map c-map--selected" id="js-operators__selectedMap">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-bank-blueprints/R6S_Maps_Bank_EXT.jpg" alt="Bank" class="c-map__img">
+        </div>
+        <div class="c-map__name">
+          <p>Bank</p>
+        </div>
+      </button>
+    </div>
+    <div class="l-body__instructions">
+      <p class="l-body__instruction--en">Select operators.</p>
+      <p class="l-body__instruction--ja c-text--jaToEn">オペレータを選べ。</p>
+    </div>
+    <div class="l-body__operators l-body__indicatingLine--1">
+      <button class="c-operator__content" id="open--operatorsATK">
+        <p>ATK</p>
+        <div class="c-operator__icons">
+          <div class="c-operator__icon">
+            <img src="image/icon_operator/figure.png" alt="operator_blank" id="js-iconATK1">
+          </div>
+          <div class="c-operator__icon">
+            <img src="image/icon_operator/figure.png" alt="operator_blank" id="js-iconATK2">
+          </div>
+          <div class="c-operator__icon">
+            <img src="image/icon_operator/figure.png" alt="operator_blank" id="js-iconATK3">
+          </div>
+          <div class="c-operator__icon">
+            <img src="image/icon_operator/figure.png" alt="operator_blank" id="js-iconATK4">
+          </div>
+          <div class="c-operator__icon">
+            <img src="image/icon_operator/figure.png" alt="operator_blank" id="js-iconATK5">
+          </div>
+        </div>
+      </button>
+      <dialog class="c-modal c-modal--operator js-operatorsATK">
+        <div class="c-modal--stickeyNote">
+          <div class="c-modal__header">
+            <img src="image/materials/magnet_black.png" class="c-modal__magnet">
+            <p>ATK operators</p>
+            <button class="c-modal__close--black" id="close--operatorsATK">
+              <img src="image/materials/menu__close--black.svg">
+            </button>
+          </div>
+          <div class="c-modal__container c-modal__container--operator">
+            <div class="c-operator--modal">
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/r6s-operators-badge-striker.png" alt="operator_striker">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y0R6_BADGE_Sledge_L.png" alt="operator_sledge">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y0R6_BADGE_Thatcher_L.png" alt="operator_thatcher">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y0R6_BADGE_Ash_L.png" alt="operator_ash">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y0R6_BADGE_Thermite_L.png" alt="operator_thermite">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y0R6_BADGE_Twitch_L.png" alt="operator_twitch">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y0R6_BADGE_Montagne_L.png" alt="operator_montagne">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y0R6_BADGE_Glaz_L.png" alt="operator_glaz">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y0R6_BADGE_Fuze_L.png" alt="operator_fuze">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y0R6_BADGE_Blitz_L.png" alt="operator_blitz">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y0R6_BADGE_IQ_L.png" alt="operator_iq">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y1S1_BADGE_Buck_L.png" alt="operator_buck">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y1S2_BADGE_Blackbeard_L.png" alt="operator_blackbeard">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y1S3_BADGE_Capitao_L.png" alt="operator_capitao">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y1S4_BADGE_Hibana_L.png" alt="operator_hibana">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y2S1_BADGE_Jackal_L.png" alt="operator_jackal">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y2S2_BADGE_Ying_L.png" alt="operator_ying">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y2S3_BADGE_Zofia_L.png" alt="operator_zofia">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y2S4_BADGE_Dokkaebi_L.png" alt="operator_dokkaebi">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y3S1_BADGE_Lion_L.png" alt="operator_lion">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y3S1_BADGE_Finka_L.png" alt="operator_finka">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y3S3_BADGE_Maverick_L.png" alt="operator_maverick">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y3S4_BADGE_Nomad_L.png" alt="operator_nomad">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y4S1_BADGE_Gridlock_LL.png" alt="operator_gridlock">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y4S2_BADGE_Nokk_L.png" alt="operator_nokk">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y4S3_BADGE_Amaru_L.png" alt="operator_amaru">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y4S4_BADGE_Kali_L.png" alt="operator_kali">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y5S1_BADGE_Iana_L.png" alt="operator_iana">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y5S2_BADGE_Ace_L.png" alt="operator_ace">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y5S3_BADGE_Zero_L.png" alt="operator_zero">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/Y6S1_BADGE_Flores_L.png" alt="operator_flores">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/r6s-operators-badge-osa.png" alt="operator_osa">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/r6s-operators-badge-sens.png" alt="operator_sens">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/r6s-operators-badge-grim.png" alt="operator_grim">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/r6s-operators-badge-brava.png" alt="operator_brava">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/r6s-operators-badge-ram.png" alt="operator_ram">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/r6s-operators-badge-deimos.png" alt="operator_deimos">
+              </div>
+              <div class="c-operator__icon--modal js-operatorATK">
+                <img src="image/icon_operator/attacker/r6s-operators-badge-rauora.png" alt="operator_rauora">
+              </div>
+            </div>
+          </div>
+        </div>
+      </dialog>
+      <button class="c-operator__content" id="open--operatorsDEF">
+        <p>DEF</p>
+        <div class="c-operator__icons">
+          <div class="c-operator__icon">
+            <img src="image/icon_operator/figure.png" alt="operator_blank" id="js-iconDEF1">
+          </div>
+          <div class="c-operator__icon">
+            <img src="image/icon_operator/figure.png" alt="operator_blank" id="js-iconDEF2">
+          </div>
+          <div class="c-operator__icon">
+            <img src="image/icon_operator/figure.png" alt="operator_blank" id="js-iconDEF3">
+          </div>
+          <div class="c-operator__icon">
+            <img src="image/icon_operator/figure.png" alt="operator_blank" id="js-iconDEF4">
+          </div>
+          <div class="c-operator__icon">
+            <img src="image/icon_operator/figure.png" alt="operator_blank" id="js-iconDEF5">
+          </div>
+        </div>
+      </button>
+      <dialog class="c-modal c-modal--operator js-operatorsDEF">
+        <div class="c-modal--stickeyNote">
+          <div class="c-modal__header">
+            <img src="image/materials/magnet_black.png" class="c-modal__magnet">
+            <p>DEF operators</p>
+            <button class="c-modal__close--black" id="close--operatorsDEF">
+              <img src="image/materials/menu__close--black.svg">
+            </button>
+          </div>
+          <div class="c-modal__container c-modal__container--operator">
+            <div class="c-operator--modal">
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/r6s-operators-badge-sentry.png" alt="operator_sentry">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y0R6_BADGE_Smoke_L.png" alt="operator_smoke">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y0R6_BADGE_Mute_L.png" alt="operator_mute">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y0R6_BADGE_Castle_L.png" alt="operator_castle">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y0R6_BADGE_Pulse_L.png" alt="operator_pulse">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y0R6_BADGE_Doc_L.png" alt="operator_doc">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y0R6_BADGE_Rook_L.png" alt="operator_rook">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y0R6_BADGE_Kapkan_L.png" alt="operator_kapkan">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y0R6_BADGE_Tachanka_L.png" alt="operator_tachanka">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y0R6_BADGE_Jager_L.png" alt="operator_jager">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y0R6_BADGE_Bandit_L.png" alt="operator_bandit">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y1S1_BADGE_Frost_L.png" alt="operator_frost">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y1S2_BADGE_Valkyrie_L.png" alt="operator_valkyrie">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y1S3_BADGE_Caveira_L.png" alt="operator_caveira">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y1S4_BADGE_Echo_L.png" alt="operator_echo">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y2S1_BADGE_Mira_L.png" alt="operator_mira">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y2S2_BADGE_Lesion_L.png" alt="operator_lesion">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y2S3_BADGE_Ela_L.png" alt="operator_ela">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y2S4_BADGE_Vigil_L.png" alt="operator_vigil">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y3S2_BADGE_Maestro_L.png" alt="operator_maestro">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y3S2_BADGE_Alibi_L.png" alt="operator_alibi">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y3S3_BADGE_Clash_L.png" alt="operator_clash">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y3S4_BADGE_L.png" alt="operator_kaid">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y4S1_BADGE_Mozzie_L.png" alt="operator_mozzie">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y4S2_BADGE_Warden_L.png" alt="operator_warden">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y4S3_BADGE_Goyo_L.png" alt="operator_goyo">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y4S4_BADGE_Wamai_L.png" alt="operator_wamai">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y5S1_BADGE_Oryx_L.png" alt="operator_oryx">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y5S2_BADGE_Melusi_L.png" alt="operator_melusi">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/Y5S4_BADGE_Aruni_L.png" alt="operator_aruni">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/r6s-operators-badge-thunderbird.png" alt="operator_thunderbird">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/r6s-operators-badge-thorn.png" alt="operator_thorn">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/r6s-operators-badge-azami.png" alt="operator_azami">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/r6s-operators-badge-solis.png" alt="operator_solis">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/r6s-operators-badge-fenrir.png" alt="operator_fenrir">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/r6s-operators-badge-tubarao.png" alt="operator_tubarao">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/r6s-operators-badge-skopos.png" alt="operator_skopos">
+              </div>
+              <div class="c-operator__icon--modal js-operatorDEF">
+                <img src="image/icon_operator/difender/r6s-operators-badge-denari.png" alt="operator_denari">
+              </div>
+            </div>
+          </div>
+        </div>
+      </dialog>
+    </div>
+    <div class="l-body__instructions l-body__indicatingLine--2 u-layout--pb10vh">
+      <button class="c-button" id="js-startBriefing">
+        <p class="l-body__instruction--en">Start Briefing.</p>
+        <p class="l-body__instruction--ja c-text--jaToEn">ブリーフィングを始める。</p>
+      </button>
+    </div>
+  </div>
+  <footer class="l-footer">
+    <div class="c-link">
+      <a href="#" class="c-link__logo">
+        <img src="image/R6_Siege_X_Logo_JP.avif" alt="RainbowSixSiegeX__Link">
+      </a>
+    </div>
+    <button class="c-button c-button__whatsSite--footer" id="open--whatsSite">
+      <p>当サイトについて</p>
+    </button>
+    <dialog class="c-modal c-modal--whatsSite js-whatsSite">
+      <div class="c-modal--stickeyNote">
+        <div class="c-modal__header">
+          <img src="image/materials/magnet_black.png" class="c-modal__magnet">
+          <p class="u-font--ja">当サイトについて</p>
+          <button class="c-modal__close--black" id="close--whatsSite">
+            <img src="image/materials/menu__close--black.svg">
+          </button>
+        </div>
+        <div class="c-modal__container c-modal__container--whatsSite">
+          <p class="u-font--ja">
+            　当サイトは<span class="u-font--en">RainbowSixSiegeX</span>を応援する非公式ファンサイトです。<br>
+            　Ubisoft様、並びに<span class="u-font--en">RainbowSixSiegeX</span>の制作・運営に携わる企業・団体とは一切関係ありません。<br>
+            　当サイトは、<span class="u-font--en">RainbowSixSiegeX</span>プレイヤーの皆様がより便利に戦略を立てられるツールを提供することを目指して制作しています。ぜひご利用いただけますと幸いです。<br>
+            　当サイトにて使用している画像をはじめとする各種素材の著作権は各権利者に帰属いたします。これら素材は<span class="u-font--en">RainbowSixSiegeX</span>の応援のみに使用しておりますが、万一各関係者様からご指摘をいただいた場合は、ご連絡があり次第速やかに対処いたします。<br>
+            　当サイトは正確な情報を掲載できるよう心掛けて運営しておりますが、情報の誤りがある場合がありますので予めご了承ください。<br>
+            　以上、今後とも当サイトを応援していただけますと幸いです。
+          </p>
+          <p class="p-index__modal--author u-font--ja">
+            管理人　<span class="u-font--en">HeishiA35</span>
+          </p>
+        </div>
+      </div>
+    </dialog>
+  </footer>
+</body>

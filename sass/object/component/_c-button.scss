@@ -1,0 +1,75 @@
+@use '../../foundation' as *;
+
+.c-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 2vh 4vw;
+
+  &:before {
+    content: '';
+    width: 50%;
+    height: 50%;
+    background: top left / contain no-repeat url(../image/materials/frame_line_topleft.svg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+  }
+
+  &:after {
+    content: '';
+    width: 50%;
+    height: 50%;
+    background: top right / contain no-repeat url(../image/materials/frame_line_rightbottom.svg);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 4;
+  } 
+  //desktopでホバー対応
+
+
+  &__whatsSite {
+
+    &--footer {
+      margin: 5vh 0 10vh 0;
+
+      p {
+        font-family: var(--font--ja);
+        font-size: 1.5em;
+      }
+    }
+
+    &--boardMenu {
+      p {
+        font-family: var(--font--ja);
+        font-size: clamp(1em, 2vw, 2.5em);
+        word-break: keep-all;
+      }
+    }
+  }
+
+  &__Setting {
+    font-size: clamp(1.2em, 2.5vw, 2.5em);
+    word-break: keep-all;
+  }
+
+  &__toppage {
+    font-size: clamp(1.2em, 2.5vw, 2.5em);
+    word-break: keep-all;
+  }
+
+  &__close--white {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 528;
+
+    img {
+      width: 3rem;
+      height: auto;
+    }
+  }
+}

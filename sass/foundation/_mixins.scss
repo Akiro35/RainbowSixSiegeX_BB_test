@@ -1,0 +1,31 @@
+@use "sass:map";
+
+@mixin background--stickeyNote {
+  background-color: var(--background--stickey);
+  background-image: url(../image/materials/paper_texture.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-attachment: local;
+  background-blend-mode: overlay;
+} 
+
+@mixin border-radius--col {
+  border-top-left-radius: 14vw 2vw ;
+  border-top-right-radius: 4vw 20vw;
+  border-bottom-right-radius: 24vw 3vw;
+  border-bottom-left-radius: 8vw 4vw;
+}
+
+
+/*media*/
+$breakpoints: (
+  tab: 450px,
+  pc: 1000px
+);
+
+@mixin responsive($breakpoint) {
+  @media (width >= map.get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}

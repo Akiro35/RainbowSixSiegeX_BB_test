@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R6SXBB</title>
+  <meta name="description" content="レインボーシックスシージの作戦ボード。作戦の検討にお役立てください。">
+  <meta name="keywords" content="Rainbow, Siege, R6SX, briefing, tactics, strategy, レインボーシックスシージ, シージ, 作戦ボード">
+  <!--OGP-->
+  <!--favicon-->
+  <link rel="icon" type="image/webp" href="image/logo--small.webp">
+  <!--font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Zen+Kurenaido&display=swap" rel="stylesheet">
+  <!--css-->
+  <link rel="stylesheet" href="css/style.css">
+  <!--JavaScript-->
+  <script src="js/modal.js" defer></script>
+  <script src="js/session--index.js" defer></script>
+</head>
+<body class="l-body">
+  <div class="l-body__head--index">
+  </div>
+  <div class="l-body__body">
+    <img src="image/logo--large.svg" alt="R6SXBriefingBoard ロゴ" class="l-body__logo">
+    <div class="l-body__instructions">
+      <p class="l-body__instruction--en">Select a map.</p>
+      <p class="l-body__instruction--ja c-text--jaToEn">マップを選べ。</p>
+    </div>
+    <div class="l-body__maps">
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-bank-blueprints/R6S_Maps_Bank_EXT.jpg" alt="Bank" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Bank</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-border-blueprints/R6S_Maps_Border_EXT.jpg" alt="Border" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Border</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-chalet-blueprints/R6S_Maps_Chalet_EXT.jpg" alt="Chalet" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Chalet</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-clubhouse-blueprints/R6S_Maps_ClubHouse_EXT.jpg" alt="Clubhouse" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Clubhouse</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-coastline-blueprints/r6-maps-coastline.jpg" alt="Coastline" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Coastline</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-consulate-blueprints_may23/ModernizedMap_Consulate_keyart.jpg" alt="Consulate" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Consulate</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-emeraldplains-blueprints/r6s_maps_emeraldplains__1_.jpg" alt="Emeraldplains" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Emeraldplains</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-kafe-blueprints/R6S_Maps_RussianCafe_EXT.jpg" alt="Kafe" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Kafe</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-kanal-blueprints/r6-maps-kanal.jpg" alt="Kanal" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Kanal</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-lair-blueprints/ModernizedMap_Lair_keyart.jpg" alt="Lair" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Liar</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-nighthavenlabs-blueprints/ModernizedMap_Nighthaven_keyart.jpg" alt="Nighthavenlabs" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Nighthavenlabs</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-oregon-blueprints/r6-maps-oregon.jpg" alt="Oregon" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Oregon</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-outback-blueprints/r6-maps-outback.jpg" alt="Outback" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Outback</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-skyscraper-blueprints/r6-maps-skyscraper.jpg" alt="Skyscraper" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Skyscraper</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-themepark-blueprints/rainbow6_maps_theme-park_thumbnail.jpg" alt="Themepark" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Themepark</p>
+        </div>
+      </button>
+      <button class="c-map">
+        <div class="c-map__shadow">
+          <div class="c-map__shadow--object"></div>
+        </div>
+        <div class="c-map__frame">
+          <img src="image/maps/r6-maps-villa-blueprints/r6-maps-villa.jpg" alt="Villa" class="c-map__img">
+        </div>
+        <div class="c-map__active">
+          <p>Villa</p>
+        </div>
+      </button>
+    </div>
+  </div>
+  <footer class="l-footer">
+    <div class="c-link">
+      <button class="c-link__logo">
+        <img src="image/R6_Siege_X_Logo_JP.avif" alt="RainbowSixSiegeX__Link">
+      </button>
+    </div>
+    <button class="c-button c-button__whatsSite--footer" id="open--whatsSite">
+      <p>当サイトについて</p>
+    </button>
+    <dialog class="c-modal c-modal--whatsSite js-whatsSite">
+      <div class="c-modal--stickeyNote">
+        <div class="c-modal__header">
+          <img src="image/materials/magnet_black.png" class="c-modal__magnet">
+          <p class="u-font--ja">当サイトについて</p>
+          <button class="c-modal__close--black" id="close--whatsSite">
+            <img src="image/materials/menu__close--black.svg">
+          </button>
+        </div>
+        <div class="c-modal__container--whatsSite">
+          <p class="u-font--ja">
+            　当サイトは<span class="u-font--en">RainbowSixSiegeX</span>を応援する非公式ファンサイトです。<br>
+            　Ubisoft様、並びに<span class="u-font--en">RainbowSixSiegeX</span>の制作・運営に携わる企業・団体とは一切関係ありません。<br>
+            　当サイトは、<span class="u-font--en">RainbowSixSiegeX</span>プレイヤーの皆様がより便利に戦略を立てられるツールを提供することを目指して制作しています。ぜひご利用いただけますと幸いです。<br>
+            　当サイトにて使用している画像をはじめとする各種素材の著作権は各権利者に帰属いたします。これら素材は<span class="u-font--en">RainbowSixSiegeX</span>の応援のみに使用しておりますが、万一各関係者様からご指摘をいただいた場合は、ご連絡があり次第速やかに対処いたします。<br>
+            　当サイトは正確な情報を掲載できるよう心掛けて運営しておりますが、情報の誤りがある場合がありますので予めご了承ください。<br>
+            　以上、今後とも当サイトを応援していただけますと幸いです。
+          </p>
+          <p class="p-index__modal--author u-font--ja">
+            管理人　<span class="u-font--en">HeishiA35</span>
+          </p>
+        </div>
+      </div>
+    </dialog>
+  </footer>
+</body>
+</html>

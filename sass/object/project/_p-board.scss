@@ -1,0 +1,82 @@
+@use '../../foundation' as *;
+
+.p-board {
+  &__tools {
+    padding: 1vh;
+    border: 2px solid var(--white);
+    @include border-radius--col;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    //gap: 3vh;
+
+    &--left {
+      margin-left: 1vw;
+      gap: 3vh;
+    }
+
+    &--right {
+      margin-right: 1vw;
+      gap: 1vh;
+    }
+
+    &--active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    p {
+      width: 10vh;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: clamp(1em, 1.5vw, 2.5em);
+      word-break: keep-all;
+    }
+
+    img {
+      width: 10vh;
+      height: auto;
+      object-fit: contain;
+      pointer-events: none;
+    }
+  }
+
+  &__tool {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1vh;
+  }
+
+  &__option {
+    width: 90%;
+    height: 5vh;
+    border: 1px solid var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__bold--pen {
+    width: 80%;
+    height: 2px;
+    border-radius: 4px;
+    background-color: var(--white);
+  }
+
+  &__bold--eraser {
+    width: 80%;
+    height: 8px;
+    border-radius: 4px;
+    background-color: var(--white);
+  }
+
+  &__legend {
+
+    &--active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+}

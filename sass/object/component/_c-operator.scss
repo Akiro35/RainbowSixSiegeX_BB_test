@@ -1,0 +1,107 @@
+@use '../../foundation' as *;
+
+.c-operator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4vh;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1vh;
+
+    p {
+      font-size: 1.5em;
+    }
+
+    .c-operator__icons {
+      padding: 4vw;
+      border: 3px solid var(--white);
+      @include border-radius--col;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1vh;
+
+      .c-operator__icon {
+        width: 6rem;
+        height: auto;
+        background-color: var(--white);
+        position: relative;
+        transform: rotate(-2deg);
+        transform-origin: top right;
+
+        &:before {
+          content: '';
+          width: 100%;
+          height: 100%;
+          background: center / cover no-repeat url(../image/materials/paper_texture.png);
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 4;
+        }
+
+        &:after {
+          content: '';
+          width: 1.5rem;
+          height: 1.5rem;
+          background: center / contain no-repeat url(../image/materials/magnet_black.png);
+          position: absolute;
+          top: 0.2rem;
+          right: 0.2rem;
+          z-index: 8;
+        }
+
+        &--filled {
+          &:after {
+            background: center / contain no-repeat url(../image/materials/magnet_red.png);
+          }
+          
+        }
+      }
+    }
+  }
+
+  &--modal {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 4rem);
+    gap: 0.5rem;
+    justify-content: center;
+
+    .c-operator__icon--modal {
+      width: 4rem;
+      background-color: var(--white);
+      position: relative;
+
+      .selected {
+        width: 2rem;
+        height: 2rem;
+        background: center / contain no-repeat url(../image/materials/magnet_red.png);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: -0.4rem;
+        right: -0.4rem;
+        z-index: 8;
+        pointer-events: none;
+
+        p {
+          margin-top: 4px;
+          margin-left: 2px;
+          color: var(--white);
+          font-size: 1.7em;
+          text-shadow: 0 0 3px black;
+        }
+      }
+    }
+  }
+}
