@@ -1568,7 +1568,7 @@ z-index memo
   text-shadow: 0 0 4px black;
   pointer-events: none;
 }
-.p-canvas__btn--zooms {
+.p-canvas__btn--zoom {
   background-color: var(--background--dark);
   border: 2px solid var(--white);
   border-radius: 0.5rem;
@@ -1578,19 +1578,13 @@ z-index memo
   align-items: center;
   gap: 1vh;
 }
-.p-canvas__btn--zooms button {
+.p-canvas__btn--zoom button {
   padding: 0;
 }
-.p-canvas__btn--zooms button img {
+.p-canvas__btn--zoom button img {
   width: 10vh;
   height: auto;
   pointer-events: none;
-}
-.p-canvas__btn--zoom {
-  border-radius: 0.5rem;
-}
-.p-canvas__btn--zoom:active {
-  background: rgba(255, 255, 255, 0.2);
 }
 .p-canvas__btn--zoomLine {
   width: 70%;
