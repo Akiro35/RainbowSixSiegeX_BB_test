@@ -1587,6 +1587,7 @@ z-index memo
   pointer-events: none;
 }
 .p-canvas__btn--zoom:active {
+  border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.2);
 }
 .p-canvas__btn--zoomLine {
