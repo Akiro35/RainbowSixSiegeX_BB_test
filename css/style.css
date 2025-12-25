@@ -1586,8 +1586,10 @@ z-index memo
   height: auto;
   pointer-events: none;
 }
-.p-canvas__btn--zoom:active {
+.p-canvas__btn--zoom {
   border-radius: 0.5rem;
+}
+.p-canvas__btn--zoom:active {
   background: rgba(255, 255, 255, 0.2);
 }
 .p-canvas__btn--zoomLine {
