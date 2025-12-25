@@ -62,7 +62,7 @@
   }
 
   &__btn {
-    &--zooms {
+    &--zoom {
       background-color: var(--background--dark);
       border: 2px solid var(--white);
       border-radius: 0.5rem;
@@ -80,13 +80,6 @@
           height: auto;
           pointer-events: none;
         }
-      }
-    }
-
-    &--zoom {
-      border-radius: 0.5rem;
-      &:active {
-        background: rgba(255, 255, 255, 0.2);
       }
     }
 
