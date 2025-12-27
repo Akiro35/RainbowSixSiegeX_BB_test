@@ -2,11 +2,12 @@
 const updateViewport = () => {
   const boardElement = document.querySelector('.l-board');
   boardElement.style.height = window.innerHeight + 'px';
+  //boardElement.style.width = window.innerWidth + 'px';
 }
-
-window.addEventListener('resize', updateViewport);
-window.addEventListener('orientationchange', updateViewport);
-updateViewport;
+//window.addEventListener('load', updateViewport);
+//window.addEventListener('resize', updateViewport);
+//window.addEventListener('orientationchange', updateViewport);
+//updateViewport;
 
 document.addEventListener('touchmove', (e) => {
   e.preventDefault();

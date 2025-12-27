@@ -5,7 +5,7 @@
 
   @include responsive(tab) {
     width: 100vw;
-    //height: 100vh;
+    height: 100vh;
     background-color: var(--background--dark);
     display: grid;
     grid-template-columns: 1fr 7fr 1fr;

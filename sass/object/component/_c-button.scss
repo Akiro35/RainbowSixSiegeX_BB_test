@@ -56,6 +56,11 @@
     word-break: keep-all;
   }
 
+  &__howToUse {
+    font-size: clamp(1.2em, 2.5vw, 2.5em);
+    word-break: keep-all;
+  }
+
   &__toppage {
     font-size: clamp(1.2em, 2.5vw, 2.5em);
     word-break: keep-all;
