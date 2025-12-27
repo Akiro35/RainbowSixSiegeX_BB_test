@@ -47,6 +47,183 @@ const toggleMenu = () => {
   })
 }
 
+const toggleHowToUse = () => {
+  const howToUse = document.getElementById('js-howToUse');
+  const menu = document.querySelector('nav.js-board__menu');
+  const openButton = document.getElementById('open--howToUse');
+  const closeButton = document.getElementById('close--howToUse');
+
+  openButton.addEventListener('click', () => {
+    menu.classList.remove('l-body__menu--active');
+    howToUse.classList.add('p-howToUse--active');
+  });
+
+  closeButton.addEventListener('click', () => {
+    howToUse.classList.remove('p-howToUse--active');
+    deactivateItems();
+    deactivateOperator();
+  })
+};
+
+toggleHowToUse();
+
+const forwardHowToUsePage = () => {
+  const activePage = document.querySelector('.pageContent--active');
+  const nextPage = activePage.nextElementSibling;
+  const activeIndicator = document.querySelector('.pageIndicator--active');
+  const nextIndicator = activeIndicator.nextElementSibling;
+
+  activePage.classList.remove('pageContent--active');
+  activeIndicator.classList.remove('pageIndicator--active');
+  nextPage.classList.add('pageContent--active');
+  nextIndicator.classList.add('pageIndicator--active');
+  buttonPageBack.classList.add('nav--active');
+  
+  if(nextPage.nextElementSibling === null) {
+    buttonPageForward.classList.remove('nav--active');
+  }
+}
+
+const backHowToUsePage = () => {
+  const activePage = document.querySelector('.pageContent--active');
+  const previousPage = activePage.previousElementSibling;
+  const activeIndicator = document.querySelector('.pageIndicator--active');
+  const previousIndicator = activeIndicator.previousElementSibling;
+
+  activePage.classList.remove('pageContent--active');
+  activeIndicator.classList.remove('pageIndicator--active');
+  previousPage.classList.add('pageContent--active');
+  previousIndicator.classList.add('pageIndicator--active');
+  buttonPageForward.classList.add('nav--active');
+
+  if(previousPage.previousElementSibling === null) {
+    buttonPageBack.classList.remove('nav--active');
+  }
+}
+
+const buttonPageForward = document.getElementById('js-howToUse--forward');
+
+buttonPageForward.addEventListener('click', () => {
+  forwardHowToUsePage();
+
+  const activePage = document.querySelector('.pageContent--active');
+  const canvasPageNumber = 3;
+  const isCheckCanvasPage = Number(activePage.getAttribute('id').slice(17)) === canvasPageNumber;
+
+  if(isCheckCanvasPage) {
+    const operator = document.querySelector('.p-canvas__operator');
+    const items = document.querySelector('.p-canvas__operator--items');
+    operator.classList.add('p-canvas__operator--active');
+    items.classList.add('items--active');
+    locateCanvasExplanation();
+  } else {
+    deactivateItems();
+    deactivateOperator();
+  }
+});
+
+const buttonPageBack = document.getElementById('js-howToUse--back');
+
+buttonPageBack.addEventListener('click', () => {
+  backHowToUsePage();
+
+  const activePage = document.querySelector('.pageContent--active');
+  const canvasPageNumber = 3;
+  const isCheckCanvasPage = Number(activePage.getAttribute('id').slice(17)) === canvasPageNumber;
+
+  if(isCheckCanvasPage) {
+    const operator = document.querySelector('.p-canvas__operator');
+    const items = document.querySelector('.p-canvas__operator--items');
+    operator.classList.add('p-canvas__operator--active');
+    items.classList.add('items--active');
+    locateCanvasExplanation();
+  } else {
+    deactivateItems();
+    deactivateOperator();
+  }
+});
+
+const setMapStatusPosition = () => {
+  const mapStatusRect = document.getElementById('js-mapStatus');
+  const howToUseMapStatus = document.getElementById('js-howToUseLeftMapStatus');
+  const mapStatusPosition = mapStatusRect.getBoundingClientRect();
+  const offsetValue = 8;
+  const topValue = mapStatusPosition.top - offsetValue;
+  const rightValue = window.innerWidth - mapStatusPosition.right - offsetValue;
+  const widthValue = mapStatusPosition.right - mapStatusPosition.left + offsetValue * 2;
+  const heightValue = mapStatusPosition.bottom - mapStatusPosition.top + offsetValue * 2;
+
+  howToUseMapStatus.style.top = topValue + 'px';
+  howToUseMapStatus.style.right = rightValue + 'px';
+  howToUseMapStatus.style.width = widthValue + 'px';
+  howToUseMapStatus.style.height = heightValue + 'px';
+}
+
+const setLegendPosition = () => {
+  const operatorElement = document.getElementById('js-legendOperator');
+  const howToUseLegend = document.getElementById('js-howToUseLeftOperator');
+  const legendPosition = operatorElement.getBoundingClientRect();
+  const offsetValue = 8;
+  const offsetWidthValue = innerWidth * 0.1;
+  const bottomValue = window.innerHeight - legendPosition.bottom - offsetValue;
+  const leftValue = legendPosition.left -offsetValue;
+  const widthValue = legendPosition.right - legendPosition.left + offsetValue * 2;
+  const heightValue = legendPosition.bottom - legendPosition.top + offsetValue * 2;
+
+  howToUseLegend.style.bottom = bottomValue + 'px';
+  howToUseLegend.style.left = leftValue + offsetWidthValue / 2 + 'px';
+  howToUseLegend.style.width = widthValue - offsetWidthValue + 'px';
+  howToUseLegend.style.height = heightValue + 'px';
+}
+
+const locateCanvasExplanation = () => {
+  const zoomExplanation = document.querySelector('.p-howToUse__canvas--zoom');
+  const colorExplanation = document.querySelector('.p-howToUse__canvas--draw');
+  const nameExplanation = document.querySelector('.p-howToUse__canvas--name');
+  const stampExplanation = document.querySelector('.p-howToUse__canvas--stamp');
+  const operatorExplanation = document.querySelector('.p-howToUse__canvas--control');
+
+  const zoomElement = document.querySelector('.p-canvas__btn--zooms');
+  const operatorForExample = document.querySelector('.p-canvas__operator');
+  const colorElement = operatorForExample.firstElementChild.children[0];
+  const nameElement = operatorForExample.firstElementChild.children[1];
+  const stampElement = operatorForExample.firstElementChild.children[2];
+  const operatorElement = operatorForExample.lastElementChild;
+
+  const zoomPosition = zoomElement.getBoundingClientRect();
+  const colorPosition = colorElement.getBoundingClientRect();
+  const namePosition = nameElement.getBoundingClientRect();
+  const stampPosition = stampElement.getBoundingClientRect();
+  const operatorPosition = operatorElement.getBoundingClientRect();
+
+  zoomExplanation.style.top = zoomPosition.y + 'px';
+  zoomExplanation.style.left = zoomPosition.right + 'px';
+
+  colorExplanation.style.top = colorPosition.y + 'px';
+  colorExplanation.style.left = colorPosition.right + 'px';
+
+  nameExplanation.style.top = namePosition.y + 'px';
+  nameExplanation.style.left = namePosition.right + 'px';
+
+  stampExplanation.style.top = stampPosition.y + (stampPosition.bottom - stampPosition.y) / 2 + 'px';
+  stampExplanation.style.left = stampPosition.right + 'px';
+
+  operatorExplanation.style.top = operatorPosition.y + 'px';
+  operatorExplanation.style.left = operatorPosition.right + 'px';
+
+}
+
+window.addEventListener('load', () => {
+  setMapStatusPosition();
+  setLegendPosition();
+});
+
+window.addEventListener('resize', () => {
+  setMapStatusPosition();
+  setLegendPosition();
+  locateCanvasExplanation();
+});
+
 
 /*drawtools*/
 const buttonMove = document.getElementById('js-buttonMove');

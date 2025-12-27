@@ -21,6 +21,11 @@
       gap: 1vh;
     }
 
+    &:hover {
+      padding: calc(1vh - 2px);
+      border-width: 4px;
+    }
+
     &--active {
       background: rgba(255, 255, 255, 0.2);
     }

@@ -140,6 +140,9 @@
       <button class="c-button c-button__Setting" id="open--setting">
         <p>Setting</p>
       </button>
+      <button class="c-button c-button__howToUse" id="open--howToUse">
+        <p>How to use</p>
+      </button>
       <button class="c-button c-button__whatsSite--boardMenu" id="open--whatsSite1">
         <p>当サイトについて</p>
       </button>
@@ -160,7 +163,7 @@
         </div>
         <p class="p-canvas__zoom--ratio" id="js-scaleRatio">1.0x</p>
       </div>
-      <div class="p-canvas__mapStatus">
+      <div class="p-canvas__mapStatus" id="js-mapStatus">
         <div class="p-canvas__mapStatus--map">
           <p id="js-mapStatus--map">map</p>
         </div>
@@ -173,7 +176,7 @@
       <div class="p-canvas__stampDelete" id="js-stampDelete">
         <img src="image/materials/delete.svg" alt="Stamp_delete">
       </div>
-      <div class="p-canvas__legend p-canvas__legend--active">
+      <div class="p-canvas__legend p-canvas__legend--active" id="js-legendOperator">
         <div class="p-canvas__legend--ATK">
           <div class="p-canvas__operator p-canvas__operator--ATK1" id="js-legend__operator--ATK1">
             <div class="p-canvas__operator--items">
@@ -1114,13 +1117,111 @@
       </dialog> <!--dialog-->
     </div>
     <dialog class="js-setting"> <!--dialogSetting-->
-        <div class="c-modal__setting">
-          <button class="c-modal__close--white" id="close--setting">
-            <img src="image/materials/menu__close--white.svg">
-          </button>
-          <p>Coming Soon</p>
+      <div class="c-modal__setting">
+        <button class="c-modal__close--white" id="close--setting">
+          <img src="image/materials/menu__close--white.svg">
+        </button>
+        <p>Coming Soon</p>
+      </div>
+    </dialog> <!--dialogSetting-->
+
+    <div class="p-howToUse" id="js-howToUse">
+      <button class="c-modal__close--white" id="close--howToUse">
+        <img src="image/materials/menu__close--white.svg">
+      </button>
+
+      <div class="p-howToUse__header">
+        <div class="p-howToUse__pages">
+          <div class="p-howToUse__pages--pageIndicator pageIndicator--active"></div>
+          <div class="p-howToUse__pages--pageIndicator"></div>
+          <div class="p-howToUse__pages--pageIndicator"></div>
         </div>
-      </dialog> <!--dialogSetting-->
+      </div>
+
+      <div class="p-howToUse__navs">
+        <button class="p-howToUse__nav nav--left" id="js-howToUse--back">
+          <img src="image/materials/left.svg" alt="back">
+        </button>
+        <button class="p-howToUse__nav nav--right nav--active" id="js-howToUse--forward">
+          <img src="image/materials/right.svg" alt="forward">
+        </button>
+      </div>
+      <div class="p-howToUse__contents">
+        <div class="p-howToUse__content p-howToUse__content--page1 pageContent--active" id="js-howToUse--page1">
+          <div class="p-howToUse__left--explanation p-howToUse__left--menu">
+            <img src="image/materials/arrow--toLeft1.svg" alt="">
+            <p class="u-font--ja">メニュー</p>
+          </div>
+          <div class="p-howToUse__left--explanation p-howToUse__left--zoom">
+            <img src="image/materials/arrow--toLeft2.svg" alt="">
+            <p class="u-font--ja">マップ移動・ズーム</p>
+          </div>
+          <div class="p-howToUse__left--explanation p-howToUse__left--draw">
+            <img src="image/materials/arrow--toLeft1.svg" alt="">
+            <p class="u-font--ja">線の描画(設定あり)</p>
+          </div>
+          <div class="p-howToUse__left--explanation p-howToUse__left--erase">
+            <img src="image/materials/arrow--toLeft2.svg" alt="">
+            <p class="u-font--ja">線・スタンプの削除(設定あり)</p>
+          </div>
+          <div class="p-howToUse__left--explanation p-howToUse__left--legend">
+            <img src="image/materials/arrow--toLeft1.svg" alt="">
+            <p class="u-font--ja">凡例の<span class="u-font--en">ON/OFF</span></p>
+          </div>
+          <div class="p-howToUse__left--rect">
+            <div class="p-howToUse__rect--legendMap" id="js-howToUseLeftMapStatus">
+              <p class="u-font--ja">凡例</p>
+            </div>
+            <div class="p-howToUse__rect--legendOperator" id="js-howToUseLeftOperator">
+              <p class="u-font--ja">凡例</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-howToUse__content p-howToUse__content--page2" id="js-howToUse--page2">
+          <div class="p-howToUse__right--explanation p-howToUse__right--operators">
+            <p class="u-font--ja">オペレータ等の設定画面を開く</p>
+            <img src="image/materials/arrow--toRight1.svg" alt="">
+          </div>
+          <div class="p-howToUse__right--explanation p-howToUse__right--stamps">
+            <p class="u-font--ja">スタンプ選択画面を開く</p>
+            <img src="image/materials/arrow--toRight2.svg" alt="">
+          </div>
+          <div class="p-howToUse__right--explanation p-howToUse__right--maps">
+            <p class="u-font--ja">マップ設定画面を開く</p>
+            <img src="image/materials/arrow--toRight1.svg" alt="">
+          </div>
+          <div class="p-howToUse__right--explanation p-howToUse__right--floors">
+            <p class="u-font--ja">選択中マップの階層設定画面を開く</p>
+            <img src="image/materials/arrow--toRight2.svg" alt="">
+          </div>
+        </div>
+        <div class="p-howToUse__content p-howToUse__content--page3" id="js-howToUse--page3">
+          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--zoom">
+            <img src="image/materials/arrow--toLeft1.svg" alt="">
+            <p class="u-font--ja">マップの拡大縮小ボタン</p>
+          </div>
+          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--draw">
+            <img src="image/materials/arrow--toLeft1.svg" alt="">
+            <p class="u-font--ja">プレイヤーごとに線描写用の色を設定できます。</p>
+          </div>
+          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--name">
+            <img src="image/materials/arrow--toLeft1.svg" alt="">
+            <p class="u-font--ja">プレイヤーネームを入力できます。３文字まで。</p>
+          </div>
+          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--stamp">
+            <img src="image/materials/arrow--toLeft1.svg" alt="">
+            <p class="u-font--ja">クリックでスタンプモード</p>
+          </div>
+          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--control">
+            <img src="image/materials/arrow--toLeft1.svg" alt="">
+            <p class="u-font--ja">1度目のクリックでアクティブ(線描画モード)<br>
+              2度目のクリックでスタンプ等のボックス展開
+            </p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
   </div>
   <footer class="l-footer--board">
     <div class="c-link">

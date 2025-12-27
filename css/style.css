@@ -368,6 +368,7 @@ dialog::backdrop {
 @media (width >= 450px) {
   .l-board {
     width: 100vw;
+    height: 100vh;
     background-color: var(--background--dark);
     display: grid;
     grid-template-columns: 1fr 7fr 1fr;
@@ -633,6 +634,10 @@ z-index memo
   word-break: keep-all;
 }
 .c-button__Setting {
+  font-size: clamp(1.2em, 2.5vw, 2.5em);
+  word-break: keep-all;
+}
+.c-button__howToUse {
   font-size: clamp(1.2em, 2.5vw, 2.5em);
   word-break: keep-all;
 }
@@ -1464,6 +1469,10 @@ z-index memo
   margin-right: 1vw;
   gap: 1vh;
 }
+.p-board__tools:hover {
+  padding: calc(1vh - 2px);
+  border-width: 4px;
+}
 .p-board__tools--active {
   background: rgba(255, 255, 255, 0.2);
 }
@@ -1804,6 +1813,166 @@ z-index memo
 }
 .p-canvas__gears--active {
   display: grid;
+}
+
+.p-howToUse {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 512;
+}
+.p-howToUse--active {
+  display: block;
+}
+.p-howToUse p {
+  font-size: clamp(1em, 1.5vw, 2.5em);
+  word-break: break-all;
+}
+.p-howToUse__header {
+  position: absolute;
+  top: 2vh;
+  left: calc(50% - 5vw);
+  z-index: 513;
+}
+.p-howToUse__header .p-howToUse__pages {
+  width: 10vw;
+  height: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.p-howToUse__header .p-howToUse__pages--pageIndicator {
+  width: 1vw;
+  aspect-ratio: 1/1.5;
+  border: 2px solid var(--white);
+}
+.p-howToUse__header .p-howToUse__pages .pageIndicator--active {
+  background-color: var(--white);
+}
+.p-howToUse__navs {
+  padding: 0 1vw;
+  width: 100%;
+  height: 60%;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 20%;
+  left: 0;
+  z-index: 540;
+}
+.p-howToUse__nav {
+  width: 8vw;
+  height: 100%;
+  border-radius: 0.5rem;
+  opacity: 0;
+  display: flex;
+  pointer-events: none;
+  align-items: center;
+}
+.p-howToUse__nav img {
+  display: inline-block;
+  width: 5vw;
+  aspect-ratio: 1/1;
+}
+.p-howToUse .nav--left {
+  justify-content: flex-start;
+}
+.p-howToUse .nav--right {
+  justify-content: flex-end;
+}
+.p-howToUse .nav--active {
+  opacity: 1;
+  pointer-events: painted;
+}
+.p-howToUse .nav--active:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+.p-howToUse__content {
+  width: 100%;
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 536;
+}
+.p-howToUse__content--page1 {
+  align-items: flex-start;
+}
+.p-howToUse__content--page2 {
+  align-items: flex-end;
+  padding: 6vh 0;
+}
+.p-howToUse .pageContent--active {
+  display: flex;
+}
+.p-howToUse__left--explanation {
+  margin-left: 12%;
+  display: flex;
+  align-items: center;
+}
+.p-howToUse__left--zoom {
+  margin-top: -7vh;
+}
+.p-howToUse__left--legend {
+  margin-top: -2vh;
+}
+.p-howToUse__left--rect {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 514;
+}
+.p-howToUse__left--rect p {
+  transform: rotate(-3deg);
+}
+.p-howToUse__right--explanation {
+  margin-right: 12%;
+  display: flex;
+  align-items: center;
+}
+.p-howToUse__rect--legendMap {
+  border: 2px solid var(--white);
+  border-top-left-radius: 14vw 2vw;
+  border-top-right-radius: 4vw 20vw;
+  border-bottom-right-radius: 24vw 3vw;
+  border-bottom-left-radius: 8vw 4vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 515;
+}
+.p-howToUse__rect--legendOperator {
+  padding-right: 10vw;
+  border: 2px solid var(--white);
+  border-top-left-radius: 14vw 2vw;
+  border-top-right-radius: 4vw 20vw;
+  border-bottom-right-radius: 24vw 3vw;
+  border-bottom-left-radius: 8vw 4vw;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  z-index: 515;
+}
+.p-howToUse__canvas--explanation {
+  display: flex;
+  align-items: flex-start;
+  position: absolute;
+  z-index: 537;
 }
 
 .u-font--ja {
