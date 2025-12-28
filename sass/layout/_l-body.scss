@@ -105,11 +105,11 @@
       gap: 1rem;
 
       @include responsive(tab) {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
       }
 
       @include responsive(pc) {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(6, 1fr);
       }
 
       &--selected {
@@ -118,7 +118,7 @@
         position: relative;
 
         @include responsive(pc) {
-          width: 30%;
+          max-width: 20%;
         }
 
         &:after {
@@ -143,13 +143,17 @@
 
     .l-body__operators {
       margin: 0 auto;
+      padding: 0 20%;
       width: 90vw;
       padding-top: 2rem;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
       justify-content: center;
       gap: 4vw;
       position: relative;
+
+      @include responsive(pc) {
+        padding: 0;
+      }
     }
     
     .l-body__indicatingLine {

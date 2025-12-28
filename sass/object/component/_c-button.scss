@@ -6,7 +6,6 @@
   align-items: center;
   position: relative;
   padding: 2vh 4vw;
-  transform: rotate(-2deg);
 
   &:before {
     content: '';
@@ -66,11 +65,16 @@
 
   }
 
+  &__instructions {
+    transform: rotate(-2deg);
+  }
+
 
   &__whatsSite {
 
     &--footer {
       margin: 5vh 0 10vh 0;
+      transform: rotate(-2deg);
 
       p {
         font-family: var(--font--ja);

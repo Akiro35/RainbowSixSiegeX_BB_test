@@ -1,6 +1,5 @@
 @use '../../foundation' as *;
 
-//スクロールバーによる背景のがたつきを直す
 .c-modal {
   @include background--stickeyNote;
 
@@ -90,7 +89,7 @@
       }
 
       &--operator {
-        padding: 20vh 5% 5% 5%;
+        padding: 22vh 5% 5% 5%;
         align-items: center;
       }
     }

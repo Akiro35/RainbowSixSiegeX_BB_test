@@ -15,6 +15,7 @@
     gap: 1vh;
 
     .c-operator__icons {
+      margin: 2px;
       padding: 8%;
       border: 2px solid var(--white);
       @include border-radius--col;
@@ -26,17 +27,12 @@
 
       @include responsive(pc) {
         padding: 4%;
-        width: 100%;
         flex-direction: row;
       }
 
       &:hover {
-        padding: calc(8% - 2px);
+        margin: 0;
         border-width: 4px;
-
-        @include responsive(pc) {
-          padding: calc(4% - 2px);
-        }
       }
 
       .c-operator__icon {
@@ -49,6 +45,7 @@
 
         @include responsive(pc) {
           width: 20%;
+          max-width: 8vw;
         }
 
         &:before {
