@@ -34,7 +34,7 @@
   
     .c-modal__header {
       width: 90vw;
-      height: 18vh;
+      //height: 18vh;
       padding-top: 4vh;
       @include background--stickeyNote;
       display: flex;
@@ -45,20 +45,11 @@
       top: calc(10vh - 2px);
       left: 5vw;
       z-index: 16;
-    
-      @include responsive(tab) {
-        
-      }
-
 
       .c-modal__magnet {
         width: 5vh;
         height: auto;
         filter: drop-shadow(2px 2px 2px black);
-
-        @include responsive(tab) {
-        
-        }
       }
 
       .c-modal__close {
@@ -73,8 +64,8 @@
       }
 
       p {
+        margin-bottom: 2vh;
         color: var(--black);
-        font-size: 1.2em;
         transform: rotate(2deg);
       }
     }
@@ -89,16 +80,17 @@
       gap: 4vh;
 
       &--whatsSite {
-        padding: 18vh 5vw 5vh 5vw;
-        align-items: end;
+        padding: 20vh 5% 5% 5%;
+        align-items: flex-end;
 
         p {
           color: var(--black);
+          word-break: break-all;
         }
       }
 
       &--operator {
-        padding: 18vh 0 5vh 0;
+        padding: 20vh 5% 5% 5%;
         align-items: center;
       }
     }

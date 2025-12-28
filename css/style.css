@@ -215,19 +215,19 @@ dialog::backdrop {
   z-index: 12;
 }
 .l-body__body .l-body__instructions {
+  margin: 0 auto;
   padding-top: calc(1rem + 5vw);
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
+}
+.l-body__body .l-body__instructions--nobtn {
+  opacity: 0.6;
+  pointer-events: none;
   transform: rotate(-2deg);
-}
-.l-body__body .l-body__instructions--en {
-  font-size: 1.5em;
-}
-.l-body__body .l-body__instructions--ja {
-  font-size: 0.8em;
 }
 .l-body__body .l-body__maps {
   padding-top: 5vh;
@@ -239,26 +239,50 @@ dialog::backdrop {
   align-items: center;
   gap: 1rem;
 }
+@media (width >= 450px) {
+  .l-body__body .l-body__maps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (width >= 1000px) {
+  .l-body__body .l-body__maps {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 .l-body__body .l-body__maps--selected {
   margin: 0 auto;
   width: 60%;
   position: relative;
 }
+@media (width >= 1000px) {
+  .l-body__body .l-body__maps--selected {
+    width: 30%;
+  }
+}
 .l-body__body .l-body__maps--selected:after {
   content: "";
-  width: 50vw;
-  height: 5vw;
-  background: top right/contain no-repeat url(../image/materials/line--red.svg);
+  width: 12%;
+  height: 5%;
+  background: right/contain no-repeat url(../image/materials/line--red.svg);
   position: absolute;
-  top: calc(-1rem + 8vw);
-  left: -22vw;
+  left: 44%;
+  bottom: -10%;
   z-index: 14;
   transform: rotate(-80deg);
-  transform-origin: top right;
+}
+@media (width >= 1000px) {
+  .l-body__body .l-body__maps--selected:after {
+    width: 20%;
+    left: 40%;
+    bottom: -15%;
+  }
 }
 .l-body__body .l-body__operators {
+  margin: 0 auto;
+  width: 90vw;
   padding-top: 2rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   justify-content: center;
   gap: 4vw;
   position: relative;
@@ -441,6 +465,11 @@ dialog::backdrop {
   display: block;
   position: relative;
 }
+@media (width >= 1000px) {
+  .c-map:hover {
+    transform: rotate(-3deg);
+  }
+}
 .c-map__frame {
   border: 0.5rem solid #fff;
   position: absolute;
@@ -475,13 +504,13 @@ dialog::backdrop {
 }
 .c-map:after {
   content: "";
-  width: 5vw;
-  height: 5vw;
+  width: 10%;
+  aspect-ratio: 1/1;
   background: top/contain no-repeat url(../image/materials/magnet_black.png);
   filter: drop-shadow(2px 2px 2px black);
   position: absolute;
   top: 5%;
-  left: calc(50% - 2.5vw);
+  left: 45%;
   z-index: 16;
 }
 .c-map__shadow {
@@ -529,6 +558,21 @@ dialog::backdrop {
 }
 .c-map:active .c-map__active p {
   display: block;
+  font-size: clamp(1em, 1.5vw, 2.5em);
+  word-break: keep-all;
+}
+@media (width >= 1000px) {
+  .c-map:hover:after {
+    background: top/contain no-repeat url(../image/materials/magnet_red.png);
+  }
+  .c-map:hover .c-map__active {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 70%, black);
+  }
+  .c-map:hover .c-map__active p {
+    display: block;
+    font-size: clamp(1em, 1.5vw, 2.5em);
+    word-break: keep-all;
+  }
 }
 .c-map--selected {
   display: flex;
@@ -564,7 +608,8 @@ dialog::backdrop {
 }
 @media (width >= 1000px) {
   .c-map .c-map__name p {
-    font-size: 5em;
+    font-size: clamp(1em, 3vw, 4em);
+    word-break: keep-all;
   }
 }
 
@@ -600,6 +645,7 @@ z-index memo
   align-items: center;
   position: relative;
   padding: 2vh 4vw;
+  transform: rotate(-2deg);
 }
 .c-button:before {
   content: "";
@@ -607,8 +653,8 @@ z-index memo
   height: 50%;
   background: top left/contain no-repeat url(../image/materials/frame_line_topleft.svg);
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -4%;
+  left: -2%;
   z-index: 4;
 }
 .c-button:after {
@@ -617,9 +663,37 @@ z-index memo
   height: 50%;
   background: top right/contain no-repeat url(../image/materials/frame_line_rightbottom.svg);
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: -2%;
+  bottom: -12%;
   z-index: 4;
+}
+@media (width >= 1000px) {
+  .c-button:before {
+    content: none;
+  }
+  .c-button:after {
+    content: none;
+  }
+  .c-button:hover:before {
+    content: "";
+    width: 50%;
+    height: 50%;
+    background: top left/contain no-repeat url(../image/materials/frame_line_topleft.svg);
+    position: absolute;
+    top: -4%;
+    left: -2%;
+    z-index: 4;
+  }
+  .c-button:hover:after {
+    content: "";
+    width: 50%;
+    height: 50%;
+    background: top right/contain no-repeat url(../image/materials/frame_line_rightbottom.svg);
+    position: absolute;
+    right: -2%;
+    bottom: -12%;
+    z-index: 4;
+  }
 }
 .c-button__whatsSite--footer {
   margin: 5vh 0 10vh 0;
@@ -703,7 +777,6 @@ z-index memo
 }
 .c-modal--stickeyNote .c-modal__header {
   width: 90vw;
-  height: 18vh;
   padding-top: 4vh;
   background-color: var(--background--stickey);
   background-image: url(../image/materials/paper_texture.png);
@@ -735,8 +808,8 @@ z-index memo
   z-index: 4;
 }
 .c-modal--stickeyNote .c-modal__header p {
+  margin-bottom: 2vh;
   color: var(--black);
-  font-size: 1.2em;
   transform: rotate(2deg);
 }
 .c-modal--stickeyNote .c-modal__container {
@@ -755,14 +828,15 @@ z-index memo
   gap: 4vh;
 }
 .c-modal--stickeyNote .c-modal__container--whatsSite {
-  padding: 18vh 5vw 5vh 5vw;
-  align-items: end;
+  padding: 20vh 5% 5% 5%;
+  align-items: flex-end;
 }
 .c-modal--stickeyNote .c-modal__container--whatsSite p {
   color: var(--black);
+  word-break: break-all;
 }
 .c-modal--stickeyNote .c-modal__container--operator {
-  padding: 18vh 0 5vh 0;
+  padding: 20vh 5% 5% 5%;
   align-items: center;
 }
 
@@ -780,12 +854,9 @@ z-index memo
   align-items: center;
   gap: 1vh;
 }
-.c-operator__content p {
-  font-size: 1.5em;
-}
 .c-operator__content .c-operator__icons {
-  padding: 4vw;
-  border: 3px solid var(--white);
+  padding: 8%;
+  border: 2px solid var(--white);
   border-top-left-radius: 14vw 2vw;
   border-top-right-radius: 4vw 20vw;
   border-bottom-right-radius: 24vw 3vw;
@@ -794,15 +865,36 @@ z-index memo
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1vh;
+  gap: 4%;
+}
+@media (width >= 1000px) {
+  .c-operator__content .c-operator__icons {
+    padding: 4%;
+    width: 100%;
+    flex-direction: row;
+  }
+}
+.c-operator__content .c-operator__icons:hover {
+  padding: calc(8% - 2px);
+  border-width: 4px;
+}
+@media (width >= 1000px) {
+  .c-operator__content .c-operator__icons:hover {
+    padding: calc(4% - 2px);
+  }
 }
 .c-operator__content .c-operator__icons .c-operator__icon {
-  width: 6rem;
-  height: auto;
+  width: 10vh;
+  aspect-ratio: 1/1;
   background-color: var(--white);
   position: relative;
   transform: rotate(-2deg);
   transform-origin: top right;
+}
+@media (width >= 1000px) {
+  .c-operator__content .c-operator__icons .c-operator__icon {
+    width: 20%;
+  }
 }
 .c-operator__content .c-operator__icons .c-operator__icon:before {
   content: "";
@@ -816,8 +908,8 @@ z-index memo
 }
 .c-operator__content .c-operator__icons .c-operator__icon:after {
   content: "";
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 20%;
+  aspect-ratio: 1/1;
   background: center/contain no-repeat url(../image/materials/magnet_black.png);
   position: absolute;
   top: 0.2rem;
@@ -827,6 +919,10 @@ z-index memo
 .c-operator__content .c-operator__icons .c-operator__icon--filled:after {
   background: center/contain no-repeat url(../image/materials/magnet_red.png);
 }
+.c-operator__content .c-operator__icons .c-operator__icon img {
+  width: 100%;
+  aspect-ratio: 1/1;
+}
 .c-operator--modal {
   width: 100%;
   height: 100%;
@@ -835,10 +931,24 @@ z-index memo
   gap: 0.5rem;
   justify-content: center;
 }
+@media (width >= 1000px) {
+  .c-operator--modal {
+    grid-template-columns: repeat(auto-fit, 8rem);
+  }
+}
 .c-operator--modal .c-operator__icon--modal {
   width: 4rem;
   background-color: var(--white);
   position: relative;
+}
+@media (width >= 1000px) {
+  .c-operator--modal .c-operator__icon--modal {
+    width: 8rem;
+  }
+}
+.c-operator--modal .c-operator__icon--modal img {
+  width: 100%;
+  aspect-ratio: 1/1;
 }
 .c-operator--modal .c-operator__icon--modal .selected {
   width: 2rem;

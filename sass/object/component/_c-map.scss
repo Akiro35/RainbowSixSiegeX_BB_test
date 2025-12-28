@@ -6,6 +6,12 @@
   display: block;
   position: relative;
 
+  @include responsive(pc) {
+    &:hover {
+      transform: rotate(-3deg);
+    }
+  }
+
   &__frame {
     border: 0.5rem solid #fff;
     position: absolute;
@@ -42,13 +48,13 @@
 
   &:after {
     content: '';
-    width: 5vw;
-    height: 5vw;
+    width: 10%;
+    aspect-ratio: 1 / 1;
     background: top / contain no-repeat url(../image/materials/magnet_black.png);
     filter: drop-shadow(2px 2px 2px black);
     position: absolute;
     top: 5%;
-    left: calc(50% - 2.5vw);
+    left: calc(50% - 5%);
     z-index: 16; 
   }
 
@@ -104,6 +110,26 @@
 
       p {
         display: block;
+        font-size: clamp(1em, 1.5vw, 2.5em);
+        word-break: keep-all;
+      }
+    }
+  }
+
+  @include responsive(pc) {
+    &:hover {
+      &:after {
+        background: top / contain no-repeat url(../image/materials/magnet_red.png);
+      }
+
+      .c-map__active {
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 70%, black);
+
+        p {
+          display: block;
+          font-size: clamp(1em, 1.5vw, 2.5em);
+          word-break: keep-all;
+        }
       }
     }
   }
@@ -143,7 +169,8 @@
     transform: rotate(4deg);
 
     @include responsive(pc) {
-      font-size: 5em;
+      font-size: clamp(1em, 3vw, 4em);
+      word-break: keep-all;
     }
   }
 

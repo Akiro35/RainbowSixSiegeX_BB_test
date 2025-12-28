@@ -14,27 +14,42 @@
     align-items: center;
     gap: 1vh;
 
-    p {
-      font-size: 1.5em;
-    }
-
     .c-operator__icons {
-      padding: 4vw;
-      border: 3px solid var(--white);
+      padding: 8%;
+      border: 2px solid var(--white);
       @include border-radius--col;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 1vh;
+      gap: 4%;
+
+      @include responsive(pc) {
+        padding: 4%;
+        width: 100%;
+        flex-direction: row;
+      }
+
+      &:hover {
+        padding: calc(8% - 2px);
+        border-width: 4px;
+
+        @include responsive(pc) {
+          padding: calc(4% - 2px);
+        }
+      }
 
       .c-operator__icon {
-        width: 6rem;
-        height: auto;
+        width: 10vh;
+        aspect-ratio: 1 / 1;
         background-color: var(--white);
         position: relative;
         transform: rotate(-2deg);
         transform-origin: top right;
+
+        @include responsive(pc) {
+          width: 20%;
+        }
 
         &:before {
           content: '';
@@ -49,8 +64,8 @@
 
         &:after {
           content: '';
-          width: 1.5rem;
-          height: 1.5rem;
+          width: 20%;
+          aspect-ratio: 1 / 1;
           background: center / contain no-repeat url(../image/materials/magnet_black.png);
           position: absolute;
           top: 0.2rem;
@@ -62,7 +77,11 @@
           &:after {
             background: center / contain no-repeat url(../image/materials/magnet_red.png);
           }
-          
+        }
+
+        img {
+          width: 100%;
+          aspect-ratio: 1 / 1;
         }
       }
     }
@@ -76,10 +95,23 @@
     gap: 0.5rem;
     justify-content: center;
 
+    @include responsive(pc) {
+      grid-template-columns: repeat(auto-fit, 8rem);
+    }
+
     .c-operator__icon--modal {
       width: 4rem;
       background-color: var(--white);
       position: relative;
+
+      @include responsive(pc) {
+        width: 8rem;
+      }
+
+      img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+      }
 
       .selected {
         width: 2rem;
