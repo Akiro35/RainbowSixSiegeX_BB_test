@@ -676,9 +676,9 @@ const canvasAllClear = () => {
 };
 
 canvas.addEventListener('mousedown', (e) => {
-  if (selectedDrawTool ==='pen' && !checkMoveActive) {
+  if (hookSelectedDrawTool ==='pen' && !checkMoveActive) {
     drawLineStart(e);
-  } else if(selectedDrawTool === 'eraser' && !checkMoveActive) {
+  } else if(hookSelectedDrawTool === 'eraser' && !checkMoveActive) {
     isErasing = true;
     eraseLine(e);
   }
@@ -695,9 +695,9 @@ canvas.addEventListener('mouseout', () => {
 });
 
 canvas.addEventListener('mousemove', (e) => {
-  if(selectedDrawTool === 'pen' && !checkMoveActive){
+  if(hookSelectedDrawTool === 'pen' && !checkMoveActive){
     drawLine(e);
-  } else if (selectedDrawTool === 'eraser' && !checkMoveActive) {
+  } else if (hookSelectedDrawTool === 'eraser' && !checkMoveActive) {
     eraseLine(e);
   }
 })
