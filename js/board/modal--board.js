@@ -250,7 +250,6 @@ function activateTools(clickedDrawTool) {
 
     currentColor = currentPenColor;
   } else {
-    console.log('実行');
     drawMode = 'eraser';
     moveMode = false;
     changeCanvasCursor();

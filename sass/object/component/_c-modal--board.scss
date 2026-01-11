@@ -561,26 +561,39 @@
   &__mapSetting {
     width: 96vw;
     height: 96vh;
-    padding: 2vh 7vw 2vh 2vw;
+    padding: 2vh 5vw 2vh 5vw;
     background-color: var(--background--dark);
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2vw;
+    gap: 2vh;
     position: fixed;
     top: 2vh;
     left: 2vw;
+    right: 2vw;
+    bottom: 2vh;
     z-index: 600;
 
     .c-modal__mapTable {
       width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      gap: 2vw;
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 23%);
+      justify-content: center;
+      align-items: center;
+      gap: 2vh;
 
       .c-modal__map {
-        border: 1vw solid var(--white);
+        width: auto;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      /*
+      .c-modal__map {
+        border: 0.5vw solid var(--white);
         position: relative;
 
         p {
@@ -598,6 +611,7 @@
           object-fit: contain;
         }
       }
+        */
     }
   }
 
