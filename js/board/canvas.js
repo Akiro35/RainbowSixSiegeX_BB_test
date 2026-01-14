@@ -7,6 +7,7 @@ let currentImageScale;
 let imageScaleIndex;
 let initialLogicalDrawWidth, initialLogicalDrawHeight;
 
+let mouseX, mouseY;
 let translateX = 0; //MapImageの切り抜き開始X座標
 let translateY = 0; //MapImageの切り抜き開始Y座標
 
@@ -46,13 +47,13 @@ let currentLinePoints = [];
 let stampNumber = 0;
 let currentStamp;
 let currentStamps = [];
+const imageCache = {};
 
 let press = false;
-let isErasing = false; 
+let lastMode;
 let stampMode = false;
-let hookStampMoving = false;
-let isCheckInRect = false;
 let stampRelocateMode = false;
+let isCheckInRect = false;
 let hookStampLocating = false;
 
 const buttonLineClear = document.querySelector('#js-lineClear');
@@ -66,6 +67,30 @@ const maxScale = 8.0; //最大拡大率。
 const minScale = 1.0; //最小拡大率。
 const scaleStep = 0.2; //１操作あたりの拡大率。
 const stampSize = 3;
+
+/*cache*/
+
+function getCachedImage(src, callback) {
+  // 1. すでにキャッシュに存在する場合
+  if (imageCache[src]) {
+    if (imageCache[src].complete) {
+      return imageCache[src]; // すでにロード完了済み
+    }
+    return null; // まだロード中
+  }
+
+  const img = new Image();
+  img.onload = () => {
+    if (callback) callback(); // ロード完了を通知
+  };
+  img.onerror = () => {
+    console.error(`画像の読み込みに失敗しました: ${src}`);
+  };
+  img.src = src;
+  imageCache[src] = img; // キャッシュに保存
+
+  return null;
+}
 
 
 /*calculation*/
@@ -146,7 +171,7 @@ function getPointerLocalPositions(e) {
 }
 
 function mouseMove(e) {
-  let canvasRect = e.target.getBoundingClientRect();
+  let canvasRect = canvasContainer.getBoundingClientRect();
 
   if (press) {
     mouseDragX = e.clientX - canvasRect.left;
@@ -159,6 +184,40 @@ function mouseMove(e) {
     mouseY = e.clientY - canvasRect.top;
   }
 };
+
+function returnMode() {
+  let targetKey;
+
+  if(lastMode.length > 12) {
+    console.log(lastMode);
+    targetKey = lastMode.slice(13);
+    lastMode = lastMode.slice(0, 13);
+  }
+
+  if(lastMode === 'move') {
+    deactivateTools();
+    activateMove();
+  } else if(lastMode === 'pen' || lastMode === 'eraser') {
+    const toolElement = document.getElementById(`open--${lastMode}Setting`);
+    deactivateMove();
+    deactivateTools();
+    activateTools(toolElement);
+  } else if(lastMode === 'operatorPen--') {
+    const operators = Array.from(document.querySelectorAll('.p-canvas__operator'));
+
+    const targetOperatorArrNum = operators.findIndex((op) => {
+      const checkingKey = op.getAttribute('id').slice(21);
+      return check = checkingKey === targetKey;
+    });
+
+    operators[targetOperatorArrNum].classList.add('p-canvas__operator--active');
+    drawMode = 'pen';
+    lastMode = `operatorPen--${targetKey}`;
+
+  }else {
+    console.log('error');
+  }
+}
 
 /*canvas*/
 function changeCanvasCursor() {
@@ -238,23 +297,24 @@ function updateCanvas() { //キャンバスに描画。
 
   //スタンプの描写
   drawnStamps[selectedFloor].forEach(stamp => {
-    const newStamp = new Image();
+    if(stamp.points) {
+      const img = getCachedImage(stamp.img, () => {
+        updateCanvas();
+      });
 
-    if (stamp.points) {
-      newStamp.src = stamp.img;
+      if(img) {
+        const stampSizePx = window.innerWidth * stampSize / 100;
+        const halfStampSize = stampSizePx / 2;
+        const stampPoints = logicalToViewport(stamp.points.x, stamp.points.y);
 
-      const stampSizePx = window.innerWidth * stampSize / 100;
-      const halfStampSize = stampSizePx / 2;
-
-      const stampPoints = logicalToViewport(stamp.points.x, stamp.points.y);
-
-      context.drawImage(
-        newStamp,
-        stampPoints.x - halfStampSize,
-        stampPoints.y - halfStampSize,
-        stampSizePx,
-        stampSizePx
-      );
+        context.drawImage(
+          img,
+          stampPoints.x - halfStampSize,
+          stampPoints.y - halfStampSize,
+          stampSizePx,
+          stampSizePx
+        );
+      }
     }
   });
 };
@@ -602,6 +662,7 @@ function mouseStamp(e) {
   const stampPositionsFollowingMouse = getStampPositionsToFollowMouse(e);
   stamp.style.left = stampPositionsFollowingMouse.x + 'px';
   stamp.style.top  = stampPositionsFollowingMouse.y + 'px';
+  stamp.style.pointerEvents = 'none';
   stamp.addEventListener('dragstart', (e) => {
     e.preventDefault();
   });
@@ -628,10 +689,8 @@ function mouseStampMove(e) {
 };
 
 function drawStamp(e) {
-
-  const stampPositionsLocal = getStampPositionsToRecord(e);
-
   const stamp = canvasContainer.lastElementChild;
+  const stampPositionsLocal = getStampPositionsToRecord(e);
   const logicalPositions = viewportToLogical(stampPositionsLocal.x, stampPositionsLocal.y);
 
   if(stampRelocateMode) {
@@ -649,7 +708,7 @@ function drawStamp(e) {
     currentStamp = {};
 
   } else {
-  drawnStamps[selectedFloor][drawnStamps[selectedFloor].length - 1].points = logicalPositions;
+    drawnStamps[selectedFloor][drawnStamps[selectedFloor].length - 1].points = logicalPositions;
   }
   
   stamp.remove();
@@ -684,7 +743,6 @@ function removeStamp() {
 
 function mouseStampForRelocate(e) {
   const id = currentStamp.id;
-  console.log(id);
   const stamp = new Image();
 
   stamp.src = currentStamp.img;
@@ -697,6 +755,7 @@ function mouseStampForRelocate(e) {
   const stampPositionsOnMouse = getStampPositionsToFollowMouse(e);
   stamp.style.left = stampPositionsOnMouse.x + 'px';
   stamp.style.top  = stampPositionsOnMouse.y + 'px';
+  stamp.style.pointerEvents = 'none';
   stamp.addEventListener('dragstart', (e) => {
     e.preventDefault();
   });
@@ -755,7 +814,7 @@ buttonZoomDown.addEventListener('click', () => {
 
 
 /*canvas*/
-canvas.addEventListener('mousedown', (e) => {
+canvas.addEventListener('pointerdown', (e) => {
   const canvasPositions = getPointerLocalPositions(e);
   const pointerCenter = {x: canvasPositions.x, y: canvasPositions.y}
   const pointerRadius = 1;
@@ -784,10 +843,14 @@ canvas.addEventListener('mousedown', (e) => {
         continue;
       }
 
+      canvasContainer.setPointerCapture(e.pointerId); 
       currentStamp = currentStamps[i];
       removeStamp(e);
       mouseStampForRelocate(e);
-      console.log(stampRelocateMode);
+      deactivateMove();
+      deactivateTools();
+      deactivateOperator();
+      stampRelocateMode = true;
       hookStampLocating = true;
       currentStamps = [];
     }
@@ -797,6 +860,9 @@ canvas.addEventListener('mousedown', (e) => {
   }
   
   if(moveMode) {
+    const canvasRect = canvasContainer.getBoundingClientRect();
+    mouseX = e.clientX - canvasRect.left;
+    mouseY = e.clientY - canvasRect.top;
     translateXBuf = translateX;
     translateYBuf = translateY;
   } else if(drawMode === 'pen') {
@@ -808,7 +874,19 @@ canvas.addEventListener('mousedown', (e) => {
   press = true;
 });
 
-canvas.addEventListener('mouseup', () => { 
+canvas.addEventListener('pointerup', () => { 
+  if(drawMode === 'pen') {
+    drawLineEnd();
+  }
+
+  if(stampMode || stampRelocateMode) {
+    returnMode();
+  }
+
+  press = false;
+});
+
+canvas.addEventListener('pointerout',() => { 
   if(drawMode === 'pen') {
     drawLineEnd();
   }
@@ -816,15 +894,11 @@ canvas.addEventListener('mouseup', () => {
   press = false;
 });
 
-canvas.addEventListener('mouseout',() => { 
-  if(drawMode === 'pen') {
-    drawLineEnd();
-  }
-
+canvas.addEventListener('pointercancel', () => {
   press = false;
 });
 
-canvas.addEventListener('mousemove', (e) => { 
+canvas.addEventListener('pointermove', (e) => { 
   if(moveMode) {
     mouseMove(e);
     updateCanvas();
@@ -863,7 +937,7 @@ buttonAllClear.addEventListener('click', () => {
 
 stamps.forEach(stamp => {
   const modal = document.querySelector('dialog.js-stampSetting');
-  stamp.addEventListener('mousedown', (e) => {
+  stamp.addEventListener('pointerdown', (e) => {
     //memo: 既存のマウス追従スタンプの削除
     const existingStamp = canvasContainer.lastElementChild;
     const id = existingStamp.getAttribute('id');
@@ -895,9 +969,12 @@ stamps.forEach(stamp => {
     if(!isCheckItemsActive && !isCheckGearsActive && !isCheckStamp ){
       return; //memo: 上記のどれかがアクティブの時じゃないとスタンプモードにならないように制御。
     } else {
+      canvasContainer.setPointerCapture(e.pointerId); 
       stampNumber++;
       mouseStamp(e);
-      stampRelocateMode = false;
+      deactivateMove();
+      deactivateTools();
+      deactivateOperator();
       stampMode = true;
       hookStampLocating = true;
       isCheckInRect = true;
@@ -906,9 +983,14 @@ stamps.forEach(stamp => {
   });
 });
 
-canvasContainer.addEventListener('mouseup', (e) => {
+canvasContainer.addEventListener('pointerup', (e) => {
   const deleteRect = deleteStampContainer.getBoundingClientRect();
   const isDeleteRectColliding = isRectColliding(e, deleteRect);
+
+  console.log(e.clientX);
+  console.log(e.clientY);
+  console.log(deleteRect);
+  console.log(isDeleteRectColliding);//falseになる。
 
   if(isDeleteRectColliding) {
     const existingStamp = canvasContainer.lastElementChild;
@@ -927,33 +1009,39 @@ canvasContainer.addEventListener('mouseup', (e) => {
       setTimeout(() => {
         deleteStampContainer.classList.remove('p-canvas__stampDelete--active');
       }, 500);
+
+      returnMode();
       stampMode = false;
-      stampRelocateMode = true;
+      stampRelocateMode = false;
       hookStampLocating = false;
+      isCheckInRect = false;
       return;
     }
   }
   
-  if(stampMode && hookStampMoving) {
+  if(stampMode && hookStampLocating) {
     //console.log('stamp描写');
     drawStamp(e);
+    returnMode();
     stampMode = false;
-    stampRelocateMode = true;
     hookStampLocating = false;
+    isCheckInRect = false;
     deleteStampContainer.classList.remove('p-canvas__stampDelete--active');
-
     updateCanvas();
 
   } else if(stampRelocateMode && hookStampLocating) {
     //console.log('stamp再描写');
-    hookStampLocating = false;
     drawStamp(e);
-    updateCanvas();
+    returnMode();
+    stampRelocateMode = false;
+    hookStampLocating = false;
+    isCheckInRect = false;
     deleteStampContainer.classList.remove('p-canvas__stampDelete--active');
+    updateCanvas();
   }
 });
 
-document.addEventListener('mousemove', (e) => {
+document.addEventListener('pointermove', (e) => {
   const canvasRect = canvasContainer.getBoundingClientRect();
   const deleteRect = deleteStampContainer.getBoundingClientRect();
   const stampSizePx = window.innerWidth * stampSize / 100;
@@ -963,9 +1051,9 @@ document.addEventListener('mousemove', (e) => {
   const isDeleteRectColliding = isRectColliding(e, deleteRect);
 
   if(!isCanvasColliding) {
-    hookStampMoving = false;
+    hookStampLocating = false;
   } else {
-    hookStampMoving = true;
+    hookStampLocating = true;
   }
 
   if(isCanvasColliding) {
@@ -973,15 +1061,15 @@ document.addEventListener('mousemove', (e) => {
   }
 
   if(stampMode && hookStampLocating) {
-    if(!hookStampMoving && isCheckInRect) {
+    if(!hookStampLocating && isCheckInRect) {
       mouseStampMove(e);
 
-    } else if (hookStampMoving && !isCheckInRect){
+    } else if (hookStampLocating && !isCheckInRect){
       mouseStampMove(e);
     }
     
   } else if (stampRelocateMode && hookStampLocating) {
-    if(hookStampMoving) {
+    if(hookStampLocating) {
       mouseStampMoveForRelocate(e);
     }
   }

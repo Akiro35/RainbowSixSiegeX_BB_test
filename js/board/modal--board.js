@@ -213,19 +213,16 @@ function toggleWhatsSiteBoard() {
 
 /*********draw*********/
 function deactivateMove() {
-  const isCheckActivation = buttonMove.classList.contains('p-board__tools--active');
-
-  if(isCheckActivation) {
-    buttonMove.classList.remove('p-board__tools--active');
-    moveMode = false;
-  }
+  buttonMove.classList.remove('p-board__tools--active');
+  moveMode = false;
+  changeCanvasCursor();
 };
 
 function activateMove() {
   buttonMove.classList.add('p-board__tools--active');
   moveMode = true;
+  lastMode = 'move';
   changeCanvasCursor();
-
 };
 
 function deactivateTools() {
@@ -236,6 +233,9 @@ function deactivateTools() {
       drawTool.classList.remove('p-board__tools--active');
     }
   });
+
+  moveMode = false;
+  drawMode = false;
 };
 
 function activateTools(clickedDrawTool) {
@@ -246,18 +246,19 @@ function activateTools(clickedDrawTool) {
   if(id === 'open--penSetting') {
     drawMode = 'pen';
     moveMode = false;
+    lastMode = 'pen';
     changeCanvasCursor();
 
     currentColor = currentPenColor;
   } else {
     drawMode = 'eraser';
     moveMode = false;
+    lastMode = 'eraser';
     changeCanvasCursor();
   }
 };
 
-function toggleDrawSetting(button, target) {
-  const openButton = button;
+function toggleDrawSetting(target) {
   const modal = target;
   const closeButton = target.children[0].children[0];
   const active = 'js-setting--active';
@@ -394,17 +395,21 @@ function deactivateItems() {
   operatorGadgets.forEach(operatorGadget => {
     operatorGadget.classList.remove('items--active');
   });
+
+  hookItemsActive = false;
 };
 
 function activateOperator(event) {
   const operator = event.target;
   const activateElement = operator.parentNode.parentNode;
+  const targetKey = activateElement.getAttribute('id').slice(21);
 
   activateElement.classList.add('p-canvas__operator--active');
 
   deactivateMove();
   changeCanvasCursor();
   drawMode = 'pen';
+  lastMode = `operatorPen--${targetKey}`;
 };
 
 function activateItems(event) {
@@ -419,12 +424,14 @@ function activateGears() {
   const gears = document.querySelector('.p-canvas__gears');
 
   gears.classList.add('p-canvas__gears--active');
+  hookGearsActive = true;
 };
 
 function deactivateGears() {
   const gears = document.querySelector('.p-canvas__gears');
 
   gears.classList.remove('p-canvas__gears--active');
+  hookGearsActive = false;
 };
 
 
@@ -1130,7 +1137,7 @@ buttonDrawTools.forEach((buttonDrawTool) => {
       deactivateTools();
       activateTools(clickedDrawTool);
     } else if (checkDrawToolActive === true && checkSettingActive === false) {
-      toggleDrawSetting(clickedDrawTool, targetSetting);
+      toggleDrawSetting(targetSetting);
     }
   });
 });
@@ -1210,10 +1217,8 @@ gearButton.addEventListener('click', (e) => {
     deactivateItems();
     deactivateOperator();
     activateGears();
-    hookGearsActive = true;
   } else {
     deactivateGears();
-    hookGearsActive = false;
   }
 });
 
@@ -1227,7 +1232,6 @@ document.addEventListener('click', (e) => {
     if(!isItemsColliding) {
       deactivateItems();
       deactivateGears();
-      hookItemsActive = false;
     }
   } 
   
@@ -1237,7 +1241,6 @@ document.addEventListener('click', (e) => {
 
     if(!isGearsColliding) {
       deactivateGears();
-      hookGearsActive = false;
     }
   }
 });
