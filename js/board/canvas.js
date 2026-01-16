@@ -1,5 +1,3 @@
-//TODO:ピンチ操作
-
 const canvasContainerWidth = canvasContainer.clientWidth;
 const canvasContainerHeight = canvasContainer.clientHeight;
 const context = canvas.getContext('2d');
@@ -10,8 +8,15 @@ let imageScaleIndex;
 let initialLogicalDrawWidth, initialLogicalDrawHeight;
 
 let mouseX, mouseY;
+let mouseDragX, mouseDragY;
 let translateX = 0; //memo:MapImageの切り抜き開始X座標
 let translateY = 0; //memo:MapImageの切り抜き開始Y座標
+let translateXBuf = 0;
+let translateYBuf = 0;
+
+let activePointers = new Map();
+let lastPinchDistance = null;
+let lastPinchCenter = null;
 
 let drawnLines = {
   basement2nd: [],
@@ -39,10 +44,6 @@ let drawnLegendStamps = {
   floor3rd: [],
   roof: []
 };
-
-let translateXBuf = 0;
-let translateYBuf = 0;
-let mouseDragX, mouseDragY;
 
 let currentLinePoints = [];
 
@@ -219,6 +220,15 @@ function returnMode() {
     console.log('error');
   }
 }
+
+function resetPinch(e) {
+  activePointers.delete(e.pointerId);
+  
+  if(activePointers.size < 2) {
+    lastPinchDistance = null;
+    lastPinchCenter = null;
+  }
+};
 
 /*canvas*/
 function changeCanvasCursor() {
@@ -826,6 +836,12 @@ buttonZoomDown.addEventListener('click', () => {
 
 /*canvas*/
 canvas.addEventListener('pointerdown', (e) => {
+  activePointers.set(e.pointerId, e);
+
+  if(activePointers.size >= 2) {
+    return;
+  }
+
   const canvasPositions = getPointerLocalPositions(e);
   const pointerCenter = {x: canvasPositions.x, y: canvasPositions.y}
   const pointerRadius = 1;
@@ -876,7 +892,7 @@ canvas.addEventListener('pointerdown', (e) => {
     mouseY = e.clientY - canvasRect.top;
     translateXBuf = translateX;
     translateYBuf = translateY;
-  } else if(drawMode === 'pen') {
+  } else if(drawMode === 'pen' ) {
     drawLineStart(e);
   } else if(drawMode === 'eraser') {
     eraseLine(e);
@@ -885,7 +901,9 @@ canvas.addEventListener('pointerdown', (e) => {
   press = true;
 });
 
-canvas.addEventListener('pointerup', () => { 
+canvas.addEventListener('pointerup', (e) => {
+  resetPinch(e);
+
   if(drawMode === 'pen') {
     drawLineEnd();
   }
@@ -897,7 +915,9 @@ canvas.addEventListener('pointerup', () => {
   press = false;
 });
 
-canvas.addEventListener('pointerout',() => { 
+canvas.addEventListener('pointerout',() => {
+  resetPinch(e);
+
   if(drawMode === 'pen') {
     drawLineEnd();
   }
@@ -906,10 +926,42 @@ canvas.addEventListener('pointerout',() => {
 });
 
 canvas.addEventListener('pointercancel', () => {
+  resetPinch(e);
   press = false;
 });
 
-canvas.addEventListener('pointermove', (e) => { 
+canvas.addEventListener('pointermove', (e) => {
+  activePointers.set(e.pointerId, e);
+
+  if(activePointers.size === 2) {
+    const [p1, p2] = Array.from(activePointers.values());
+    const rect = canvasContainer.getBoundingClientRect();
+    const currentDistance = Math.hypot(p2.clientX - p1.clientX, p2.clientY - p1.clientY);
+    const currentCenter = {
+      x: (p1.clientX + p2.clientX) / 2 - rect.left,
+      y: (p1.clientY + p2.clientY) / 2 - rect.top
+    }
+
+    if(lastPinchDistance && lastPinchCenter) {
+      const deltaScale = currentDistance / lastPinchDistance;
+      const nextScale = Math.min(maxScale, Math.max(minScale, currentImageScale * deltaScale));
+      const scaleRatio = nextScale / currentImageScale;
+      const movementX = currentCenter.x - lastPinchCenter.x;
+      const movementY = currentCenter.y - lastPinchCenter.y;
+
+      translateX = currentCenter.x - (lastPinchCenter.x - translateX) * scaleRatio;
+      translateY = currentCenter.y - (lastPinchCenter.y - translateY) * scaleRatio;
+
+      currentImageScale = nextScale;
+      imageScaleIndex = Math.round((currentImageScale - 1) / scaleStep);
+
+      updateCanvas();
+    }
+    lastPinchDistance = currentDistance;
+    lastPinchCenter = currentCenter;
+    return;
+  }
+
   if(moveMode) {
     mouseMove(e);
     updateCanvas();
@@ -997,11 +1049,6 @@ stamps.forEach(stamp => {
 canvasContainer.addEventListener('pointerup', (e) => {
   const deleteRect = deleteStampContainer.getBoundingClientRect();
   const isDeleteRectColliding = isRectColliding(e, deleteRect);
-
-  console.log(e.clientX);
-  console.log(e.clientY);
-  console.log(deleteRect);
-  console.log(isDeleteRectColliding);
 
   if(isDeleteRectColliding) {
     const existingStamp = canvasContainer.lastElementChild;
