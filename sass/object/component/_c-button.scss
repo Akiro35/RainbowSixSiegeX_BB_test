@@ -86,6 +86,7 @@
       p {
         font-family: var(--font--ja);
         font-size: clamp(1em, 2vw, 2.5em);
+        letter-spacing: -10%;
         word-break: keep-all;
       }
     }

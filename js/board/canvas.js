@@ -1,3 +1,5 @@
+//TODO:ピンチ操作
+
 const canvasContainerWidth = canvasContainer.clientWidth;
 const canvasContainerHeight = canvasContainer.clientHeight;
 const context = canvas.getContext('2d');
@@ -8,8 +10,8 @@ let imageScaleIndex;
 let initialLogicalDrawWidth, initialLogicalDrawHeight;
 
 let mouseX, mouseY;
-let translateX = 0; //MapImageの切り抜き開始X座標
-let translateY = 0; //MapImageの切り抜き開始Y座標
+let translateX = 0; //memo:MapImageの切り抜き開始X座標
+let translateY = 0; //memo:MapImageの切り抜き開始Y座標
 
 let drawnLines = {
   basement2nd: [],
@@ -63,38 +65,38 @@ const stamps = document.querySelectorAll('.js-stamp');
 const deleteStampContainer = document.getElementById('js-stampDelete');
 
 /*setting*/
-const maxScale = 8.0; //最大拡大率。
-const minScale = 1.0; //最小拡大率。
-const scaleStep = 0.2; //１操作あたりの拡大率。
+const maxScale = 8.0; //memo:最大拡大率。
+const minScale = 1.0; //memo:最小拡大率。
+const scaleStep = 0.2; //memo:１操作あたりの拡大率。
 const stampSize = 3;
 
 /*cache*/
 
 function getCachedImage(src, callback) {
-  // 1. すでにキャッシュに存在する場合
-  if (imageCache[src]) {
+  if (imageCache[src]) { //memo:キャッシュが存在する場合
     if (imageCache[src].complete) {
-      return imageCache[src]; // すでにロード完了済み
+      return imageCache[src]; //memo:すでにロード完了済み
     }
-    return null; // まだロード中
+    return null; //memo:まだロード中
   }
 
+  //memo: キャッシュが存在しない場合
   const img = new Image();
   img.onload = () => {
-    if (callback) callback(); // ロード完了を通知
+    if (callback) callback(); //memo:ロード完了を通知
   };
   img.onerror = () => {
     console.error(`画像の読み込みに失敗しました: ${src}`);
   };
   img.src = src;
-  imageCache[src] = img; // キャッシュに保存
+  imageCache[src] = img; //memo:キャッシュに保存
 
   return null;
 }
 
 
 /*calculation*/
-//高解像度化処理。以降の座標操作を論理ピクセルで扱える。
+//memo:高解像度化処理。以降の座標操作を論理ピクセルで扱える。
 function resizeCanvas() {
   const resolutionMultiplier = 2;
   const dpr = window.devicePixelRatio || 1;
@@ -107,7 +109,7 @@ function resizeCanvas() {
   context.imageSmoothingEnabled = false;
 };
 
-//親要素(コンテナ)に収まる最大サイズを計算。
+//memo:親要素(コンテナ)に収まる最大サイズを計算。
 function calculateMapImageSize(mapImageWidth, mapImageHeight, canvasContainerWidthReloaded, canvasContainerHeightReloaded) {
   const mapImageAspectRatio = mapImageWidth / mapImageHeight;
   const canvasContainerAspectRatio = canvasContainerWidthReloaded / canvasContainerHeightReloaded;
@@ -115,15 +117,15 @@ function calculateMapImageSize(mapImageWidth, mapImageHeight, canvasContainerWid
   let mapDrawWidth, mapDrawHeight;
 
   if (mapImageAspectRatio < canvasContainerAspectRatio) { 
-    //コンテナよりも縦長の画像は、上下に合わせる。
+    //memo:コンテナよりも縦長の画像は、上下に合わせる。
     mapDrawHeight = canvasContainerHeightReloaded;
     mapDrawWidth = mapDrawHeight * mapImageAspectRatio;
-  } else { //コンテナよりも横長の画像は左右に合わせる。
+  } else { //memo:コンテナよりも横長の画像は左右に合わせる。
     mapDrawWidth = canvasContainerWidthReloaded;
     mapDrawHeight = mapDrawWidth / mapImageAspectRatio;
   }
 
-  return { mapDrawWidth, mapDrawHeight }; //画像サイズを返す。
+  return { mapDrawWidth, mapDrawHeight };
 };
 
 function viewportToLogical(vX, vY) {
@@ -189,7 +191,6 @@ function returnMode() {
   let targetKey;
 
   if(lastMode.length > 12) {
-    console.log(lastMode);
     targetKey = lastMode.slice(13);
     lastMode = lastMode.slice(0, 13);
   }
@@ -248,8 +249,8 @@ function changeCanvasCursor() {
   }
 };
 
-function updateCanvas() { //キャンバスに描画。
-  //mapの描写
+function updateCanvas() {
+  //memo:mapの描写
   context.clearRect(0, 0, canvasContainerWidth, canvasContainerHeight);
 
   const destX = translateX;
@@ -259,14 +260,14 @@ function updateCanvas() { //キャンバスに描画。
 
   context.drawImage(
     mapImage,
-    0, //描画開始X座標
-    0, //描画開始Y座標
-    mapImage.width, //描画サイズ横
-    mapImage.height, //描画サイズ縦
-    destX, //画像の切り抜き開始X座標
-    destY, //画像の切り抜き開始Y座標
-    destWidth, //画像の切り抜きサイズ横
-    destHeight //画像の切り抜きサイズ縦
+    0,                //memo:描画開始X座標
+    0,                //memo:描画開始Y座標
+    mapImage.width,   //memo:描画サイズ横
+    mapImage.height,  //memo:描画サイズ縦
+    destX,            //memo:画像の切り抜き開始X座標
+    destY,            //memo:画像の切り抜き開始Y座標
+    destWidth,        //memo:画像の切り抜きサイズ横
+    destHeight        //memo:画像の切り抜きサイズ縦
   );
 
   const scaleRatioElement = document.getElementById('js-scaleRatio');
@@ -274,7 +275,7 @@ function updateCanvas() { //キャンバスに描画。
 
   scaleRatioElement.textContent = displayScaleRatio.toFixed(1) + 'x';
 
-  //線の描写
+  //memo:線の描写
   drawnLines[selectedFloor].forEach(line => {
     context.beginPath();
     context.lineCap = 'round';
@@ -295,7 +296,7 @@ function updateCanvas() { //キャンバスに描画。
     }
   });
 
-  //スタンプの描写
+  //memo:スタンプの描写
   drawnStamps[selectedFloor].forEach(stamp => {
     if(stamp.points) {
       const img = getCachedImage(stamp.img, () => {
@@ -319,17 +320,17 @@ function updateCanvas() { //キャンバスに描画。
   });
 };
 
-function loadMap() { //最初のマップ描画。
+function loadMap() {
   const mapData = selectedMap ? selectedMap.blueprint[selectedFloor] : ''; 
 
-  if(!mapData) return; // URLがない場合は処理しない
+  if(!mapData) return; //memo:URLがない場合は処理しない
 
   mapImage.src = mapData;
 
   mapImage.onload = () => {
     const canvasContainerWidthReloaded = canvasContainer.clientWidth;
     const canvasContainerHeightReloaded = canvasContainer.clientHeight;
-    const { mapDrawWidth, mapDrawHeight } = calculateMapImageSize( //切り抜きサイズを計算し、オブジェクトに格納。
+    const { mapDrawWidth, mapDrawHeight } = calculateMapImageSize(
       mapImage.width,
       mapImage.height,
       canvasContainerWidthReloaded,
@@ -339,11 +340,9 @@ function loadMap() { //最初のマップ描画。
     initialLogicalDrawWidth = mapDrawWidth;
     initialLogicalDrawHeight = mapDrawHeight;
 
-    //画像を中央に配置する座標を translateX/Y に設定
     translateX = (canvasContainerWidthReloaded - initialLogicalDrawWidth) / 2;
     translateY = (canvasContainerHeightReloaded - initialLogicalDrawHeight) / 2;
 
-    // ズーム/パンを初期値に設定。
     currentImageScale = 1;
     imageScaleIndex = 0;
 
@@ -355,13 +354,14 @@ function loadMap() { //最初のマップ描画。
 /*zoom*/
 function zoomByWheel(e) {
   const wheeldelta = e.deltaY ? -(e.deltaY) : e.wheelDelta;
-  //e.deltaYが存在すれば、e.deltaYの符号を逆転した値が定義。e.deltaYが存在しなければe.wheelDeltaYが定義。(後者はブラウザ互換性対応)
+  //memo:e.deltaYが存在すればe.deltaYの符号を逆転した値が定義。
+  //memo:e.deltaYが存在しなければe.wheelDeltaYが定義。(ブラウザ互換性対応)
 
   let nextScale;
 
-  if (wheeldelta > 0) { // 拡大
+  if (wheeldelta > 0) { //memo:拡大
       nextScale = Math.min(maxScale, currentImageScale + scaleStep);
-  } else { // 縮小
+  } else { //memo:縮小
       nextScale = Math.max(minScale, currentImageScale - scaleStep);
   }
 
@@ -369,16 +369,15 @@ function zoomByWheel(e) {
     return;
   } 
 
-  //マウス位置に準拠したズーム中心点の計算
+  //memo:マウス位置に準拠したズーム中心点の計算
   const canvasPositions = getPointerLocalPositions(e);
   const scaleRatio = nextScale / currentImageScale; // 拡縮比率
 
-  //マウス座標を中心として、画像の新しい左上座標(translate)を計算
-  // 新しい座標 = マウス位置 - (マウス位置 - 現在の画像座標) * 比率　(左上の隠れている部分の座標を引いている。)
+  //memo:マウス座標を中心として、画像の新しい左上座標(translate)を計算
+  //memo:新しい座標 = マウス位置 - (マウス位置 - 現在の画像座標) * 比率　(左上の隠れている部分の座標を引いている。)
   let nextTranslateX = canvasPositions.x - (canvasPositions.x - translateX) * scaleRatio;
   let nextTranslateY = canvasPositions.y - (canvasPositions.y - translateY) * scaleRatio;
   
-  //値の更新
   currentImageScale = nextScale;
   imageScaleIndex = Math.round((currentImageScale - 1) / scaleStep); //拡縮段階の計算。
   translateX = nextTranslateX;
@@ -484,7 +483,7 @@ function drawLineEnd() {
   currentLinePoints = [];
 };
 
-function isSegmentColliding(logicalPosition1, logicalPosition2, eraserCenter, eraserRadius) {
+function isLineColliding(logicalPosition1, logicalPosition2, eraserCenter, eraserRadius) {
   const localPosition1 = logicalToViewport(logicalPosition1.x, logicalPosition1.y);
   const localPosition2 = logicalToViewport(logicalPosition2.x, logicalPosition2.y);
   const distSquared1 = Math.pow(localPosition1.x - eraserCenter.x, 2) + Math.pow(localPosition1.y - eraserCenter.y, 2);
@@ -495,35 +494,35 @@ function isSegmentColliding(logicalPosition1, logicalPosition2, eraserCenter, er
     return true;
   };
 
-  //点 (p) と線分 (vp1-vp2) の最短距離を計算
+  //memo:点 (p) と線分 (vp1-vp2) の最短距離を計算
     
-  // 線分のベクトル A = vp2 - vp1
+  //memo:線分のベクトル A = vp2 - vp1
   const Ax = localPosition2.x - localPosition1.x;
   const Ay = localPosition2.y - localPosition1.y;
 
-  // 点 p から vp1 へのベクトル B = p - vp1
+  //memo:点 p から vp1 へのベクトル B = p - vp1
   const Bx = eraserCenter.x - localPosition1.x;
   const By = eraserCenter.y - localPosition1.y;
 
-  // A と B の内積
+  //memo:A と B の内積
   const dotProduct = Ax * Bx + Ay * By;
   
-  // A の長さの二乗
+  //memo:A の長さの二乗
   const lenSq = Ax * Ax + Ay * Ay;
   
   let t = dotProduct / lenSq;
   
-  // t を 0 から 1 の間にクランプ (最短点が線分上にあることを保証)
+  //memo:t を 0 から 1 の間にクランプ (最短点が線分上にあることを保証)
   t = Math.max(0, Math.min(1, t));
 
-  // 線分上の最短点 q の座標
+  //memo: 線分上の最短点 q の座標
   const qx = localPosition1.x + t * Ax;
   const qy = localPosition1.y + t * Ay;
 
-  // p と q の距離の二乗
+  //memo: p と q の距離の二乗
   const distSquaredSegment = Math.pow(eraserCenter.x - qx, 2) + Math.pow(eraserCenter.y - qy, 2);
   
-  // 最短距離が半径より小さいか
+  //memo: 最短距離が半径より小さいか
   return distSquaredSegment < radiusSquared;
 };
 
@@ -548,8 +547,8 @@ function eraseLine(e) {
         const logicalPosition2 = drawnLine.points[i];
 
 
-        if (isSegmentColliding(logicalPosition1, logicalPosition2, eraserCenter, eraserRadius)) {
-          //衝突時
+        if (isLineColliding(logicalPosition1, logicalPosition2, eraserCenter, eraserRadius)) {
+          //memo:line衝突時
 
           if (currentSegment.length > 0) {
             newDrawnLines.push ({
@@ -779,6 +778,18 @@ document.querySelectorAll('img').forEach(img => {
   });
 });
 
+// ダブルタップによるズームをJavaScriptで阻止する
+let lastTouchEnd = 0;
+document.addEventListener('touchend', (e) => {
+  if(e.target.closest('.p-canvas__btn--zoom')) return;
+
+  const now = (new Date()).getTime();
+  if (now - lastTouchEnd <= 300) {
+    e.preventDefault(); // 300ms以内の連続タップを無効化
+  }
+  lastTouchEnd = now;
+}, false);
+
 /*load*/
 window.addEventListener('load', () => {
   resizeCanvas();
@@ -990,7 +1001,7 @@ canvasContainer.addEventListener('pointerup', (e) => {
   console.log(e.clientX);
   console.log(e.clientY);
   console.log(deleteRect);
-  console.log(isDeleteRectColliding);//falseになる。
+  console.log(isDeleteRectColliding);
 
   if(isDeleteRectColliding) {
     const existingStamp = canvasContainer.lastElementChild;

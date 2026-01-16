@@ -13,6 +13,27 @@
   size-adjust: 100%;
 }
 
+body {
+  background-color: var(--background--dark);
+
+  &:has(dialog[open]) {
+    overflow: hidden;
+  }
+}
+
+.base__body--canvas {
+  -webkit-user-select: none; // Safari用 
+  user-select: none;         // 標準
+  -webkit-touch-callout: none;
+  touch-action: none;
+  //touch-action: manipulation;
+
+  img {
+    touch-action: none;
+    -webkit-touch-callout: none;
+  }
+}
+
 p {
   color: var(--white);
   font-family: var(--font--en);
@@ -20,23 +41,6 @@ p {
   letter-spacing: 0.1em;
   font-size: clamp(1.2em, 2.5vw, 2.5em);
   word-break: keep-all;
-}
-
-body {
-  -webkit-user-select: none; // Safari用 
-  user-select: none;         // 標準
-
-  touch-action: none;
-  -webkit-touch-callout: none;
-
-  &:has(dialog[open]) {
-    overflow: hidden;
-  }
-}
-
-img {
-  touch-action: none;
-  -webkit-touch-callout: none;
 }
 
 dialog {

@@ -1,7 +1,9 @@
 @use '../foundation' as *;
 
 .l-body {
-  width: 100%;
+  padding-top: 2dvh;
+  width: 100dvw;
+  height: 100dvh;
   position: relative;
 
   &__head {
@@ -251,9 +253,9 @@
   }
 
   &__menu {
-    padding: 15vh 0;
-    width: 30vw;
-    height: 100vh;
+    padding: 10dvh 0 5dvh 0;
+    width: 30dvw;
+    height: 100%;
     background-color: black;
     display: none;
     flex-direction: column;
@@ -263,6 +265,10 @@
     top: 0;
     left: 0;
     z-index: 512;
+
+    img {
+      width: 70%;
+    }
 
     &--active {
       display: flex;

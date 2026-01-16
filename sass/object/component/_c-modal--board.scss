@@ -4,10 +4,10 @@
 
   &__close {
     &--white {
-      width: 5vh;
-      min-width: 2.5rem;
-      height: 5vh;
-      min-height: 2.5rem;
+      width: 5vw;
+      min-width: 3rem;
+      height: 5vw;
+      min-height: 3rem;
       
       position: absolute;
       top: 0.5rem;
@@ -18,8 +18,8 @@
   }
 
   &__setting {
-    width: 30vw;
-    height: 30vh;
+    width: 30dvw;
+    height: 30dvh;
     background-color: var(--background--dark);
     display: flex;
     justify-content: center;
@@ -31,7 +31,7 @@
   }
 
   &__penSetting {
-    padding: 4vh 8vw;
+    padding: 4dvh 8dvw;
     background-color: var(--background--dark);
     display: flex;
     flex-direction: column;
@@ -151,7 +151,7 @@
   }
 
   &__eraserSetting {
-    padding: 4vh 8vw;
+    padding: 4dvh 8dvw;
     background-color: var(--background--dark);
     display: flex;
     flex-direction: column;
@@ -254,9 +254,9 @@
   }
 
   &__operatorSetting {
-    padding: 10vh 5vw;
-    width: 96vw;
-    height: 96vh;
+    padding: 10dvh 5dvw;
+    width: 96dvw;
+    height: 96dvh;
     background-color: var(--background--dark);
     display: flex;
     justify-content: center;
@@ -300,20 +300,29 @@
 
           img {
             width: 5vw;
+            max-width: 10dvh;
             height: auto;
             background-color: var(--white);
           }
 
           img[alt=operator_striker] ~ .js-operatorSetting__gadgets {
-            width: 26vw;
+            width: 26dvw;
+
+            img {
+              width: 100%;
+            }
           }
 
           img[alt=operator_sentry] ~ .js-operatorSetting__gadgets {
-            width: 26vw;
+            width: 26dvw;
+            
+            img {
+              width: 100%;
+            }
           }
 
           .js-operatorSetting__gadgets {
-            width: 18vw;
+            width: 18dvw;
             display: flex;
             justify-content: space-between;
 
@@ -351,6 +360,7 @@
 
           img {
             width: 5vw;
+            max-width: 10dvh;
             height: auto;
           }
         }
@@ -359,24 +369,24 @@
   }
 
   &__iconSetting {
-    width: 96vw;
-    height: 96vh;
-    padding-right: 7vw;
+    width: 96dvw;
+    height: 96dvh;
+    padding-right: 7dvw;
     background-color: var(--background--dark);
     display: grid;
     grid-template-columns: 1fr 7fr;
     justify-items: center;
     align-items: start;
-    gap: 2vw;
+    gap: 2dvw;
     position: fixed;
-    top: 2vh;
-    left: 2vw;
+    top: 2dvh;
+    left: 2dvw;
     z-index: 612;
 
     &--left {
-      padding-top: 2vh;
+      padding-top: 2dvh;
       width: 100%;
-      height: 96vh;
+      height: 96dvh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -384,8 +394,8 @@
 
       .c-modal__selectedIconList {
         width: 100%;
-        height: 80vh;
-        padding: 1vh 0;
+        height: 80dvh;
+        padding: 1dvh 0;
         border: 2px solid var(--white);
         @include border-radius--col;
         display: flex;
@@ -401,7 +411,7 @@
 
         .c-modal__selectedIcon {
           width: 60%;
-          min-width: 6vw;
+          max-width: 10dvh;
           height: auto;
           position: relative;
           display: flex;
@@ -409,17 +419,15 @@
           align-items: center;
 
           .counter {
-            width: 4vw;
-            max-width: 3vw;
-            height: 4vw; 
-            max-height: 3vw;
+            width: 3dvw;
+            aspect-ratio: 1 / 1;
             background: center / contain no-repeat url(../image/materials/magnet_red.png);
             display: flex;
             justify-content: center;
             align-content: center;
             position: absolute;
-            top: 0;
-            right: 0;
+            top: calc((1dvh + 1dvw) * -1);
+            right: calc(2dvw * -1);
             z-index: 8;
             pointer-events: none;
 
@@ -427,7 +435,7 @@
               margin-top: 4px;
               margin-left: 2px;
               color: var(--white);
-              font-size: clamp(1.2em, 2.5vw, 2.5em);
+              font-size: clamp(0.8em, 2svw, 2em);
               text-shadow: 0 0 3px black;
             }
           }
@@ -453,26 +461,28 @@
       .c-modal__return {
         padding: 5%;
         width: 80%;
-        height: 16vh; //16%
+        height: 16dvh; //16%
 
         img {
           width: 60%;
+          max-width: 6dvh;
+          aspect-ratio: 1 / 1;
           height: auto;
         }
       }
     }
 
     &--right {
-      padding: 2vh 0;
+      padding: 2dvh 0;
       width: 100%;
-      height: 96vh;
+      height: 96dvh;
       border: 2px solid var(--white);
       @include border-radius--col;
       display: flex;
       flex-direction: column;
       //justify-content: space-around;
       align-items: center;
-      gap: 2vh;
+      gap: 2dvh;
 
       p {
         font-size: clamp(1.2em, 2.5vw, 2.5em);
@@ -483,7 +493,7 @@
 
         &__icons {
         width: 100%;
-        height: 100vh;
+        height: 100%;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(3rem, 8vw));
         justify-content: center;
@@ -492,32 +502,31 @@
         &__icon {
           width: 100%;
           position: relative;
+          
           img {
+            width: 16dvh;
+            aspect-ratio: 1 / 1;
             display:inline-block;
-            width: 100%;
-            //height: 100%;
-            max-height: 16vh;
           }
 
           .counter {
-            width: 4vw;
-            max-width: 3vw;
-            height: 4vw; 
-            max-height: 3vw;
+            width: 3dvw;
+            aspect-ratio: 1 / 1;
             background: center / contain no-repeat url(../image/materials/magnet_red.png);
             display: flex;
             justify-content: center;
             align-content: center;
             position: absolute;
-            top: 0;
+            top: calc(1dvw * -1);
             right: -5%;
             z-index: 8;
             pointer-events: none;
 
             p {
+              margin-top: 4px;
               margin-left: 2px;
               color: var(--white);
-              font-size: clamp(1.2em, 2.5vw, 2.5em);
+              font-size: clamp(0.8em, 2svw, 2em);
               text-shadow: 0 0 3px black;
             }
           }
@@ -527,30 +536,36 @@
   }
 
   &__stamp {
-    width: 96vw;
-    height: 96vh;
-    padding: 2vh 7vw 2vh 2vw;
+    width: 96dvw;
+    height: 96dvh;
+    padding: 2dvh 7dvw 2dvh 2dvw;
     background-color: var(--background--dark);
     display: flex;
     flex-wrap: wrap;
+    //justify-content: center;
     justify-content: space-around;
     align-items: center;
-    column-gap: 2vw;
+    column-gap: 2dvw;
     position: fixed;
-    top: 2vh;
-    left: 2vw;
+    top: 2dvh;
+    left: 2dvw;
     z-index: 600;
 
     .c-modal__stampGroup {
+      margin-bottom: 2dvh;
       display: flex;
       flex-direction: column;
 
+      p {
+        margin-bottom: 0.5dvh;
+      }
+
       .c-modal__stamps {
         display: flex;
-        gap: 1vw;
+        gap: 1.2dvh;
 
         img {
-          width: 5vw;
+          width: 5dvw;
           min-width: 2.5rem;
 
         }
@@ -559,19 +574,19 @@
   }
 
   &__mapSetting {
-    width: 96vw;
-    height: 96vh;
-    padding: 2vh 5vw 2vh 5vw;
+    width: 96dvw;
+    height: 96dvh;
+    padding: 2dvh 5dvw 2dvh 5dvw;
     background-color: var(--background--dark);
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2vh;
+    gap: 2dvh;
     position: fixed;
-    top: 2vh;
-    left: 2vw;
-    right: 2vw;
-    bottom: 2vh;
+    top: 2dvh;
+    left: 2dvw;
+    right: 2dvw;
+    bottom: 2dvh;
     z-index: 600;
 
     .c-modal__mapTable {
@@ -582,54 +597,33 @@
       grid-template-rows: repeat(4, 23%);
       justify-content: center;
       align-items: center;
-      gap: 2vh;
+      gap: 2dvh;
 
       .c-modal__map {
-        width: auto;
-        height: 100%;
+        width: 100%;
+        max-width: 28dvh;
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      /*
-      .c-modal__map {
-        border: 0.5vw solid var(--white);
-        position: relative;
-
-        p {
-          color: var(--white);
-          text-shadow: 0 0 2px var(--dark);
-          position: absolute;
-          right: 0;
-          bottom: 0;
-          z-index: 616;
-        }
-        img {
-          width: 16vw;
-          min-width: 5rem;
-          height: auto;
-          object-fit: contain;
-        }
-      }
-        */
     }
   }
 
   &__floorSetting {
-    padding: 4vh 8vw;
+    padding: 4dvh 8dvw;
     background-color: var(--background--dark);
     display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
-    bottom: calc(50% - 30vh);
-    right: calc(100% / 9 + 4vw);
+    bottom: calc(50% - 30dvh);
+    right: calc((100% / 9) + 4dvw);
     z-index: 600;
 
     .c-modal__floorList {
       display: flex;
       flex-direction: column-reverse;
-      gap: 2vh;
+      gap: 2dvh;
 
       button {
         width: 100%;

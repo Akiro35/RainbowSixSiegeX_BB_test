@@ -117,6 +117,25 @@ a, button {
   unicode-range: U+0000-007F;
   size-adjust: 100%;
 }
+body {
+  background-color: var(--background--dark);
+}
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+.base__body--canvas {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: none;
+}
+.base__body--canvas img {
+  touch-action: none;
+  -webkit-touch-callout: none;
+}
+
 p {
   color: var(--white);
   font-family: var(--font--en);
@@ -124,22 +143,6 @@ p {
   letter-spacing: 0.1em;
   font-size: clamp(1.2em, 2.5vw, 2.5em);
   word-break: keep-all;
-}
-
-body {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-       user-select: none;
-  touch-action: none;
-  -webkit-touch-callout: none;
-}
-body:has(dialog[open]) {
-  overflow: hidden;
-}
-
-img {
-  touch-action: none;
-  -webkit-touch-callout: none;
 }
 
 dialog {
@@ -155,7 +158,9 @@ dialog::backdrop {
 
 /*media*/
 .l-body {
-  width: 100%;
+  padding-top: 2dvh;
+  width: 100dvw;
+  height: 100dvh;
   position: relative;
 }
 .l-body__head--index {
@@ -386,9 +391,9 @@ dialog::backdrop {
   }
 }
 .l-body__menu {
-  padding: 15vh 0;
-  width: 30vw;
-  height: 100vh;
+  padding: 10dvh 0 5dvh 0;
+  width: 30dvw;
+  height: 100%;
   background-color: black;
   display: none;
   flex-direction: column;
@@ -399,6 +404,9 @@ dialog::backdrop {
   left: 0;
   z-index: 512;
 }
+.l-body__menu img {
+  width: 70%;
+}
 .l-body__menu--active {
   display: flex;
 }
@@ -408,8 +416,8 @@ dialog::backdrop {
 }
 @media (width >= 450px) {
   .l-board {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color: var(--background--dark);
     display: grid;
     grid-template-columns: 1fr 7fr 1fr;
@@ -419,22 +427,24 @@ dialog::backdrop {
   }
   .l-board__sidebar {
     width: 100%;
-    height: 90vh;
+    height: 90dvh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
   }
   .l-board__sidebar--left {
+    padding-left: 5dvw;
     align-items: end;
     position: relative;
   }
   .l-board__sidebar--right {
+    padding-right: 5dvw;
     align-items: start;
     position: relative;
   }
   .l-board__main {
     width: 100%;
-    height: 90vh;
+    height: 90dvh;
     box-sizing: content-box;
     border: 0.5rem solid var(--white);
     position: relative;
@@ -490,7 +500,7 @@ dialog::backdrop {
 .c-map__frame {
   width: 100%;
   height: 100%;
-  border: 0.5rem solid #fff;
+  border: 1.5dvh solid #fff;
   position: absolute;
   top: 0;
   left: 0;
@@ -552,16 +562,16 @@ dialog::backdrop {
   z-index: 0;
 }
 .c-map__active {
-  padding-top: 50%;
-  width: calc(100% - 1rem);
-  height: calc(100% - 1rem);
+  padding-bottom: 1dvh;
+  width: calc(100% - 3dvh);
+  height: calc(100% - 3dvh);
   background: rgba(0, 0, 0, 0);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
+  left: 1.5dvh;
+  bottom: 1.5dvh;
   z-index: 12;
 }
 .c-map__active p {
@@ -609,15 +619,15 @@ dialog::backdrop {
   z-index: 16;
 }
 .c-map .c-map__name {
-  width: calc(100% - 1rem);
-  height: calc(100% - 1rem);
+  width: calc(100% - 3dvh);
+  height: calc(100% - 3dvh);
   background: rgba(0, 0, 0, 0);
   display: flex;
   justify-content: end;
   align-items: end;
   position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
+  top: 1.5dvh;
+  left: 1.5dvh;
   z-index: 12;
 }
 .c-map .c-map__name p {
@@ -727,6 +737,7 @@ z-index memo
 .c-button__whatsSite--boardMenu p {
   font-family: var(--font--ja);
   font-size: clamp(1em, 2vw, 2.5em);
+  letter-spacing: -10%;
   word-break: keep-all;
 }
 .c-button__Setting {
@@ -990,18 +1001,18 @@ z-index memo
 }
 
 .c-modal__close--white {
-  width: 5vh;
-  min-width: 2.5rem;
-  height: 5vh;
-  min-height: 2.5rem;
+  width: 5vw;
+  min-width: 3rem;
+  height: 5vw;
+  min-height: 3rem;
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
   z-index: 601;
 }
 .c-modal__setting {
-  width: 30vw;
-  height: 30vh;
+  width: 30dvw;
+  height: 30dvh;
   background-color: var(--background--dark);
   display: flex;
   justify-content: center;
@@ -1012,7 +1023,7 @@ z-index memo
   z-index: 600;
 }
 .c-modal__penSetting {
-  padding: 4vh 8vw;
+  padding: 4dvh 8dvw;
   background-color: var(--background--dark);
   display: flex;
   flex-direction: column;
@@ -1126,7 +1137,7 @@ z-index memo
   display: flex;
 }
 .c-modal__eraserSetting {
-  padding: 4vh 8vw;
+  padding: 4dvh 8dvw;
   background-color: var(--background--dark);
   display: flex;
   flex-direction: column;
@@ -1230,9 +1241,9 @@ z-index memo
   cursor: pointer;
 }
 .c-modal__operatorSetting {
-  padding: 10vh 5vw;
-  width: 96vw;
-  height: 96vh;
+  padding: 10dvh 5dvw;
+  width: 96dvw;
+  height: 96dvh;
   background-color: var(--background--dark);
   display: flex;
   justify-content: center;
@@ -1275,17 +1286,24 @@ z-index memo
 }
 .c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator img {
   width: 5vw;
+  max-width: 10dvh;
   height: auto;
   background-color: var(--white);
 }
 .c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator img[alt=operator_striker] ~ .js-operatorSetting__gadgets {
-  width: 26vw;
+  width: 26dvw;
+}
+.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator img[alt=operator_striker] ~ .js-operatorSetting__gadgets img {
+  width: 100%;
 }
 .c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator img[alt=operator_sentry] ~ .js-operatorSetting__gadgets {
-  width: 26vw;
+  width: 26dvw;
+}
+.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator img[alt=operator_sentry] ~ .js-operatorSetting__gadgets img {
+  width: 100%;
 }
 .c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator .js-operatorSetting__gadgets {
-  width: 18vw;
+  width: 18dvw;
   display: flex;
   justify-content: space-between;
 }
@@ -1315,27 +1333,28 @@ z-index memo
 }
 .c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__changeOperator img {
   width: 5vw;
+  max-width: 10dvh;
   height: auto;
 }
 .c-modal__iconSetting {
-  width: 96vw;
-  height: 96vh;
-  padding-right: 7vw;
+  width: 96dvw;
+  height: 96dvh;
+  padding-right: 7dvw;
   background-color: var(--background--dark);
   display: grid;
   grid-template-columns: 1fr 7fr;
   justify-items: center;
   align-items: start;
-  gap: 2vw;
+  gap: 2dvw;
   position: fixed;
-  top: 2vh;
-  left: 2vw;
+  top: 2dvh;
+  left: 2dvw;
   z-index: 612;
 }
 .c-modal__iconSetting--left {
-  padding-top: 2vh;
+  padding-top: 2dvh;
   width: 100%;
-  height: 96vh;
+  height: 96dvh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1343,8 +1362,8 @@ z-index memo
 }
 .c-modal__iconSetting--left .c-modal__selectedIconList {
   width: 100%;
-  height: 80vh;
-  padding: 1vh 0;
+  height: 80dvh;
+  padding: 1dvh 0;
   border: 2px solid var(--white);
   border-top-left-radius: 14vw 2vw;
   border-top-right-radius: 4vw 20vw;
@@ -1357,7 +1376,7 @@ z-index memo
 }
 .c-modal__iconSetting--left .c-modal__selectedIconList .c-modal__selectedIcon {
   width: 60%;
-  min-width: 6vw;
+  max-width: 10dvh;
   height: auto;
   position: relative;
   display: flex;
@@ -1372,17 +1391,15 @@ z-index memo
   */
 }
 .c-modal__iconSetting--left .c-modal__selectedIconList .c-modal__selectedIcon .counter {
-  width: 4vw;
-  max-width: 3vw;
-  height: 4vw;
-  max-height: 3vw;
+  width: 3dvw;
+  aspect-ratio: 1/1;
   background: center/contain no-repeat url(../image/materials/magnet_red.png);
   display: flex;
   justify-content: center;
   align-content: center;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: calc((1dvh + 1dvw) * -1);
+  right: -2dvw;
   z-index: 8;
   pointer-events: none;
 }
@@ -1390,7 +1407,7 @@ z-index memo
   margin-top: 4px;
   margin-left: 2px;
   color: var(--white);
-  font-size: clamp(1.2em, 2.5vw, 2.5em);
+  font-size: clamp(0.8em, 2svw, 2em);
   text-shadow: 0 0 3px black;
 }
 .c-modal__iconSetting--left .c-modal__selectedIconList .c-modal__selectedIcon p {
@@ -1405,16 +1422,18 @@ z-index memo
 .c-modal__iconSetting--left .c-modal__return {
   padding: 5%;
   width: 80%;
-  height: 16vh;
+  height: 16dvh;
 }
 .c-modal__iconSetting--left .c-modal__return img {
   width: 60%;
+  max-width: 6dvh;
+  aspect-ratio: 1/1;
   height: auto;
 }
 .c-modal__iconSetting--right {
-  padding: 2vh 0;
+  padding: 2dvh 0;
   width: 100%;
-  height: 96vh;
+  height: 96dvh;
   border: 2px solid var(--white);
   border-top-left-radius: 14vw 2vw;
   border-top-right-radius: 4vw 20vw;
@@ -1423,7 +1442,7 @@ z-index memo
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2vh;
+  gap: 2dvh;
 }
 .c-modal__iconSetting--right p {
   font-size: clamp(1.2em, 2.5vw, 2.5em);
@@ -1431,7 +1450,7 @@ z-index memo
 }
 .c-modal__iconSetting--right .c-modal__icons {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(3rem, 8vw));
   justify-content: center;
@@ -1441,73 +1460,76 @@ z-index memo
   position: relative;
 }
 .c-modal__iconSetting--right .c-modal__icon img {
+  width: 16dvh;
+  aspect-ratio: 1/1;
   display: inline-block;
-  width: 100%;
-  max-height: 16vh;
 }
 .c-modal__iconSetting--right .c-modal__icon .counter {
-  width: 4vw;
-  max-width: 3vw;
-  height: 4vw;
-  max-height: 3vw;
+  width: 3dvw;
+  aspect-ratio: 1/1;
   background: center/contain no-repeat url(../image/materials/magnet_red.png);
   display: flex;
   justify-content: center;
   align-content: center;
   position: absolute;
-  top: 0;
+  top: -1dvw;
   right: -5%;
   z-index: 8;
   pointer-events: none;
 }
 .c-modal__iconSetting--right .c-modal__icon .counter p {
+  margin-top: 4px;
   margin-left: 2px;
   color: var(--white);
-  font-size: clamp(1.2em, 2.5vw, 2.5em);
+  font-size: clamp(0.8em, 2svw, 2em);
   text-shadow: 0 0 3px black;
 }
 .c-modal__stamp {
-  width: 96vw;
-  height: 96vh;
-  padding: 2vh 7vw 2vh 2vw;
+  width: 96dvw;
+  height: 96dvh;
+  padding: 2dvh 7dvw 2dvh 2dvw;
   background-color: var(--background--dark);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  -moz-column-gap: 2vw;
-       column-gap: 2vw;
+  -moz-column-gap: 2dvw;
+       column-gap: 2dvw;
   position: fixed;
-  top: 2vh;
-  left: 2vw;
+  top: 2dvh;
+  left: 2dvw;
   z-index: 600;
 }
 .c-modal__stamp .c-modal__stampGroup {
+  margin-bottom: 2dvh;
   display: flex;
   flex-direction: column;
 }
+.c-modal__stamp .c-modal__stampGroup p {
+  margin-bottom: 0.5dvh;
+}
 .c-modal__stamp .c-modal__stampGroup .c-modal__stamps {
   display: flex;
-  gap: 1vw;
+  gap: 1.2dvh;
 }
 .c-modal__stamp .c-modal__stampGroup .c-modal__stamps img {
-  width: 5vw;
+  width: 5dvw;
   min-width: 2.5rem;
 }
 .c-modal__mapSetting {
-  width: 96vw;
-  height: 96vh;
-  padding: 2vh 5vw 2vh 5vw;
+  width: 96dvw;
+  height: 96dvh;
+  padding: 2dvh 5dvw 2dvh 5dvw;
   background-color: var(--background--dark);
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2vh;
+  gap: 2dvh;
   position: fixed;
-  top: 2vh;
-  left: 2vw;
-  right: 2vw;
-  bottom: 2vh;
+  top: 2dvh;
+  left: 2dvw;
+  right: 2dvw;
+  bottom: 2dvh;
   z-index: 600;
 }
 .c-modal__mapSetting .c-modal__mapTable {
@@ -1518,51 +1540,30 @@ z-index memo
   grid-template-rows: repeat(4, 23%);
   justify-content: center;
   align-items: center;
-  gap: 2vh;
-  /*
-  .c-modal__map {
-    border: 0.5vw solid var(--white);
-    position: relative;
-
-    p {
-      color: var(--white);
-      text-shadow: 0 0 2px var(--dark);
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      z-index: 616;
-    }
-    img {
-      width: 16vw;
-      min-width: 5rem;
-      height: auto;
-      object-fit: contain;
-    }
-  }
-    */
+  gap: 2dvh;
 }
 .c-modal__mapSetting .c-modal__mapTable .c-modal__map {
-  width: auto;
-  height: 100%;
+  width: 100%;
+  max-width: 28dvh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .c-modal__floorSetting {
-  padding: 4vh 8vw;
+  padding: 4dvh 8dvw;
   background-color: var(--background--dark);
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: calc(50% - 30vh);
-  right: calc(11.1111111111% + 4vw);
+  bottom: calc(50% - 30dvh);
+  right: calc(11.1111111111% + 4dvw);
   z-index: 600;
 }
 .c-modal__floorSetting .c-modal__floorList {
   display: flex;
   flex-direction: column-reverse;
-  gap: 2vh;
+  gap: 2dvh;
 }
 .c-modal__floorSetting .c-modal__floorList button {
   width: 100%;
@@ -1602,6 +1603,7 @@ z-index memo
 }
 
 .p-board__tools {
+  width: 100%;
   padding: 1vh;
   border: 2px solid var(--white);
   border-top-left-radius: 14vw 2vw;
@@ -1629,7 +1631,7 @@ z-index memo
   background: rgba(255, 255, 255, 0.2);
 }
 .p-board__tools p {
-  width: 10vh;
+  max-width: 10vh;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -1637,7 +1639,8 @@ z-index memo
   word-break: keep-all;
 }
 .p-board__tools img {
-  width: 10vh;
+  width: 6dvw;
+  max-width: 10dvh;
   height: auto;
   -o-object-fit: contain;
      object-fit: contain;
@@ -1651,8 +1654,10 @@ z-index memo
   gap: 1vh;
 }
 .p-board__option {
-  width: 90%;
-  height: 5vh;
+  width: 5dvw;
+  max-width: 10dvh;
+  height: 5dvh;
+  max-height: 4dvw;
   border: 1px solid var(--white);
   display: flex;
   justify-content: center;
@@ -1720,7 +1725,8 @@ z-index memo
   padding: 0;
 }
 .p-canvas__btn--zooms button img {
-  width: 10vh;
+  width: 10dvh;
+  max-width: 8dvw;
   height: auto;
   pointer-events: none;
 }
