@@ -657,9 +657,9 @@ function selectGadgetForOperatorSetting (e) {
     gadgets.push(gadgetContainer.firstElementChild);
   });
 
-  const isCheckBlank = targetGadgetContainer.classList.contains('blank');
+  const isBlank = targetGadgetContainer.classList.contains('blank');
 
-  if(isCheckBlank) {
+  if(isBlank) {
     return;
   }
 
@@ -721,6 +721,8 @@ function writeSelectedGadgetToSelectedOperators(operatorName, targetGadget) {
 
     selectedOperators[key].forEach(selectedOperator => {
       const isOperator = selectedOperator.operatorName === operatorName;
+      const isStriker = operatorName === 'striker';
+      const isSentry  = operatorName === 'sentry';
 
       if(isOperator) {
         currentGadget = {};
@@ -728,6 +730,9 @@ function writeSelectedGadgetToSelectedOperators(operatorName, targetGadget) {
         currentGadget.gadgetName = targetGadget.getAttribute('alt');
 
         selectedOperator.selectedGadgets.push(currentGadget);
+        if(!(isStriker || isSentry) && selectedOperator.selectedGadgets.length >= 2) {
+          selectedOperator.selectedGadgets.shift();
+        }
       }
     });
   });
@@ -1278,6 +1283,7 @@ loadOperatorForOperatorSetting();
 toggleIconSettingATK();
 toggleIconSettingDEF();
 loadIconSetting();
+loadIconSetttingSelectedIconsRight();
 
 iconSettingSelectedIconsLeft.forEach(selectedIcon => {
   selectedIcon.addEventListener('click', (e) => {
@@ -1287,8 +1293,6 @@ iconSettingSelectedIconsLeft.forEach(selectedIcon => {
     loadLegend();
   });
 });
-
-loadIconSetttingSelectedIconsRight();
 
 Object.keys(selectedOperators).forEach(key => {
   const iconSettingOperators = document.querySelectorAll(`.js-operator${key}`);

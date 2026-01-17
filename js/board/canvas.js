@@ -3,6 +3,10 @@ const canvasContainerHeight = canvasContainer.clientHeight;
 const context = canvas.getContext('2d');
 const mapImage = new Image();
 
+let historyStack = [];
+let historyIndex = -1;
+const maxHistory = 50;
+
 let currentImageScale;
 let imageScaleIndex;
 let initialLogicalDrawWidth, initialLogicalDrawHeight;
@@ -36,15 +40,6 @@ let drawnStamps = {
   roof: []
 };
 
-let drawnLegendStamps = {
-  basement2nd: [],
-  basement: [],
-  floor1st: [],
-  floor2nd: [],
-  floor3rd: [],
-  roof: []
-};
-
 let currentLinePoints = [];
 
 let stampNumber = 0;
@@ -59,6 +54,10 @@ let stampRelocateMode = false;
 let isCheckInRect = false;
 let hookStampLocating = false;
 
+const buttonZoomUp = document.getElementById('js-zoomUp');
+const buttonZoomDown = document.getElementById('js-zoomDown');
+const buttonUndo = document.getElementById('js-undo');
+const buttonRedo = document.getElementById('js-redo');
 const buttonLineClear = document.querySelector('#js-lineClear');
 const buttonStampClear = document.querySelector('#js-stampClear');
 const buttonAllClear = document.querySelector('#js-allClear');
@@ -230,6 +229,71 @@ function resetPinch(e) {
   }
 };
 
+/*history*/
+function toggleHistoryButton() {
+  const isOldest = historyIndex === 0;
+  const isLatest = historyIndex === historyStack.length - 1;
+
+  if(isOldest) {
+    buttonUndo.style.opacity = "0.3";
+  } else {
+    buttonUndo.removeAttribute('style');
+  }
+
+  if(isLatest) {
+    buttonRedo.style.opacity = "0.3";
+  } else {
+    buttonRedo.removeAttribute('style');
+  }
+};
+
+function saveHistory() {
+  //memo: Redoできる状態で新しい操作をしたら、それ以降のRedo履歴を削除
+  if(historyIndex < historyStack.length -1) {
+    historyStack = historyStack.slice(0, historyIndex + 1);
+  }
+
+  const snapshot = {
+    lines:  JSON.parse(JSON.stringify(drawnLines)),
+    stamps: JSON.parse(JSON.stringify(drawnStamps))
+  };
+
+  historyStack.push(snapshot);
+
+  if(historyStack.length > maxHistory) {
+    historyStack.shift();
+  }
+
+  historyIndex = historyStack.length - 1;
+  toggleHistoryButton();
+};
+
+
+function applyHistory() {
+  const snapshot = historyStack[historyIndex];
+  
+  drawnLines = JSON.parse(JSON.stringify(snapshot.lines));
+  drawnStamps = JSON.parse(JSON.stringify(snapshot.stamps));
+
+  updateCanvas();
+};
+
+function undo() {
+  if(historyIndex > 0) {
+    historyIndex--;
+    applyHistory();
+    toggleHistoryButton();
+  }
+};
+
+function redo() {
+  if(historyIndex < historyStack.length - 1) {
+    historyIndex++;
+    applyHistory();
+    toggleHistoryButton();
+  }
+};
+
 /*canvas*/
 function changeCanvasCursor() {
   canvas.addEventListener('mouseover', () => {
@@ -357,6 +421,7 @@ function loadMap() {
     imageScaleIndex = 0;
 
     updateCanvas();
+    saveHistory();
   };
 };
 
@@ -789,9 +854,17 @@ document.querySelectorAll('img').forEach(img => {
 });
 
 // ダブルタップによるズームをJavaScriptで阻止する
+
 let lastTouchEnd = 0;
 document.addEventListener('touchend', (e) => {
-  if(e.target.closest('.p-canvas__btn--zoom')) return;
+
+  const isInteractive = 
+    e.target.closest('.p-canvas__btn--zoom') ||
+    e.target.closest('.p-canvas__btn--history') ||
+    e.target.closest('#js-canvasMap') ||
+    e.target.closest('dialog');
+  
+  if (isInteractive) return;
 
   const now = (new Date()).getTime();
   if (now - lastTouchEnd <= 300) {
@@ -819,18 +892,25 @@ canvas.addEventListener('wheel', (e) =>  {
 canvas.addEventListener('mouseover', disableScroll); 
 canvas.addEventListener('mouseout', enableScroll); 
 
-const buttonZoomUp = document.getElementById('js-zoomUp');
-
 buttonZoomUp.addEventListener('click', () => {
   const zoom = buttonZoomUp.getAttribute('id').slice(7).toLowerCase();
   zoomByButton(zoom);
+  saveHistory();
 });
-
-const buttonZoomDown = document.getElementById('js-zoomDown');
 
 buttonZoomDown.addEventListener('click', () => {
   const zoom = buttonZoomDown.getAttribute('id').slice(7).toLowerCase();
   zoomByButton(zoom);
+  saveHistory();
+});
+
+/*history*/
+buttonUndo.addEventListener('click', () => {
+  undo();
+});
+
+buttonRedo.addEventListener('click', () => {
+  redo();
 });
 
 
@@ -908,6 +988,10 @@ canvas.addEventListener('pointerup', (e) => {
     drawLineEnd();
   }
 
+  if(drawMode === 'pen' ||drawMode === 'eraser') {
+    saveHistory();
+  }
+
   if(stampMode || stampRelocateMode) {
     returnMode();
   }
@@ -915,7 +999,7 @@ canvas.addEventListener('pointerup', (e) => {
   press = false;
 });
 
-canvas.addEventListener('pointerout',() => {
+canvas.addEventListener('pointerout',(e) => {
   resetPinch(e);
 
   if(drawMode === 'pen') {
@@ -925,8 +1009,17 @@ canvas.addEventListener('pointerout',() => {
   press = false;
 });
 
-canvas.addEventListener('pointercancel', () => {
+canvas.addEventListener('pointercancel', (e) => {
   resetPinch(e);
+
+  if(drawMode === 'pen') {
+    drawLineEnd();
+  }
+
+  if(drawMode === 'pen' || drawMode === 'eraser') {
+    saveHistory();
+  }
+
   press = false;
 });
 
@@ -980,6 +1073,7 @@ buttonLineClear.addEventListener('click', () => {
 
   modal.close();
   canvasLineClear();
+  saveHistory();
 });
 
 buttonStampClear.addEventListener('click', () => {
@@ -988,6 +1082,7 @@ buttonStampClear.addEventListener('click', () => {
   modal.classList.remove('js-setting--active');
   modal.close();
   canvasStampClear();
+  saveHistory();
 });
 
 buttonAllClear.addEventListener('click', () => {
@@ -996,6 +1091,7 @@ buttonAllClear.addEventListener('click', () => {
   modal.classList.remove('js-setting--active');
   modal.close();
   canvasAllClear();
+  saveHistory();
 });
 
 stamps.forEach(stamp => {
@@ -1069,10 +1165,16 @@ canvasContainer.addEventListener('pointerup', (e) => {
       }, 500);
 
       returnMode();
+      
+      if(stampRelocateMode) {
+        saveHistory();
+      }
+
       stampMode = false;
       stampRelocateMode = false;
       hookStampLocating = false;
       isCheckInRect = false;
+
       return;
     }
   }
@@ -1086,6 +1188,7 @@ canvasContainer.addEventListener('pointerup', (e) => {
     isCheckInRect = false;
     deleteStampContainer.classList.remove('p-canvas__stampDelete--active');
     updateCanvas();
+    saveHistory();
 
   } else if(stampRelocateMode && hookStampLocating) {
     //console.log('stamp再描写');
@@ -1096,6 +1199,7 @@ canvasContainer.addEventListener('pointerup', (e) => {
     isCheckInRect = false;
     deleteStampContainer.classList.remove('p-canvas__stampDelete--active');
     updateCanvas();
+    saveHistory();
   }
 });
 
