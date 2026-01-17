@@ -1679,6 +1679,16 @@ z-index memo
   background: rgba(255, 255, 255, 0.2);
 }
 
+.p-canvas__left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2svh;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 256;
+}
 .p-canvas__canvas {
   width: 100%;
   height: 100%;
@@ -1699,10 +1709,6 @@ z-index memo
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 256;
 }
 .p-canvas__zoom--ratio {
   margin-left: 10%;
@@ -1741,6 +1747,36 @@ z-index memo
   height: 2px;
   background-color: var(--white);
 }
+.p-canvas__btn--historys {
+  background-color: var(--background--dark);
+  border: 2px solid var(--white);
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1vh;
+}
+.p-canvas__btn--historys button {
+  padding: 0;
+}
+.p-canvas__btn--historys button img {
+  padding: 1.5svh;
+  width: 10svh;
+  max-width: 8dvw;
+  height: auto;
+  pointer-events: none;
+}
+.p-canvas__btn--history {
+  border-radius: 0.5rem;
+}
+.p-canvas__btn--history:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+.p-canvas__btn--historyLine {
+  width: 2px;
+  height: 70%;
+  background-color: var(--white);
+}
 .p-canvas__btn--operator {
   padding: 0;
   width: 100%;
@@ -1771,6 +1807,16 @@ z-index memo
   top: 0;
   left: 0;
   z-index: 264;
+}
+.p-canvas__history {
+  display: flex;
+  gap: 1svw;
+  /*
+  position: absolute;
+  top: 1rem;
+  left: calc(50% - (10dvh + 0.5svw));
+  z-index: 256;
+  */
 }
 .p-canvas__mapStatus {
   min-width: 20vw;
@@ -1911,13 +1957,14 @@ z-index memo
   width: 100%;
 }
 .p-canvas__operator--items img {
-  width: 8vh;
-  max-width: 5vw;
+  width: 7dvh;
+  max-width: 5dvw;
 }
 .p-canvas__operator--items .playerName {
-  width: 5vw;
-  max-width: 10vh;
-  height: 1.5rem;
+  width: 5dvw;
+  max-width: 10dvh;
+  height: 8dvh;
+  max-height: 1.5rem;
   font-size: clamp(1em, 1.5vw, 2.5em);
   word-break: keep-all;
   text-align: center;
@@ -1931,7 +1978,7 @@ z-index memo
   display: flex;
 }
 .p-canvas__gears {
-  padding: 1vw;
+  padding: 1dvw;
   background: rgba(0, 0, 0, 0.6);
   display: none;
   grid-template-columns: repeat(2, 5vw);

@@ -1,6 +1,17 @@
 @use '../../foundation' as *;
 
 .p-canvas {
+  &__left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2svh;
+
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 256;
+  }
   
   &__canvas {
     width: 100%;
@@ -24,10 +35,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    z-index: 256;
 
     &--ratio {
       margin-left: 10%;
@@ -65,13 +72,49 @@
       border-radius: 0.5rem;
       
       &:active {
-        background: rgba(255, 255, 255, 0.2)
+        background: rgba(255, 255, 255, 0.2);
       }
     } 
 
     &--zoomLine {
       width: 70%;
       height: 2px;
+      background-color: var(--white);
+    }
+
+    &--historys {
+      background-color: var(--background--dark);
+      border: 2px solid var(--white);
+      border-radius:  0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1vh;
+
+      button {
+        padding: 0;
+        
+        img {
+          padding: 1.5svh;
+          width: 10svh;
+          max-width: 8dvw;
+          height: auto;
+          pointer-events: none;
+        }
+      }
+    }
+
+    &--history {
+      border-radius: 0.5rem;
+
+      &:active {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    &--historyLine {
+      width: 2px;
+      height: 70%;
       background-color: var(--white);
     }
 
@@ -111,6 +154,17 @@
     }
   }
   
+  &__history {
+    display: flex;
+    gap: 1svw;
+    /*
+    position: absolute;
+    top: 1rem;
+    left: calc(50% - (10dvh + 0.5svw));
+    z-index: 256;
+    */
+  }
+
   &__mapStatus {
     min-width: 20vw;
     border: 2px solid var(--white);
@@ -276,14 +330,15 @@
       }
 
       img {
-        width: 8vh;
-        max-width: 5vw;
+        width: 7dvh;
+        max-width: 5dvw;
       }
 
       .playerName {
-        width: 5vw;
-        max-width: 10vh;
-        height: 1.5rem;
+        width: 5dvw;
+        max-width: 10dvh;
+        height: 8dvh;
+        max-height: 1.5rem;
         font-size: clamp(1em, 1.5vw, 2.5em);
         word-break: keep-all;
         text-align: center;
@@ -302,7 +357,7 @@
   }
 
   &__gears {
-    padding: 1vw;
+    padding: 1dvw;
     background: rgba(0, 0, 0, 0.6);
     display: none;
     grid-template-columns: repeat(2, 5vw);

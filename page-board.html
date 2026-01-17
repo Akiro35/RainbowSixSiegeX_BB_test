@@ -152,30 +152,45 @@
       <div class="p-canvas__canvas" id="js-canvasContainer">
         <canvas class="p-canvas__canvas--map" id="js-canvasMap"></canvas>
       </div>
-      <div class="p-canvas__zoom">
-        <div class="p-canvas__btn--zooms">
-          <button class="p-canvas__btn--zoom" id="js-zoomUp">
-            <img src="image/materials/zoom--plus.svg" alt="zoom--plus">
-          </button>
-          <div class="p-canvas__btn--zoomLine"></div>
-          <button class="p-canvas__btn--zoom" id="js-zoomDown">
-            <img src="image/materials/zoom--minus.svg" alt="zoom--minus">
-          </button>
+      <div class="p-canvas__left">
+        <div class="p-canvas__history">
+          <div class="p-canvas__btn--historys">
+            <button class="p-canvas__btn--history" id="js-undo">
+              <img src="image/materials/left.svg" alt="undo">
+            </button>
+            <div class="p-canvas__btn--historyLine"></div>
+            <button class="p-canvas__btn--history" id="js-redo">
+              <img src="image/materials/right.svg" alt="redo">
+            </button>
+          </div>
         </div>
-        <p class="p-canvas__zoom--ratio" id="js-scaleRatio">1.0x</p>
+        <div class="p-canvas__zoom">
+          <div class="p-canvas__btn--zooms">
+            <button class="p-canvas__btn--zoom" id="js-zoomUp">
+              <img src="image/materials/zoom--plus.svg" alt="zoom--plus">
+            </button>
+            <div class="p-canvas__btn--zoomLine"></div>
+            <button class="p-canvas__btn--zoom" id="js-zoomDown">
+              <img src="image/materials/zoom--minus.svg" alt="zoom--minus">
+            </button>
+          </div>
+          <p class="p-canvas__zoom--ratio" id="js-scaleRatio">1.0x</p>
+        </div>
       </div>
-      <div class="p-canvas__mapStatus" id="js-mapStatus">
-        <div class="p-canvas__mapStatus--map">
-          <p id="js-mapStatus--map">map</p>
+      <div class="p-canvas__right">
+        <div class="p-canvas__mapStatus" id="js-mapStatus">
+          <div class="p-canvas__mapStatus--map">
+            <p id="js-mapStatus--map">map</p>
+          </div>
+          <div class="p-canvas__mapStatus--line">
+          </div>
+          <div class="p-canvas__mapStatus--floor">
+            <p id="js-mapStatus--floor">floor</p>
+          </div>
         </div>
-        <div class="p-canvas__mapStatus--line">
+        <div class="p-canvas__stampDelete" id="js-stampDelete">
+          <img src="image/materials/delete.svg" alt="Stamp_delete">
         </div>
-        <div class="p-canvas__mapStatus--floor">
-          <p id="js-mapStatus--floor">floor</p>
-        </div>
-      </div>
-      <div class="p-canvas__stampDelete" id="js-stampDelete">
-        <img src="image/materials/delete.svg" alt="Stamp_delete">
       </div>
       <div class="p-canvas__legend p-canvas__legend--active" id="js-legendOperator">
         <div class="p-canvas__legend--ATK">
