@@ -9,20 +9,20 @@
 
   &--whatsSite {
     width: 90vw;
-    height: 80vh;
+    height: 80dvh;
     box-shadow: 2px 2px 4px #000;
     position: fixed;
-    top: 10vh;
+    top: 10dvh;
     left: 5vw;
     z-index:1;
   }
 
   &--operator {
     width: 90vw;
-    height: 80vh;
+    height: 80dvh;
     box-shadow: 2px 2px 4px #000;
     position: fixed;
-    top: 10vh;
+    top: 10dvh;
     left: 5vw;
     z-index:1;
   }
@@ -34,19 +34,19 @@
     .c-modal__header {
       width: 90vw;
       //height: 18vh;
-      padding-top: 4vh;
+      padding-top: 4dvh;
       @include background--stickeyNote;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3vh;
+      gap: 3dvh;
       position: fixed;
-      top: calc(10vh - 2px);
+      top: calc(10dvh - 2px);
       left: 5vw;
       z-index: 16;
 
       .c-modal__magnet {
-        width: 5vh;
+        width: 5dvh;
         height: auto;
         filter: drop-shadow(2px 2px 2px black);
       }
@@ -63,7 +63,7 @@
       }
 
       p {
-        margin-bottom: 2vh;
+        margin-bottom: 2dvh;
         color: var(--black);
         transform: rotate(2deg);
       }
@@ -76,20 +76,21 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 4vh;
+      gap: 4dvh;
 
       &--whatsSite {
-        padding: 20vh 5% 5% 5%;
+        padding: 24dvh 5% 5% 5%;
         align-items: flex-end;
 
         p {
+          font-size: clamp(1em, 1.5vw, 2.5em);
           color: var(--black);
           word-break: break-all;
         }
       }
 
       &--operator {
-        padding: 22vh 5% 5% 5%;
+        padding: 26dvh 5% 5% 5%;
         align-items: center;
       }
     }

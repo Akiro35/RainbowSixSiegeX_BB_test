@@ -14,25 +14,17 @@
   }
 
   &--board {
+    padding-bottom: 10dvh;
     background-color: var(--background--dark);
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    &__modalContainer {
-      display: flex;
-      flex-direction: column;
-      align-items: end;
-      gap: 5vh;
-    }
+    
+    
 
     @include responsive(tab) {
-      width: 100vw;
-      height: 100vh;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1
+      display: none;
     }
   }
 }

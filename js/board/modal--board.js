@@ -207,6 +207,7 @@ function toggleWhatsSiteBoard() {
   });
 
   closeButton.addEventListener('click', () => {
+    modal.removeAttribute('style');
     modal.close();
   });
 };

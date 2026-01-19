@@ -1,5 +1,8 @@
-const canvasContainerWidth = canvasContainer.clientWidth;
-const canvasContainerHeight = canvasContainer.clientHeight;
+//howtouseの修正。もしくはcomingsoonに。
+
+let canvasContainerWidth = canvasContainer.clientWidth;
+let canvasContainerHeight = canvasContainer.clientHeight;
+
 const context = canvas.getContext('2d');
 const mapImage = new Image();
 
@@ -71,7 +74,6 @@ const scaleStep = 0.2; //memo:１操作あたりの拡大率。
 const stampSize = 3;
 
 /*cache*/
-
 function getCachedImage(src, callback) {
   if (imageCache[src]) { //memo:キャッシュが存在する場合
     if (imageCache[src].complete) {
@@ -96,6 +98,11 @@ function getCachedImage(src, callback) {
 
 
 /*calculation*/
+function getCanvasContainerSize() {
+  canvasContainerWidth = canvasContainer.clientWidth;
+  canvasContainerHeight = canvasContainer.clientHeight;
+};
+
 //memo:高解像度化処理。以降の座標操作を論理ピクセルで扱える。
 function resizeCanvas() {
   const resolutionMultiplier = 2;
@@ -324,9 +331,11 @@ function changeCanvasCursor() {
 };
 
 function updateCanvas() {
-  //memo:mapの描写
+  //canvasのリセット
+  //context.setTransform(1, 0, 0, 1, 0, 0);
   context.clearRect(0, 0, canvasContainerWidth, canvasContainerHeight);
-
+  
+  //memo:mapの描写
   const destX = translateX;
   const destY = translateY;
   const destWidth = initialLogicalDrawWidth * currentImageScale;
@@ -877,11 +886,14 @@ document.addEventListener('touchend', (e) => {
 window.addEventListener('load', () => {
   resizeCanvas();
   loadMap();
+  updateCanvas();
 });
 /*resize*/
 window.addEventListener('resize', () => {
   resizeCanvas();
-  loadMap();
+  //loadMap();
+  getCanvasContainerSize();
+  updateCanvas();
 });
 
 /*zoom*/

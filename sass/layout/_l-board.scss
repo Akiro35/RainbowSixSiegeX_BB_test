@@ -12,6 +12,9 @@
     justify-items: center;
     align-items: center;
     gap: 3vw;
+    -webkit-user-select: none; // Safari用 
+    user-select: none;         // 標準
+    touch-action: none;
 
     &__sidebar {
       width: 100%;

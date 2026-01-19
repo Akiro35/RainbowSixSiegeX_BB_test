@@ -117,19 +117,16 @@ a, button {
   unicode-range: U+0000-007F;
   size-adjust: 100%;
 }
-body {
+html {
   background-color: var(--background--dark);
 }
-body:has(dialog[open]) {
+html:has(dialog[open]) {
   overflow: hidden;
+  touch-action: none;
 }
 
 .base__body--canvas {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-       user-select: none;
-  -webkit-touch-callout: none;
-  touch-action: none;
+  -webkit-touch-callout: no ne;
 }
 .base__body--canvas img {
   touch-action: none;
@@ -424,6 +421,10 @@ dialog::backdrop {
     justify-items: center;
     align-items: center;
     gap: 3vw;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+         user-select: none;
+    touch-action: none;
   }
   .l-board__sidebar {
     width: 100%;
@@ -464,25 +465,15 @@ dialog::backdrop {
   gap: 5vh;
 }
 .l-footer--board {
+  padding-bottom: 10dvh;
   background-color: var(--background--dark);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.l-footer--board__modalContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  gap: 5vh;
-}
 @media (width >= 450px) {
   .l-footer--board {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
+    display: none;
   }
 }
 
@@ -783,19 +774,19 @@ z-index memo
 }
 .c-modal--whatsSite {
   width: 90vw;
-  height: 80vh;
+  height: 80dvh;
   box-shadow: 2px 2px 4px #000;
   position: fixed;
-  top: 10vh;
+  top: 10dvh;
   left: 5vw;
   z-index: 1;
 }
 .c-modal--operator {
   width: 90vw;
-  height: 80vh;
+  height: 80dvh;
   box-shadow: 2px 2px 4px #000;
   position: fixed;
-  top: 10vh;
+  top: 10dvh;
   left: 5vw;
   z-index: 1;
 }
@@ -810,7 +801,7 @@ z-index memo
 }
 .c-modal--stickeyNote .c-modal__header {
   width: 90vw;
-  padding-top: 4vh;
+  padding-top: 4dvh;
   background-color: var(--background--stickey);
   background-image: url(../image/materials/paper_texture.png);
   background-size: cover;
@@ -821,14 +812,14 @@ z-index memo
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3vh;
+  gap: 3dvh;
   position: fixed;
-  top: calc(10vh - 2px);
+  top: calc(10dvh - 2px);
   left: 5vw;
   z-index: 16;
 }
 .c-modal--stickeyNote .c-modal__header .c-modal__magnet {
-  width: 5vh;
+  width: 5dvh;
   height: auto;
   filter: drop-shadow(2px 2px 2px black);
 }
@@ -841,7 +832,7 @@ z-index memo
   z-index: 4;
 }
 .c-modal--stickeyNote .c-modal__header p {
-  margin-bottom: 2vh;
+  margin-bottom: 2dvh;
   color: var(--black);
   transform: rotate(2deg);
 }
@@ -858,18 +849,19 @@ z-index memo
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 4vh;
+  gap: 4dvh;
 }
 .c-modal--stickeyNote .c-modal__container--whatsSite {
-  padding: 20vh 5% 5% 5%;
+  padding: 24dvh 5% 5% 5%;
   align-items: flex-end;
 }
 .c-modal--stickeyNote .c-modal__container--whatsSite p {
+  font-size: clamp(1em, 1.5vw, 2.5em);
   color: var(--black);
   word-break: break-all;
 }
 .c-modal--stickeyNote .c-modal__container--operator {
-  padding: 22vh 5% 5% 5%;
+  padding: 26dvh 5% 5% 5%;
   align-items: center;
 }
 

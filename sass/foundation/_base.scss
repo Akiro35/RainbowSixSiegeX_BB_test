@@ -13,20 +13,17 @@
   size-adjust: 100%;
 }
 
-body {
+html {
   background-color: var(--background--dark);
 
   &:has(dialog[open]) {
     overflow: hidden;
+    touch-action: none;
   }
 }
 
 .base__body--canvas {
-  -webkit-user-select: none; // Safari用 
-  user-select: none;         // 標準
-  -webkit-touch-callout: none;
-  touch-action: none;
-  //touch-action: manipulation;
+  -webkit-touch-callout: no ne;
 
   img {
     touch-action: none;
