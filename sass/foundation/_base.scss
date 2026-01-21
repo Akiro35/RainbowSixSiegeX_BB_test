@@ -22,13 +22,20 @@ html {
   }
 }
 
-.base__body--canvas {
-  -webkit-touch-callout: no ne;
 
+
+.base__body--canvas {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  
   img {
     touch-action: none;
     -webkit-touch-callout: none;
   }
+}
+
+body.isLoaded {
+  opacity: 1;
 }
 
 p {

@@ -889,7 +889,6 @@ window.addEventListener('load', () => {
 /*resize*/
 window.addEventListener('resize', () => {
   resizeCanvas();
-  //loadMap();
   getCanvasContainerSize();
   updateCanvas();
 });

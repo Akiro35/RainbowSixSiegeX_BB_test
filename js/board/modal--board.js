@@ -84,10 +84,14 @@ function checkFirstVisit() {
     const activePage = document.querySelector('.pageContent--active');
     const currentPageNumber = Number(activePage.getAttribute('id').slice(17));
     howToUse.classList.add('p-howToUse--active');
-    switchInformation(currentPageNumber);
+    requestAnimationFrame(() => {
+      switchInformation(currentPageNumber);
+      document.body.classList.add('isLoaded');
+    });
     localStorage.setItem(VISITED_KEY, 'true');
   } else {
     console.log('２回目以降のアクセス');
+    document.body.classList.add('isLoaded');
   }
 };
 
@@ -115,7 +119,7 @@ function toggleHowToUse() {
 function switchInformation(currentPageNumber) {
   switch (currentPageNumber) {
     case 1: //leftの説明
-      console.log(1);
+      //console.log(1);
       deactivateItems();
       deactivateOperator();
       setMapStatusPosition();
@@ -123,19 +127,19 @@ function switchInformation(currentPageNumber) {
       locateHowToUseExplanationPage1();
       break;
     case 2: //rightの説明
-      console.log(2);
+      //console.log(2);
       deactivateItems();
       deactivateOperator();
       locateHowToUseExplanationPage2();
       break;
     case 3: //canvasの説明
-      console.log(3);
+      //console.log(3);
       deactivateItems();
       deactivateOperator();
       locateHowToUseExplanationPage3();
       break;
     case 4: //オペレータボタンの説明
-      console.log(4);
+      //console.log(4);
       const operator = document.querySelector('.p-canvas__operator');
       const items = document.querySelector('.p-canvas__operator--items');
       operator.classList.add('p-canvas__operator--active');
@@ -180,6 +184,9 @@ function backHowToUsePage() {
 };
 
 function setMapStatusPosition() {
+  const contentsElement = document.querySelector('.p-howToUse__contents');
+  const contentsRect =    contentsElement.getBoundingClientRect();
+  const offsetRight = innerWidth - contentsRect.right;
   const mapStatusRect = document.getElementById('js-mapStatus');
   const howToUseMapStatus = document.getElementById('js-howToUseLeftMapStatus');
   const mapStatusPosition = mapStatusRect.getBoundingClientRect();
@@ -190,12 +197,14 @@ function setMapStatusPosition() {
   const heightValue = mapStatusPosition.bottom - mapStatusPosition.top + offsetValue * 2;
 
   howToUseMapStatus.style.top = topValue + 'px';
-  howToUseMapStatus.style.right = rightValue + 'px';
+  howToUseMapStatus.style.right = rightValue - offsetRight + 'px';
   howToUseMapStatus.style.width = widthValue + 'px';
   howToUseMapStatus.style.height = heightValue + 'px';
 }
 
 function setLegendPosition() {
+  const contentsElement = document.querySelector('.p-howToUse__contents');
+  const contentsRect =    contentsElement.getBoundingClientRect();
   const operatorElement = document.getElementById('js-legendOperator');
   const howToUseLegend = document.getElementById('js-howToUseLeftOperator');
   const legendPosition = operatorElement.getBoundingClientRect();
@@ -207,12 +216,15 @@ function setLegendPosition() {
   const heightValue = legendPosition.bottom - legendPosition.top + offsetValue * 2;
 
   howToUseLegend.style.bottom = bottomValue + 'px';
-  howToUseLegend.style.left = leftValue + offsetWidthValue / 2 + 'px';
+  howToUseLegend.style.left = leftValue + offsetWidthValue / 2 - contentsRect.left + 'px';
   howToUseLegend.style.width = widthValue - offsetWidthValue + 'px';
   howToUseLegend.style.height = heightValue + 'px';
 };
 
 function getPositionOfExplanation(configs) {
+  const contentsElement = document.querySelector('.p-howToUse__contents');
+  const contentsRect =    contentsElement.getBoundingClientRect();
+
   configs.forEach(({ explanation, target, column, row}) => {
     const explanationElement = document.querySelector(explanation);
     const targetElement = typeof target === 'string' ?
@@ -221,14 +233,13 @@ function getPositionOfExplanation(configs) {
     if(!explanationElement || !targetElement) return;
 
     const explanationRect = explanationElement.getBoundingClientRect();
-    const targetRect = targetElement.getBoundingClientRect();
-    
+    const targetRect =      targetElement.getBoundingClientRect();
     switch (column) {
       case 'right':
-        explanationElement.style.left = `${targetRect.right}px`;
+        explanationElement.style.left = `${targetRect.right - contentsRect.left}px`;
         break;
       case 'left':
-        explanationElement.style.right = `${window.innerWidth - targetRect.left}px`;
+        explanationElement.style.right = `${(window.innerWidth - targetRect.left) - (window.innerWidth - contentsRect.right)}px`;
         break;
       }
       
@@ -1199,6 +1210,7 @@ window.addEventListener('load', () => {
 window.addEventListener('resize', () => {
   setMapStatusPosition(); //メンテナンス中はここをコメントアウト
   setLegendPosition(); //メンテナンス中はここをコメントアウト
+  locateHowToUseExplanationPage1();
 });
 
 /*howToUse*/ //メンテナンス中はここをコメントアウト

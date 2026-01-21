@@ -126,11 +126,16 @@ html:has(dialog[open]) {
 }
 
 .base__body--canvas {
-  -webkit-touch-callout: no ne;
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 .base__body--canvas img {
   touch-action: none;
   -webkit-touch-callout: none;
+}
+
+body.isLoaded {
+  opacity: 1;
 }
 
 p {
@@ -2004,8 +2009,11 @@ z-index memo
 .p-howToUse--active {
   display: block;
 }
+.p-howToUse__close {
+  right: 3dvw;
+}
 .p-howToUse p {
-  font-size: clamp(1em, 1.5vw, 2.5em);
+  font-size: clamp(0.9em, 1.5vw, 2.5em);
   word-break: break-all;
 }
 .p-howToUse__maintenance {
@@ -2022,19 +2030,19 @@ z-index memo
 }
 .p-howToUse__header {
   position: absolute;
-  top: 2vh;
+  top: 2dvh;
   left: calc(50% - 5vw);
   z-index: 513;
 }
 .p-howToUse__header .p-howToUse__pages {
-  width: 10vw;
+  width: 10dvw;
   height: 1.5rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 .p-howToUse__header .p-howToUse__pages--pageIndicator {
-  width: 1vw;
+  width: 1dvw;
   aspect-ratio: 1/1.5;
   border: 2px solid var(--white);
 }
@@ -2042,7 +2050,7 @@ z-index memo
   background-color: var(--white);
 }
 .p-howToUse__navs {
-  padding: 0 1vw;
+  padding: 0 3dvw;
   width: 100%;
   height: 60%;
   display: flex;
@@ -2053,7 +2061,7 @@ z-index memo
   z-index: 540;
 }
 .p-howToUse__nav {
-  width: 8vw;
+  width: 8dvw;
   height: 100%;
   border-radius: 0.5rem;
   opacity: 0;
@@ -2063,7 +2071,7 @@ z-index memo
 }
 .p-howToUse__nav img {
   display: inline-block;
-  width: 5vw;
+  width: 5dvw;
   aspect-ratio: 1/1;
 }
 .p-howToUse .nav--left {
@@ -2079,8 +2087,14 @@ z-index memo
 .p-howToUse .nav--active:active {
   background: rgba(255, 255, 255, 0.2);
 }
+.p-howToUse__contents {
+  margin: 0 10dvw;
+  width: 80dvw;
+  height: 100%;
+}
 .p-howToUse__content {
-  width: 100%;
+  margin: 0 10dvw;
+  width: 80dvw;
   height: 100%;
   display: none;
   flex-direction: column;
@@ -2095,10 +2109,10 @@ z-index memo
 }
 .p-howToUse__content--page2 {
   align-items: flex-end;
-  padding: 6vh 0;
+  padding: 6dvh 0;
 }
 .p-howToUse__content p {
-  line-height: 1.2em;
+  line-height: 1.1em;
 }
 .p-howToUse .pageContent--active {
   display: flex;

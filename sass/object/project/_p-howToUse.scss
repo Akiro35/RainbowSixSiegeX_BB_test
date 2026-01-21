@@ -16,8 +16,12 @@
     display: block;
   }
 
+  &__close {
+    right: 3dvw;
+  }
+
   p {
-    font-size: clamp(1em, 1.5vw, 2.5em);
+    font-size: clamp(0.9em, 1.5vw, 2.5em);
     word-break: break-all;
   }
 
@@ -37,18 +41,18 @@
 
   &__header {
     position: absolute;
-    top: 2vh;
+    top: 2dvh;
     left: calc(50% - 5vw);
     z-index: 513;
     .p-howToUse__pages {
-      width: 10vw;
+      width: 10dvw;
       height: 1.5rem;
       display: flex;
       justify-content: space-around;
       align-items: center;
       
       &--pageIndicator {
-        width: 1vw;
+        width: 1dvw;
         aspect-ratio: 1 / 1.5;
         border: 2px solid var(--white);
       }
@@ -60,7 +64,7 @@
   }
 
   &__navs {
-    padding: 0 1vw;
+    padding: 0 3dvw;
     width: 100%;
     height: 60%;
     display: flex;
@@ -72,7 +76,7 @@
   }
 
   &__nav {
-    width: 8vw;
+    width: 8dvw;
     height: 100%;
     border-radius: 0.5rem;
     opacity: 0;
@@ -82,7 +86,7 @@
 
     img {
       display: inline-block;
-      width: 5vw;
+      width: 5dvw;
       aspect-ratio: 1 / 1;
     }
   }
@@ -105,9 +109,17 @@
       }   
     }
   }
+  
+  &__contents {
+    margin: 0 10dvw;
+    width: 80dvw;
+    height: 100%;
+  }
 
   &__content {
-    width: 100%;
+    //border: 1px solid red;
+    margin: 0 10dvw;
+    width: 80dvw;
     height: 100%;
     //border: 1px solid white;
     display: none;
@@ -124,11 +136,11 @@
 
     &--page2 {
       align-items: flex-end;
-      padding: 6vh 0;
+      padding: 6dvh 0;
     }
 
     p {
-      line-height: 1.2em;
+      line-height: 1.1em;
     }
   }
 
