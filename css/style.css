@@ -483,6 +483,11 @@ dialog::backdrop {
 }
 
 .c-map {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   width: 100%;
   aspect-ratio: 4/3;
   display: block;
@@ -505,6 +510,11 @@ dialog::backdrop {
   z-index: 2;
 }
 .c-map__img {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  pointer-events: none;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -561,7 +571,7 @@ dialog::backdrop {
   padding-bottom: 1dvh;
   width: calc(100% - 3dvh);
   height: calc(100% - 3dvh);
-  background: rgba(0, 0, 0, 0);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, black);
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -570,16 +580,30 @@ dialog::backdrop {
   bottom: 1.5dvh;
   z-index: 12;
 }
+@media (width >= 1000px) {
+  .c-map__active {
+    background: rgba(0, 0, 0, 0);
+  }
+}
 .c-map__active p {
   color: var(--white);
   font-size: 1em;
-  display: none;
+  transform: rotate(-3deg);
+}
+.c-map__active p span {
+  font-size: 0.8em;
+  letter-spacing: -0.05em;
+}
+@media (width >= 1000px) {
+  .c-map__active p {
+    display: none;
+  }
 }
 .c-map:active:after {
   background: top/contain no-repeat url(../image/materials/magnet_red.png);
 }
 .c-map:active .c-map__active {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 70%, black);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, black);
 }
 .c-map:active .c-map__active p {
   display: block;
