@@ -259,8 +259,8 @@ function saveHistory() {
   }
 
   const snapshot = {
-    lines:  JSON.parse(JSON.stringify(drawnLines)),
-    stamps: JSON.parse(JSON.stringify(drawnStamps))
+    lines: structuredClone(drawnLines),
+    stamps: structuredClone(drawnStamps)
   };
 
   historyStack.push(snapshot);
@@ -280,6 +280,7 @@ function applyHistory() {
   drawnLines = JSON.parse(JSON.stringify(snapshot.lines));
   drawnStamps = JSON.parse(JSON.stringify(snapshot.stamps));
 
+  updateStaticCache();
   updateCanvas();
 };
 
@@ -328,18 +329,25 @@ function changeCanvasCursor() {
   }
 };
 
-function updateCanvas() {
-  //canvasのリセット
-  //context.setTransform(1, 0, 0, 1, 0, 0);
-  context.clearRect(0, 0, canvasContainerWidth, canvasContainerHeight);
-  
-  //memo:mapの描写
+
+//オフスクリーン・キャンバス (cache上のcanvas)
+const staticCanvas = document.createElement('canvas');
+const staticContext = staticCanvas.getContext('2d');
+
+function updateStaticCache() {
+  staticCanvas.width = canvasContainerWidth;
+  staticCanvas.height = canvasContainerHeight;
+  //console.log(staticCanvas);
+  console.log("cache");
+
+  staticContext.clearRect(0, 0, staticCanvas.width, staticCanvas.height);
+
   const destX = translateX;
   const destY = translateY;
   const destWidth = initialLogicalDrawWidth * currentImageScale;
   const destHeight = initialLogicalDrawHeight * currentImageScale;
 
-  context.drawImage(
+  staticContext.drawImage(
     mapImage,
     0,                //memo:描画開始X座標
     0,                //memo:描画開始Y座標
@@ -356,31 +364,31 @@ function updateCanvas() {
 
   scaleRatioElement.textContent = displayScaleRatio.toFixed(1) + 'x';
 
-  //memo:線の描写
   drawnLines[selectedFloor].forEach(line => {
-    context.beginPath();
-    context.lineCap = 'round';
-    context.lineJoin = 'round';
-    context.lineWidth = line.lineWidth;
-    context.strokeStyle = line.color;
+    staticContext.beginPath();
+    staticContext.lineCap = 'round';
+    staticContext.lineJoin = 'round';
+    staticContext.lineWidth = line.lineWidth;
+    staticContext.strokeStyle = line.color;
+    staticContext.globalAlpha = line.opacity;
 
     if(line.points.length > 0) {
       let startPoint = logicalToViewport(line.points[0].x, line.points[0].y);
-      context.moveTo(startPoint.x, startPoint.y);
+      staticContext.moveTo(startPoint.x, startPoint.y);
 
       for(let i = 1; i < line.points.length; i++) {
         let nextPoint = logicalToViewport(line.points[i].x, line.points[i].y);
-        context.lineTo(nextPoint.x, nextPoint.y);
+        staticContext.lineTo(nextPoint.x, nextPoint.y);
       }
 
-      context.stroke();
+      staticContext.stroke();
     }
   });
-
-  //memo:スタンプの描写
+  
   drawnStamps[selectedFloor].forEach(stamp => {
     if(stamp.points) {
       const img = getCachedImage(stamp.img, () => {
+        updateStaticCache();
         updateCanvas();
       });
 
@@ -389,7 +397,7 @@ function updateCanvas() {
         const halfStampSize = stampSizePx / 2;
         const stampPoints = logicalToViewport(stamp.points.x, stamp.points.y);
 
-        context.drawImage(
+        staticContext.drawImage(
           img,
           stampPoints.x - halfStampSize,
           stampPoints.y - halfStampSize,
@@ -400,6 +408,33 @@ function updateCanvas() {
     }
   });
 };
+
+function updateCanvas() {//cache上の情報と線を、ブラウザに描写。
+  context.clearRect(0, 0, canvasContainerWidth, canvasContainerHeight);
+
+  context.drawImage(staticCanvas, 0, 0);
+
+  if(currentLinePoints.length > 1) {
+    context.save();
+    context.beginPath();
+    context.lineJoin = "round";
+    context.lineWidth = penBoldValue;
+    context.strokeStyle = currentColor;
+    context.globalAlpha = currentOpacity;
+
+    const startPoint = logicalToViewport(currentLinePoints[0].x, currentLinePoints[0].y);
+    context.moveTo(startPoint.x, startPoint.y);
+
+    for(let i = 1; i < currentLinePoints.length; i++) {
+      const nextPoint = logicalToViewport(currentLinePoints[i].x, currentLinePoints[i].y);
+      context.lineTo(nextPoint.x, nextPoint.y);
+    }
+
+    context.stroke();
+    context.restore();
+  }
+};
+
 
 function loadMap() {
   const mapData = selectedMap ? selectedMap.blueprint[selectedFloor] : ''; 
@@ -427,6 +462,7 @@ function loadMap() {
     currentImageScale = 1;
     imageScaleIndex = 0;
 
+    updateStaticCache();
     updateCanvas();
     saveHistory();
   };
@@ -470,6 +506,7 @@ function zoomByWheel(e) {
     translateY = (canvasContainerHeight - initialLogicalDrawHeight) / 2;
   }
 
+  updateStaticCache();
   updateCanvas();
 };
 
@@ -517,53 +554,49 @@ function zoomByButton(zoom) {
     translateY = (canvasContainerHeight - initialLogicalDrawHeight) / 2;
   }
 
+  updateStaticCache();
   updateCanvas();
 };
 
 
 /*draw*/
-function drawLine(e) {
-  const canvasPosition = getPointerLocalPositions(e);
-  
-  if(!press) {
-    return;
-  }
-  
-  context.lineCap = 'round';
-  context.lineJoin = 'round';
-  
-  context.lineWidth = penBoldValue;
-  context.strokeStyle = currentColor;
-
-  if(press) {
-    context.lineTo(canvasPosition.x, canvasPosition.y);
-    context.stroke();
-
-    const logicalPositions = viewportToLogical(canvasPosition.x, canvasPosition.y);
-    currentLinePoints.push(logicalPositions);
-  }
-};
-
 function drawLineStart(e) {
   const canvasPosition = getPointerLocalPositions(e);
+  const logicalPositions = viewportToLogical(canvasPosition.x, canvasPosition.y);
 
-  context.beginPath();
-  context.moveTo(canvasPosition.x, canvasPosition.y);
+  currentLinePoints = [logicalPositions];
 };
 
 function drawLineEnd() {
-  context.closePath();
-
   if(press && currentLinePoints.length > 1) {
     drawnLines[selectedFloor].push({
       color: currentColor,
       lineWidth: penBoldValue,
-      points: currentLinePoints,
+      opacity: currentOpacity,
+      points: [...currentLinePoints]
     });
+    
+    updateStaticCache();
   }
-
+  
   currentLinePoints = [];
+  updateCanvas();
+
+  context.closePath();
 };
+
+
+function drawLine(e) {
+  if(!press) return;
+
+  const canvasPosition = getPointerLocalPositions(e);
+  const logicalPositions = viewportToLogical(canvasPosition.x, canvasPosition.y);
+
+  currentLinePoints.push(logicalPositions);
+
+  updateCanvas();
+};
+
 
 function isLineColliding(logicalPosition1, logicalPosition2, eraserCenter, eraserRadius) {
   const localPosition1 = logicalToViewport(logicalPosition1.x, logicalPosition1.y);
@@ -609,13 +642,9 @@ function isLineColliding(logicalPosition1, logicalPosition2, eraserCenter, erase
 };
 
 function eraseLine(e) {
+  if(!press) return;
+  
   const canvasPosition = getPointerLocalPositions(e);
-
-  
-  if(!press) {
-    return;
-  }
-  
   const eraserRadius = eraserBoldValue;
   const eraserCenter = {x: canvasPosition.x, y:canvasPosition.y};
   let newDrawnLines = [];
@@ -661,6 +690,7 @@ function eraseLine(e) {
 
     drawnLines[selectedFloor] = newDrawnLines;
 
+    updateStaticCache();
     updateCanvas();
   }
 };
@@ -668,12 +698,14 @@ function eraseLine(e) {
 function canvasLineClear() {
   drawnLines[selectedFloor] = [];
 
+  updateStaticCache();
   updateCanvas();
 };
 
 function canvasStampClear() {
   drawnStamps[selectedFloor] = [];
 
+  updateStaticCache();
   updateCanvas();
 };
 
@@ -681,6 +713,7 @@ function canvasAllClear() {
   drawnLines[selectedFloor] = [];
   drawnStamps[selectedFloor] = [];
 
+  updateStaticCache();
   updateCanvas();
 };
 
@@ -819,6 +852,7 @@ function removeStamp() {
     points: {}
   };
 
+  updateStaticCache();
   updateCanvas();
 };
 
@@ -884,12 +918,12 @@ document.addEventListener('touchend', (e) => {
 window.addEventListener('load', () => {
   resizeCanvas();
   loadMap();
-  updateCanvas();
 });
 /*resize*/
 window.addEventListener('resize', () => {
   resizeCanvas();
   getCanvasContainerSize();
+  updateStaticCache();
   updateCanvas();
 });
 
@@ -1057,6 +1091,7 @@ canvas.addEventListener('pointermove', (e) => {
       currentImageScale = nextScale;
       imageScaleIndex = Math.round((currentImageScale - 1) / scaleStep);
 
+      updateStaticCache();
       updateCanvas();
     }
     lastPinchDistance = currentDistance;
@@ -1066,9 +1101,11 @@ canvas.addEventListener('pointermove', (e) => {
 
   if(moveMode) {
     mouseMove(e);
+    updateStaticCache();
     updateCanvas();
   } else if (drawMode === 'pen') {
     drawLine(e);
+    //updateCanvas();
   } else if (drawMode === 'eraser') {
     eraseLine(e);
   }
@@ -1196,6 +1233,7 @@ canvasContainer.addEventListener('pointerup', (e) => {
     hookStampLocating = false;
     isCheckInRect = false;
     deleteStampContainer.classList.remove('p-canvas__stampDelete--active');
+    updateStaticCache();
     updateCanvas();
     saveHistory();
 
@@ -1207,6 +1245,7 @@ canvasContainer.addEventListener('pointerup', (e) => {
     hookStampLocating = false;
     isCheckInRect = false;
     deleteStampContainer.classList.remove('p-canvas__stampDelete--active');
+    updateStaticCache();
     updateCanvas();
     saveHistory();
   }

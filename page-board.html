@@ -63,11 +63,11 @@
         </div>
         <div class="p-board__tool">
           <div class="p-board__option">
-            <p id="js-displayTransparency">100%</p>
+            <p id="js-displayOpacity">100%</p>
           </div>
         </div>
       </button>
-      <dialog class="js-penSetting">
+      <dialog class="c-modal js-penSetting">
         <div class="c-modal__penSetting">
           <button class="c-modal__close--white" id="close--penSetting">
             <img src="image/materials/menu__close--white.svg">
@@ -90,10 +90,10 @@
             <p>Color</p>
             <input type="color" id="js-penColor">
           </div>
-          <div class="c-modal__penSetting--transparency">
-            <p>Transparency</p>
-            <div class="c-modal__transparency">
-              <input type="range" id="penTransparency" min="0" max="100" step="1" value="100">
+          <div class="c-modal__penSetting--opacity">
+            <p>Opacity</p>
+            <div class="c-modal__opacity">
+              <input type="range" id="js-opacity" min="0" max="100" step="1" value="100">
             </div>
           </div>
         </div>
@@ -106,7 +106,7 @@
           </div>
         </div>
       </button>
-      <dialog class="js-eraserSetting">
+      <dialog class="c-modal js-eraserSetting">
         <div class="c-modal__eraserSetting">
           <button class="c-modal__close--white" id="close--eraserSetting">
             <img src="image/materials/menu__close--white.svg">
@@ -455,7 +455,7 @@
         <p>Operators</p>
         <img src="image/icon_operator/figure.png" alt="operator">
       </button>
-      <dialog class="js-operatorSetting"> <!--dialogOperatorSetting-->
+      <dialog class="c-modal js-operatorSetting"> <!--dialogOperatorSetting-->
         <div class="c-modal__operatorSetting">
           <button class="c-modal__close--white" id="close--operatorSetting">
             <img src="image/materials/menu__close--white.svg">
@@ -760,7 +760,7 @@
           </div>
         </div>
       </dialog> <!--dialog-->
-      <dialog class="js-iconSettingATK"> <!--dialog ATKSetting-->
+      <dialog class="c-modal js-iconSettingATK"> <!--dialog ATKSetting-->
         <div class="c-modal__iconSetting"> <!--ATKsetting-->
           <button class="c-modal__close--white" id="close--iconSettingATK">
             <img src="image/materials/menu__close--white.svg">
@@ -930,7 +930,7 @@
           </div>
         </div>
       </dialog> <!--dialog-->
-      <dialog class="js-iconSettingDEF"> <!--dialog DEFSetting-->
+      <dialog class="c-modal js-iconSettingDEF"> <!--dialog DEFSetting-->
         <div class="c-modal__iconSetting"> <!--DEFsetting-->
           <button class="c-modal__close--white" id="close--iconSettingDEF">
             <img src="image/materials/menu__close--white.svg">
@@ -1104,7 +1104,7 @@
         <p>Stamp</p>
         <img src="image/materials/camera.svg" alt="stamp">
       </button>
-      <dialog class="js-stampSetting"> <!--dialog Stamp-->
+      <dialog class="s-modal js-stampSetting"> <!--dialog Stamp-->
         <div class="c-modal__stamp">
           <button class="c-modal__close--white" id="close--stampSetting">
             <img src="image/materials/menu__close--white.svg">
@@ -1197,7 +1197,7 @@
         <p>Map</p>
         <img src="image/materials/map.svg" alt="map">
       </button>
-      <dialog class="js-mapSetting"> <!--dialog Map-->
+      <dialog class="c-modal js-mapSetting"> <!--dialog Map-->
         <div class="c-modal__mapSetting">
           <button class="c-modal__close--white" id="close--mapSetting">
             <img src="image/materials/menu__close--white.svg">
@@ -1399,7 +1399,7 @@
         <p>Floor</p>
         <img src="image/materials/floor.svg" alt="floor">
       </button>
-      <dialog class="js-floorSetting"> <!--dialog Floor-->
+      <dialog class="c-modal js-floorSetting"> <!--dialog Floor-->
         <div class="c-modal__floorSetting">
           <button class="c-modal__close--white" id="close--floorSetting">
             <img src="image/materials/menu__close--white.svg">
@@ -1427,7 +1427,7 @@
         </div>
       </dialog> <!--dialog-->
     </div>
-    <dialog class="js-setting"> <!--dialogSetting-->
+    <dialog class="c-modal js-setting"> <!--dialogSetting-->
       <div class="c-modal__setting">
         <button class="c-modal__close--white" id="close--setting">
           <img src="image/materials/menu__close--white.svg">
@@ -1435,7 +1435,7 @@
         <p>Coming Soon</p>
       </div>
     </dialog> <!--dialogSetting-->
-    <div class="p-howToUse" id="js-howToUse">
+    <div class="c-modal p-howToUse" id="js-howToUse">
       <button class="c-modal__close--white p-howToUse__close" id="close--howToUse">
         <img src="image/materials/menu__close--white.svg">
       </button>
