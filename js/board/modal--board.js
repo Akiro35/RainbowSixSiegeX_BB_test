@@ -1154,6 +1154,7 @@ function loadSelectedMapObjFromMapSetting(e) {
   const map = {
     blueprint: {}
   };
+
   map.mapName = mapName;
   map.img = mapPool[mapName].img;
   map.blueprint.basement2nd = mapPool[mapName].basement2nd ? mapPool[mapName].basement2nd : '';

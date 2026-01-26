@@ -330,15 +330,13 @@ function changeCanvasCursor() {
 };
 
 
-//オフスクリーン・キャンバス (cache上のcanvas)
+//memo: オフスクリーン・キャンバス (cache上のcanvas)
 const staticCanvas = document.createElement('canvas');
 const staticContext = staticCanvas.getContext('2d');
 
 function updateStaticCache() {
   staticCanvas.width = canvasContainerWidth;
   staticCanvas.height = canvasContainerHeight;
-  //console.log(staticCanvas);
-  console.log("cache");
 
   staticContext.clearRect(0, 0, staticCanvas.width, staticCanvas.height);
 
@@ -411,6 +409,8 @@ function updateStaticCache() {
 
 function updateCanvas() {//cache上の情報と線を、ブラウザに描写。
   context.clearRect(0, 0, canvasContainerWidth, canvasContainerHeight);
+
+  if(staticCanvas.width === 0 || staticCanvas.height === 0) return;
 
   context.drawImage(staticCanvas, 0, 0);
 
