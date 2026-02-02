@@ -49,6 +49,7 @@ let currentStamps = [];
 const imageCache = {};
 
 let press = false;
+let pinch = false;
 let lastMode;
 let stampMode = false;
 let stampRelocateMode = false;
@@ -335,11 +336,18 @@ const staticCanvas = document.createElement('canvas');
 const staticContext = staticCanvas.getContext('2d');
 
 function updateStaticCache() {
-  staticCanvas.width = canvasContainerWidth;
-  staticCanvas.height = canvasContainerHeight;
+  const dpr = window.devicePixelRatio || 1;
+  const resolutionMultiplier = 2;
+  const scaleFactor = dpr * resolutionMultiplier;
 
+  staticCanvas.width = canvasContainerWidth * scaleFactor;
+  staticCanvas.height = canvasContainerHeight * scaleFactor;
+
+  
+  staticContext.setTransform(1, 0, 0, 1, 0, 0);
   staticContext.clearRect(0, 0, staticCanvas.width, staticCanvas.height);
-
+  staticContext.setTransform(scaleFactor, 0, 0, scaleFactor, 0, 0);
+  
   const destX = translateX;
   const destY = translateY;
   const destWidth = initialLogicalDrawWidth * currentImageScale;
@@ -382,6 +390,8 @@ function updateStaticCache() {
       staticContext.stroke();
     }
   });
+
+  staticContext.globalAlpha = 1.0;
   
   drawnStamps[selectedFloor].forEach(stamp => {
     if(stamp.points) {
@@ -408,17 +418,28 @@ function updateStaticCache() {
 };
 
 function updateCanvas() {//cache上の情報と線を、ブラウザに描写。
-  context.clearRect(0, 0, canvasContainerWidth, canvasContainerHeight);
+  const dpr = window.devicePixelRatio || 1;
+  const resolutionMultiplier = 2;
+  const scaleFactor = dpr * resolutionMultiplier;
+  
+  context.setTransform(1, 0, 0, 1, 0, 0);
+  context.clearRect(0, 0, canvas.width, canvas.height);
 
-  if(staticCanvas.width === 0 || staticCanvas.height === 0) return;
+  if(staticCanvas.width === 0 || staticCanvas.height === 0) {
+    context.setTransform(scaleFactor, 0, 0, scaleFactor, 0, 0);
+    return;
+  }
 
   context.drawImage(staticCanvas, 0, 0);
+
+  context.setTransform(scaleFactor, 0, 0, scaleFactor, 0, 0);
 
   if(currentLinePoints.length > 1) {
     context.save();
     context.beginPath();
     context.lineJoin = "round";
     context.lineWidth = penBoldValue;
+    console.log(currentColor);
     context.strokeStyle = currentColor;
     context.globalAlpha = currentOpacity;
 
@@ -464,7 +485,6 @@ function loadMap() {
 
     updateStaticCache();
     updateCanvas();
-    saveHistory();
   };
 };
 
@@ -720,6 +740,8 @@ function canvasAllClear() {
 /*stamp*/
 function getStampPositionsToFollowMouse(e) {
   const stampSizePx = window.innerWidth * stampSize / 100;
+
+  //console.log(stampSizePx);
   const halfStampSize = stampSizePx / 2;
   const viewportX = e.clientX;
   const viewportY = e.clientY;
@@ -918,11 +940,13 @@ document.addEventListener('touchend', (e) => {
 window.addEventListener('load', () => {
   resizeCanvas();
   loadMap();
+  saveHistory();
 });
 /*resize*/
 window.addEventListener('resize', () => {
   resizeCanvas();
   getCanvasContainerSize();
+  loadMap();
   updateStaticCache();
   updateCanvas();
 });
@@ -960,6 +984,10 @@ buttonRedo.addEventListener('click', () => {
 /*canvas*/
 canvas.addEventListener('pointerdown', (e) => {
   activePointers.set(e.pointerId, e);
+
+  if(activePointers.size === 2) {
+    pinch = true;
+  }
 
   if(activePointers.size >= 2) {
     return;
@@ -1025,26 +1053,30 @@ canvas.addEventListener('pointerdown', (e) => {
 });
 
 canvas.addEventListener('pointerup', (e) => {
-  resetPinch(e);
-
+  const isPinchedTap = activePointers.size === 1 && pinch;
+  
+  if(activePointers.size === 2) return;
+  
   if(drawMode === 'pen') {
     drawLineEnd();
   }
-
-  if(drawMode === 'pen' ||drawMode === 'eraser') {
+  
+  if(!isPinchedTap && (drawMode === 'pen' ||drawMode === 'eraser')) {
     saveHistory();
   }
-
+  
   if(stampMode || stampRelocateMode) {
     returnMode();
   }
-
+  
+  resetPinch(e);
   press = false;
+  pinch = false;
 });
 
 canvas.addEventListener('pointerout',(e) => {
   resetPinch(e);
-
+  
   if(drawMode === 'pen') {
     drawLineEnd();
   }
@@ -1053,17 +1085,21 @@ canvas.addEventListener('pointerout',(e) => {
 });
 
 canvas.addEventListener('pointercancel', (e) => {
-  resetPinch(e);
+  const isPinchedTap = activePointers.size === 1 && pinch;
 
+  if(activePointers.size === 2) return;
+  
   if(drawMode === 'pen') {
     drawLineEnd();
   }
-
-  if(drawMode === 'pen' || drawMode === 'eraser') {
+  
+  if(!isPinchedTap && (drawMode === 'pen' || drawMode === 'eraser')) {
     saveHistory();
   }
-
+  
+  resetPinch(e);
   press = false;
+  pinch = false;
 });
 
 canvas.addEventListener('pointermove', (e) => {

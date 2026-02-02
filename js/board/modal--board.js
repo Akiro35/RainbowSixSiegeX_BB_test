@@ -435,6 +435,7 @@ function changeColorFromModal(color) {
   const colorValue = color.target.value;
 
   displayColor.style.backgroundColor = colorValue;
+  console.log(colorValue);
   currentPenColor = colorValue;
 };
 
@@ -1281,6 +1282,7 @@ penBoldSetting.forEach(boldButton => {
 
 colorPicker.addEventListener('input', (event) => {
   changeColorFromModal(event);
+  currentColor = currentPenColor;
 });
 
 toggleOpacity();
@@ -1312,18 +1314,17 @@ operatorButtons.forEach(clickedButton => {
     const checkItemsActive = activatedItemsElement.classList.contains('items--active');
 
     if(checkOperatorActive === true && checkItemsActive === true) {
-      
-      console.log(1);
+      //console.log(1);
       deactivateItems();
       deactivateOperator();
       activateOperator(e);
       
     }else if(checkOperatorActive === true && checkItemsActive === false) {
-      console.log(2);
+      //console.log(2);
       activateItems(e);
 
     }else if(checkOperatorActive === false) {
-      console.log(3);
+      //console.log(3);
       deactivateTools();
       deactivateItems();
       deactivateOperator();
