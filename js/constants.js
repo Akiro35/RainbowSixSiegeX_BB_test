@@ -56,7 +56,8 @@ const mapPool = {
         img: 'image/maps/r6-maps-fortress-blueprints/fortress-reworked-thumbnail.avif',
         floor1st: 'image/maps/r6-maps-fortress-blueprints/r6-maps-fortress-blueprint-1.jpg',
         floor2nd: 'image/maps/r6-maps-fortress-blueprints/r6-maps-fortress-blueprint-2.jpg',
-        roof: 'image/maps/r6-maps-fortress-blueprints/r6-maps-fortress-blueprint-3.jpg'
+        floor3rd: 'image/maps/r6-maps-fortress-blueprints/r6-maps-fortress-blueprint-3.jpg',
+        roof: 'image/maps/r6-maps-fortress-blueprints/r6-maps-fortress-blueprint-4.jpg'
     },
 
     Kafe: {
