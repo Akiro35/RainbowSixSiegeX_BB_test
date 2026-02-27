@@ -35,10 +35,7 @@
   <!--css-->
   <link rel="stylesheet" href="css/style.css">
   <!--JavaScript-->
-  <script src="js/constants.js" defer></script>
-  <script src="js/common.js" defer></script>
-  <script src="js/operators/modal--operators.js" defer></script>
-  <script src="js/operators/session--operators.js" defer></script>
+  <script type="module" src="js/pages/operators.js" defer></script>
 </head>
 <body class="l-body">
   <div class="l-body__head--operators"></div>
@@ -62,7 +59,7 @@
       <p class="c-text--jaToEn">オペレータを選べ。</p>
     </div>
     <div class="l-body__operators l-body__indicatingLine--1">
-      <button class="c-operator__content" id="open--operatorsATK">
+      <button class="c-operator__content" id="js-selectOperatorATK--open">
         <p>ATK</p>
         <div class="c-operator__icons">
           <div class="c-operator__icon">
@@ -82,12 +79,12 @@
           </div>
         </div>
       </button>
-      <dialog class="c-modal c-modal--operator js-operatorsATK">
+      <dialog class="c-modal c-modal--operator" id="js-selectOperatorATK">
         <div class="c-modal--stickeyNote">
           <div class="c-modal__header">
             <img src="image/materials/magnet_black.png" class="c-modal__magnet">
             <p>ATK operators</p>
-            <button class="c-modal__close--black" id="close--operatorsATK">
+            <button class="c-modal__close--black" id="js-selectOperatorATK--close">
               <img src="image/materials/menu__close--black.svg">
             </button>
           </div>
@@ -211,7 +208,7 @@
           </div>
         </div>
       </dialog>
-      <button class="c-operator__content" id="open--operatorsDEF">
+      <button class="c-operator__content" id="js-selectOperatorDEF--open">
         <p>DEF</p>
         <div class="c-operator__icons">
           <div class="c-operator__icon">
@@ -231,12 +228,12 @@
           </div>
         </div>
       </button>
-      <dialog class="c-modal c-modal--operator js-operatorsDEF">
+      <dialog class="c-modal c-modal--operator" id="js-selectOperatorDEF">
         <div class="c-modal--stickeyNote">
           <div class="c-modal__header">
             <img src="image/materials/magnet_black.png" class="c-modal__magnet">
             <p>DEF operators</p>
-            <button class="c-modal__close--black" id="close--operatorsDEF">
+            <button class="c-modal__close--black" id="js-selectOperatorDEF--close">
               <img src="image/materials/menu__close--black.svg">
             </button>
           </div>
@@ -374,15 +371,15 @@
         <img src="image/R6_Siege_X_Logo_JP.avif" alt="RainbowSixSiegeX__Link">
       </a>
     </div>
-    <button class="c-button c-button__whatsSite--footer" id="open--whatsSite">
+    <button class="c-button c-button__whatsSite--footer" id="js-whatsSite--open">
       <p>当サイトについて</p>
     </button>
-    <dialog class="c-modal c-modal--whatsSite js-whatsSite">
+    <dialog class="c-modal c-modal--whatsSite" id="js-whatsSite">
       <div class="c-modal--stickeyNote">
         <div class="c-modal__header">
           <img src="image/materials/magnet_black.png" class="c-modal__magnet">
           <p class="u-font--ja">当サイトについて</p>
-          <button class="c-modal__close--black" id="close--whatsSite">
+          <button class="c-modal__close--black" id="js-whatsSite--close">
             <img src="image/materials/menu__close--black.svg">
           </button>
         </div>

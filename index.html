@@ -35,9 +35,7 @@
   <!--css-->
   <link rel="stylesheet" href="css/style.css">
   <!--JavaScript-->
-  <script src="js/constants.js" defer></script>
-  <script src="js/common.js" defer></script>
-  <script src="js/index/session--index.js" defer></script>
+  <script type="module" src="js/pages/index.js"></script>
 </head>
 <body class="l-body">
   <div class="l-body__head--index">
@@ -49,7 +47,7 @@
       <p class="c-text--jaToEn">マップを選べ。</p>
     </div>
     <div class="l-body__maps">
-      <button class="c-map">
+      <button class="c-map" data-map="bank">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -60,7 +58,7 @@
           <p>Bank / <span class="u-font--ja">銀行</p>
         </div>
       </button>
-      <button class="c-map">
+      <button class="c-map" data-map="border">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -71,7 +69,7 @@
           <p>Border / <span class="u-font--ja">国境</p>
         </div>
       </button>
-      <button class="c-map">
+      <button class="c-map" data-map="chalet">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -82,7 +80,7 @@
           <p>Chalet / <span class="u-font--ja">山荘</p>
         </div>
       </button>
-      <button class="c-map">
+      <button class="c-map" data-map="clubhouse">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -93,7 +91,7 @@
           <p>Clubhouse / <span class="u-font--ja">クラブハウス</p>
         </div>
       </button>
-      <button class="c-map">
+      <button class="c-map" data-map="coastline">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -104,7 +102,7 @@
           <p>Coastline / <span class="u-font--ja">海岸線</p>
         </div>
       </button>
-      <button class="c-map">
+      <button class="c-map" data-map="consulate">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -116,7 +114,7 @@
         </div>
       </button>
       <!--
-      <button class="c-map">
+      <button class="c-map" data-map="emeraldplains">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -128,7 +126,7 @@
         </div>
       </button>
       -->
-      <button class="c-map">
+      <button class="c-map" data-map="fortress">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -139,7 +137,7 @@
           <p>Fortress / <span class="u-font--ja">要塞</p>
         </div>
       </button>
-      <button class="c-map">
+      <button class="c-map" data-map="kafe">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -150,7 +148,7 @@
           <p>Kafe / <span class="u-font--ja">カフェ</p>
         </div>
       </button>
-      <button class="c-map">
+      <button class="c-map" data-map="kanal">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -161,7 +159,7 @@
           <p>Kanal / <span class="u-font--ja">運河</p>
         </div>
       </button>
-      <button class="c-map">
+      <button class="c-map" data-map="lair">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -172,7 +170,7 @@
           <p>Liar / <span class="u-font--ja">アジト</p>
         </div>
       </button>
-      <button class="c-map">
+      <button class="c-map" data-map="nighthavenlabs">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -183,7 +181,7 @@
           <p>Nighthavenlabs / <span class="u-font--ja">ナイトヘイヴンラボ</p>
         </div>
       </button>
-      <button class="c-map">
+      <button class="c-map" data-map="oregon">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -194,7 +192,7 @@
           <p>Oregon / <span class="u-font--ja">オレゴン</p>
         </div>
       </button>
-      <button class="c-map">
+      <button class="c-map" data-map="outback">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -205,7 +203,7 @@
           <p>Outback / <span class="u-font--ja">アウトバック</p>
         </div>
       </button>
-      <button class="c-map">
+      <button class="c-map" data-map="skyscraper">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -216,7 +214,7 @@
           <p>Skyscraper / <span class="u-font--ja">高層ビル</p>
         </div>
       </button>
-      <button class="c-map">
+      <button class="c-map" data-map="themepark">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -227,7 +225,7 @@
           <p>Themepark / <span class="u-font--ja">テーマパーク</p>
         </div>
       </button>
-      <button class="c-map">
+      <button class="c-map" data-map="villa">
         <div class="c-map__shadow">
           <div class="c-map__shadow--object"></div>
         </div>
@@ -246,15 +244,15 @@
         <img src="image/R6_Siege_X_Logo_JP.avif" alt="RainbowSixSiegeX__Link">
       </a>
     </div>
-    <button class="c-button c-button__whatsSite--footer" id="open--whatsSite">
+    <button class="c-button c-button__whatsSite--footer" id="js-whatsSite--open">
       <p>当サイトについて</p>
     </button>
-    <dialog class="c-modal c-modal--whatsSite js-whatsSite">
+    <dialog class="c-modal c-modal--whatsSite" id="js-whatsSite">
       <div class="c-modal--stickeyNote">
         <div class="c-modal__header">
           <img src="image/materials/magnet_black.png" class="c-modal__magnet">
           <p class="u-font--ja">当サイトについて</p>
-          <button class="c-modal__close--black" id="close--whatsSite">
+          <button class="c-modal__close--black" id="js-whatsSite--close">
             <img src="image/materials/menu__close--black.svg">
           </button>
         </div>
