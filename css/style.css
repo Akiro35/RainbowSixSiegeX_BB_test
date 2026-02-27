@@ -1034,6 +1034,43 @@ z-index memo
   right: 0.5rem;
   z-index: 601;
 }
+.c-modal__confirm {
+  width: 50dvw;
+  height: 20dvw;
+  background-color: var(--background--dark);
+  border: 2px solid var(--white);
+  border-top-left-radius: 14vw 2vw;
+  border-top-right-radius: 4vw 20vw;
+  border-bottom-right-radius: 24vw 3vw;
+  border-bottom-left-radius: 8vw 4vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: calc(50% - 10dvw);
+  left: calc(50% - 25dvw);
+  z-index: 900;
+}
+.c-modal__confirm p {
+  font-size: clamp(0.8em, 2vw, 2em);
+}
+.c-modal__confirm .c-modal__buttons {
+  margin-top: 0.5rem;
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+.c-modal__confirm .c-modal__buttons button {
+  padding: 3% 3% 1% 3%;
+  border: 2px solid rgba(0, 0, 0, 0);
+  border-radius: 5%;
+  width: 45%;
+  color: var(--white);
+  letter-spacing: 0.1em;
+  font-size: clamp(1.2em, 2.5vw, 2.5em);
+  word-break: keep-all;
+}
 .c-modal__setting {
   width: 30dvw;
   height: 30dvh;
@@ -1042,8 +1079,8 @@ z-index memo
   justify-content: center;
   align-items: center;
   position: fixed;
-  top: calc(50% - 15vh);
-  left: calc(50% - 15vw);
+  top: calc(50% - 15dvh);
+  left: calc(50% - 15dvw);
   z-index: 600;
 }
 .c-modal__penSetting {
@@ -1330,27 +1367,27 @@ z-index memo
   height: auto;
   background-color: var(--white);
 }
-.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator img[alt=operator_striker] ~ .js-operatorSetting__gadgets {
+.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator img[alt=operator_striker] ~ .c-modal__gadgets {
   width: 26dvw;
 }
-.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator img[alt=operator_striker] ~ .js-operatorSetting__gadgets img {
+.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator img[alt=operator_striker] ~ .c-modal__gadgets img {
   width: 100%;
 }
-.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator img[alt=operator_sentry] ~ .js-operatorSetting__gadgets {
+.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator img[alt=operator_sentry] ~ .c-modal__gadgets {
   width: 26dvw;
 }
-.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator img[alt=operator_sentry] ~ .js-operatorSetting__gadgets img {
+.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator img[alt=operator_sentry] ~ .c-modal__gadgets img {
   width: 100%;
 }
-.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator .js-operatorSetting__gadgets {
+.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator .c-modal__gadgets {
   width: 18dvw;
   display: flex;
   justify-content: space-between;
 }
-.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator .js-operatorSetting__gadgets .blank {
+.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator .c-modal__gadgets .c-modal__gadget {
   position: relative;
 }
-.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator .js-operatorSetting__gadgets .blank::after {
+.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator .c-modal__gadgets .c-modal__gadget::after {
   content: "";
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
@@ -1360,7 +1397,13 @@ z-index memo
   bottom: 0;
   z-index: 616;
 }
-.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator .js-selectedGadget {
+.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator .c-modal__gadgets .active {
+  cursor: pointer;
+}
+.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator .c-modal__gadgets .active::after {
+  content: none;
+}
+.c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__selectedOperator .c-modal__selectedGadget {
   border: 4px solid var(--white);
 }
 .c-modal__operatorSetting .c-modal__operatorLists .c-modal__operatorList .c-modal__changeOperator {
@@ -1422,13 +1465,6 @@ z-index memo
   display: flex;
   justify-content: center;
   align-items: center;
-  /*
-  img {
-    max-width: 80%;
-    max-height: 80%;
-    aspect-ratio: 1 / 1;
-  }
-  */
 }
 .c-modal__iconSetting--left .c-modal__selectedIconList .c-modal__selectedIcon .counter {
   width: 3dvw;
@@ -1449,6 +1485,15 @@ z-index memo
   color: var(--white);
   font-size: clamp(0.8em, 2svw, 2em);
   text-shadow: 0 0 3px black;
+}
+.c-modal__iconSetting--left .c-modal__selectedIconList .c-modal__selectedIcon {
+  /*
+  img {
+    max-width: 80%;
+    max-height: 80%;
+    aspect-ratio: 1 / 1;
+  }
+  */
 }
 .c-modal__iconSetting--left .c-modal__selectedIconList .c-modal__selectedIcon p {
   color: var(--white);
@@ -1504,7 +1549,7 @@ z-index memo
   aspect-ratio: 1/1;
   display: inline-block;
 }
-.c-modal__iconSetting--right .c-modal__icon .counter {
+.c-modal__iconSetting--right .c-modal__icon .selected {
   width: 3dvw;
   aspect-ratio: 1/1;
   background: center/contain no-repeat url(../image/materials/magnet_red.png);
@@ -1517,7 +1562,7 @@ z-index memo
   z-index: 8;
   pointer-events: none;
 }
-.c-modal__iconSetting--right .c-modal__icon .counter p {
+.c-modal__iconSetting--right .c-modal__icon .selected p {
   margin-top: 4px;
   margin-left: 2px;
   color: var(--white);
