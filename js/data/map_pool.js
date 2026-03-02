@@ -77,14 +77,14 @@ export const MAP_POOL = {
         floor2nd: 'image/maps/r6-maps-consulate-blueprints_may23/r6-maps-consulat-blueprints_may23/r6-maps-consulate-blueprint-3.jpg',
         roof: 'image/maps/r6-maps-consulate-blueprints_may23/r6-maps-consulat-blueprints_may23/r6-maps-consulate-blueprint-4.jpg'
     },
-    /*
+    
     emeraldplains: {
         img: 'image/maps/r6-maps-emeraldplains-blueprints/r6s_maps_emeraldplains__1_.jpg',
         floor1st: 'image/maps/r6-maps-emeraldplains-blueprints/r6-maps-emeraldplains-blueprint-1.jpg',
         floor2nd: 'image/maps/r6-maps-emeraldplains-blueprints/r6-maps-emeraldplains-blueprint-2.jpg',
         roof: 'image/maps/r6-maps-emeraldplains-blueprints/r6-maps-emeraldplains-blueprint-3.jpg'
     },
-    */
+
     fortress: {
         img: 'image/maps/r6-maps-fortress-blueprints/fortress-reworked-thumbnail.avif',
         floor1st: 'image/maps/r6-maps-fortress-blueprints/r6-maps-fortress-blueprint-1.jpg',

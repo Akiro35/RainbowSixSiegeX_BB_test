@@ -80,7 +80,7 @@ export const OPERATOR_POOL = {
     blank: blank,
 
     striker: {
-      icon: 'image/icon_operator/attacker/r6s-operators-badge-striker.png',
+      icon: 'image/icon_operator/attacker/ATK1_striker.png',
       gadget1: breachCharge,
       gadget2: claymore,
       gadget3: fragGrenade,
@@ -91,7 +91,7 @@ export const OPERATOR_POOL = {
     },
 
     sledge: {
-      icon: 'image/icon_operator/attacker/Y0R6_BADGE_Sledge_L.png',
+      icon: 'image/icon_operator/attacker/ATK2_sledge.png',
       ability: {img: 'image/icon_ability/attacker/sledge_tactical_breaching_hammer.png', abilityName: 'tacticalBreachingHammer'},
       gadget1: fragGrenade,
       gadget2: stunGranade,
@@ -99,35 +99,35 @@ export const OPERATOR_POOL = {
     },
 
     thatcher: {
-      icon: 'image/icon_operator/attacker/r6s-operators-badge-thatcher.avif',
+      icon: 'image/icon_operator/attacker/ATK3_thatcher.png',
       ability: {img: 'image/icon_ability/attacker/thatcher_EGS_disruptor.png', abilityName: 'EGSDisruptor'},
       gadget1: breachCharge,
       gadget2: claymore
     },
 
     ash: {
-      icon: 'image/icon_operator/attacker/Y0R6_BADGE_Ash_L.png',
+      icon: 'image/icon_operator/attacker/ATK4_ash.png',
       ability: {img: 'image/icon_ability/attacker/ash_breaching_rounds.png', abilityName:'breachinfloor1sts'},
       gadget1: breachCharge,
       gadget2: claymore,
     },
 
     thermite: {
-      icon: 'image/icon_operator/attacker/Y0R6_BADGE_Thermite_L.png',
+      icon: 'image/icon_operator/attacker/ATK5_thermite.png',
       ability: {img: 'image/icon_ability/attacker/thermite_exothermic_charge.png', abilityName:'exothermicCharge'},
       gadget1: smokeGranade,
       gadget2: stunGranade,
     },
 
     twitch: {
-      icon: 'image/icon_operator/attacker/Y0R6_BADGE_Twitch_L.png',
+      icon: 'image/icon_operator/attacker/ATK6_twitch.png',
       ability: {img: 'image/icon_ability/attacker/twitch_shock_drone.png', abilityName:'shockDrones'},
       gadget1: smokeGranade,
       gadget2: claymore,
     },
 
     montagne: {
-      icon: 'image/icon_operator/attacker/Y0R6_BADGE_Montagne_L.png',
+      icon: 'image/icon_operator/attacker/ATK7_montagne.png',
       ability: {img: 'image/icon_ability/attacker/montagne_extendable_shield.png', abilityName:'extendableShield'},
       gadget1: secondaryBreacher,
       gadget2: smokeGranade,
@@ -135,7 +135,7 @@ export const OPERATOR_POOL = {
     },
 
     glaz: {
-      icon: 'image/icon_operator/attacker/Y0R6_BADGE_Glaz_L.png',
+      icon: 'image/icon_operator/attacker/ATK8_glaz.png',
       ability: {img: 'image/icon_ability/attacker/glaz_frip_sight.png', abilityName:'fripSight'},
       gadget1: smokeGranade,
       gadget2: fragGrenade,
@@ -143,7 +143,7 @@ export const OPERATOR_POOL = {
     },
 
     fuze: {
-      icon: 'image/icon_operator/attacker/Y0R6_BADGE_Fuze_L.png',
+      icon: 'image/icon_operator/attacker/ATK9_fuze.png',
       ability: {img: 'image/icon_ability/attacker/fuze_cluster_charge.png', abilityName:'clusterCharge'},
       gadget1: breachCharge,
       gadget2: secondaryBreacher,
@@ -151,14 +151,14 @@ export const OPERATOR_POOL = {
     },
 
     blitz: {
-      icon: 'image/icon_operator/attacker/Y0R6_BADGE_Blitz_L.png',
+      icon: 'image/icon_operator/attacker/ATK10_blitz.png',
       ability: {img: 'image/icon_ability/attacker/blitz_flash_shield.png', abilityName:'flashShield'},
       gadget1: smokeGranade,
       gadget2: breachCharge
     },
 
     iq: {
-      icon: 'image/icon_operator/attacker/Y0R6_BADGE_IQ_L.png',
+      icon: 'image/icon_operator/attacker/ATK11_iq.png',
       ability: {img: 'image/icon_ability/attacker/iq_electronic_detector.png', abilityName:'electronicsDetector'},
       gadget1: breachCharge,
       gadget2: fragGrenade,
@@ -166,21 +166,21 @@ export const OPERATOR_POOL = {
     },
 
     buck: {
-      icon: 'image/icon_operator/attacker/Y1S1_BADGE_Buck_L.png',
+      icon: 'image/icon_operator/attacker/ATK12_buck.png',
       ability: {img: 'image/icon_ability/attacker/buck_skeleton_key.png', abilityName:'skeletonKey'},
       gadget1: stunGranade,
       gadget2: claymore
     },
 
     blackbeard: {
-      icon: 'image/icon_operator/attacker/Y1S2_BADGE_Blackbeard_L.png',
+      icon: 'image/icon_operator/attacker/ATK13_blackbeard.png',
       ability: {img: 'image/icon_ability/attacker/blackbeard_HULL_adaptable_shield.png', abilityName:'H.U.L.L.AdaptableShield'},
       gadget1: claymore,
       gadget2: fragGrenade
     },
 
     capitao: {
-      icon: 'image/icon_operator/attacker/Y1S3_BADGE_Capitao_L.png',
+      icon: 'image/icon_operator/attacker/ATK14_capitao.png',
       ability: {img: 'image/icon_ability/attacker/capitao_tactical_crossbow.png', abilityName:'tacticalCrossbow'},
       gadget1: claymore,
       gadget2: secondaryBreacher,
@@ -188,35 +188,35 @@ export const OPERATOR_POOL = {
     },
 
     hibana: {
-      icon: 'image/icon_operator/attacker/Y1S4_BADGE_Hibana_L.png',
+      icon: 'image/icon_operator/attacker/ATK15_hibana.png',
       ability: {img: 'image/icon_ability/attacker/hibana_x_kairos.png', abilityName:'xKairos'},
       gadget1: stunGranade,
       gadget2: claymore
     },
 
     jackal: {
-      icon: 'image/icon_operator/attacker/Y2S1_BADGE_Jackal_L.png',
+      icon: 'image/icon_operator/attacker/ATK16_jackal.png',
       ability: {img: 'image/icon_ability/attacker/jackal_eyenox_mode_III.png', abilityName:'eyenoxModelIII'},
       gadget1: claymore,
       gadget2: smokeGranade
     },
 
     ying: {
-      icon: 'image/icon_operator/attacker/Y2S2_BADGE_Ying_L.png',
+      icon: 'image/icon_operator/attacker/ATK17_ying.png',
       ability: {img: 'image/icon_ability/attacker/ying_candela.png', abilityName:'candela'},
       gadget1: secondaryBreacher,
       gadget2: smokeGranade
     },
 
     zofia: {
-      icon: 'image/icon_operator/attacker/Y2S3_BADGE_Zofia_L.png',
+      icon: 'image/icon_operator/attacker/ATK18_zofia.png',
       ability: {img: 'image/icon_ability/attacker/zofia_KS79_lifeline.png', abilityName:'KS79Lifeline'},
       gadget1: claymore,
       gadget2: secondaryBreacher
     },
 
     dokkaebi: {
-      icon: 'image/icon_operator/attacker/Y2S4_BADGE_Dokkaebi_L.png',
+      icon: 'image/icon_operator/attacker/ATK19_dokkaebi.png',
       ability: {img: 'image/icon_ability/attacker/dokkaebi_logic_bomb.png', abilityName:'logicBomb'},
       gadget1: smokeGranade,
       gadget2: stunGranade,
@@ -224,7 +224,7 @@ export const OPERATOR_POOL = {
     },
 
     lion: {
-      icon: 'image/icon_operator/attacker/Y3S1_BADGE_Lion_L.png',
+      icon: 'image/icon_operator/attacker/ATK20_lion.png',
       ability: {img: 'image/icon_ability/attacker/lion_ee_one_d.png', abilityName:'eeOneD'},
       gadget1: claymore,
       gadget2: fragGrenade,
@@ -232,7 +232,7 @@ export const OPERATOR_POOL = {
     },
 
     finka: {
-      icon: 'image/icon_operator/attacker/Y3S1_BADGE_Finka_L.png',
+      icon: 'image/icon_operator/attacker/ATK21_finka.png',
       ability: {img: 'image/icon_ability/attacker/finka_adrenal_surge.png', abilityName:'adrenalSurge'},
       gadget1: fragGrenade,
       gadget2: smokeGranade,
@@ -240,7 +240,7 @@ export const OPERATOR_POOL = {
     },
 
     maverick: {
-      icon: 'image/icon_operator/attacker/Y3S3_BADGE_Maverick_L.png',
+      icon: 'image/icon_operator/attacker/ATK22_maverick.png',
       ability: {img: 'image/icon_ability/attacker/maverick_breaching_torch.png', abilityName:'breachingTorch'},
       gadget1: claymore,
       gadget2: smokeGranade,
@@ -248,14 +248,14 @@ export const OPERATOR_POOL = {
     },
 
     nomad: {
-      icon: 'image/icon_operator/attacker/Y3S4_BADGE_Nomad_L.png',
+      icon: 'image/icon_operator/attacker/ATK23_nomad.png',
       ability: {img: 'image/icon_ability/attacker/nomad_airjab_luncher.png', abilityName:'airjabLuncher'},
       gadget1: breachCharge,
       gadget2: stunGranade
     },
 
     gridlock: {
-      icon: 'image/icon_operator/attacker/Y4S1_BADGE_Gridlock_LL.png',
+      icon: 'image/icon_operator/attacker/ATK24_gridlock.png',
       ability: {img: 'image/icon_ability/attacker/gridlock_trax_stingers.png', abilityName:'traxStingers'},
       gadget1: smokeGranade,
       gadget2: fragGrenade,
@@ -263,7 +263,7 @@ export const OPERATOR_POOL = {
     },
 
     nokk: {
-      icon: 'image/icon_operator/attacker/Y4S2_BADGE_Nokk_L.png',
+      icon: 'image/icon_operator/attacker/ATK25_nokk.png',
       ability: {img: 'image/icon_ability/attacker/nokk_HEL_presence_reduction.png', abilityName:'HELPresenceReduction'},
       gadget1: secondaryBreacher,
       gadget2: fragGrenade,
@@ -271,14 +271,14 @@ export const OPERATOR_POOL = {
     },
 
     amaru: {
-      icon: 'image/icon_operator/attacker/Y4S3_BADGE_Amaru_L.png',
+      icon: 'image/icon_operator/attacker/ATK26_amaru.png',
       ability: {img: 'image/icon_ability/attacker/amaru_garra_hook.png', abilityName:'garraHook'},
       gadget1: stunGranade,
       gadget2: secondaryBreacher
     },
 
     kali: {
-      icon: 'image/icon_operator/attacker/Y4S4_BADGE_Kali_L.png',
+      icon: 'image/icon_operator/attacker/ATK27_kali.png',
       ability: {img: 'image/icon_ability/attacker/kali_LV_exprlosive_lance.png', abilityName:'LVExplosiveLance'},
       gadget1: breachCharge,
       gadget2: claymore,
@@ -286,35 +286,35 @@ export const OPERATOR_POOL = {
     },
 
     iana: {
-      icon: 'image/icon_operator/attacker/Y5S1_BADGE_Iana_L.png',
+      icon: 'image/icon_operator/attacker/ATK28_iana.png',
       ability: {img: 'image/icon_ability/attacker/iana_gemini_replicator.png', abilityName:'geminiReplicator'},
       gadget1: EMPImpactGranage,
       gadget2: smokeGranade
     },
 
     ace: {
-      icon: 'image/icon_operator/attacker/Y5S2_BADGE_Ace_L.png',
+      icon: 'image/icon_operator/attacker/ATK29_ace.png',
       ability: {img: 'image/icon_ability/attacker/ace_SELMA_aqua_breacher.png', abilityName:'S.E.L.M.A.AquaBreacher'},
       gadget1: breachCharge,
       gadget2: claymore
     },
 
     zero: {
-      icon: 'image/icon_operator/attacker/Y5S3_BADGE_Zero_L.png',
+      icon: 'image/icon_operator/attacker/ATK30_zero.png',
       ability: {img: 'image/icon_ability/attacker/zero_argus_launcher.png', abilityName:'argusLauncher'},
       gadget1: secondaryBreacher,
       gadget2: claymore
     },
 
     flores: {
-      icon: 'image/icon_operator/attacker/Y6S1_BADGE_Flores_L.png',
+      icon: 'image/icon_operator/attacker/ATK31_flores.png',
       ability: {img: 'image/icon_ability/attacker/flores_RCE-RATERO_charge.png', abilityName:'RCE-RATEROCharge'},
       gadget1: stunGranade,
       gadget2: claymore
     },
 
     osa: {
-      icon: 'image/icon_operator/attacker/r6s-operators-badge-osa.png',
+      icon: 'image/icon_operator/attacker/ATK32_osa.png',
       ability: {img: 'image/icon_ability/attacker/osa_talon8_clear_shield.png', abilityName:'talon8ClearShield'},
       gadget1: claymore,
       gadget2: fragGrenade,
@@ -322,7 +322,7 @@ export const OPERATOR_POOL = {
     },
 
     sens: {
-      icon: 'image/icon_operator/attacker/r6s-operators-badge-sens.png',
+      icon: 'image/icon_operator/attacker/ATK33_sens.png',
       ability: {img: 'image/icon_ability/attacker/sens_ROU_projector_system.png', abilityName:'R.O.U.ProjectorSystem'},
       gadget1: claymore,
       gadget2: fragGrenade,
@@ -330,7 +330,7 @@ export const OPERATOR_POOL = {
     },
 
     grim: {
-      icon: 'image/icon_operator/attacker/r6s-operators-badge-grim.png',
+      icon: 'image/icon_operator/attacker/ATK34_grim.png',
       ability: {img: '', abilityName:'kawanHiveLauncher'},
       gadget1: claymore,
       gadget2: secondaryBreacher,
@@ -338,39 +338,49 @@ export const OPERATOR_POOL = {
     },
 
     brava: {
-      icon: 'image/icon_operator/attacker/r6s-operators-badge-brava.png',
+      icon: 'image/icon_operator/attacker/ATK35_brava.png',
       ability: {img: 'image/icon_ability/attacker/grim_kawan_hive_launcher.png', abilityName:'KludgeDrone'},
       gadget1: smokeGranade,
       gadget2: claymore
     },
 
     ram: {
-      icon: 'image/icon_operator/attacker/r6s-operators-badge-ram.png',
+      icon: 'image/icon_operator/attacker/ATK36_ram.png',
       ability: {img: 'image/icon_ability/attacker/ram_BU-GI_auto_breacher.png', abilityName:'BU-GI_AutoBreacher'},
       gadget1: smokeGranade,
       gadget2: stunGranade
     },
 
     deimos: {
-      icon: 'image/icon_operator/attacker/r6s-operators-badge-deimos.png',
+      icon: 'image/icon_operator/attacker/ATK37_deimos.png',
       ability: {img: 'image/icon_ability/attacker/deimos_deathmark_tracker.png', abilityName:'deathmarkTracker'},
       gadget1: fragGrenade,
       gadget2: secondaryBreacher
     },
 
     rauora: {
-      icon: 'image/icon_operator/attacker/r6s-operators-badge-rauora.png',
+      icon: 'image/icon_operator/attacker/ATK38_rauora.png',
       ability: {img: 'image/icon_ability/attacker/rauora_DOM_panel_launcher.png', abilityName:'D.O.M.PanelLauncher'},
       gadget1: smokeGranade,
       gadget2: breachCharge
+    },
+
+    solidSnake: {
+      icon: 'image/icon_operator/attacker/ATK39_snake.png',
+      ability: {img: 'image/icon_ability/attacker/snake_SOLITON_RADER_MK_III.png', abilityName:'SOLITON_RADER_MK_III'},
+      gadget1: fragGrenade,
+      gadget2: stunGranade,
+      gadget3: impactGranade,
+      gadget4: smokeGranade,
+      gadget5: breachCharge,
     }
-},
+  },
 
 DEF: {
     blank: blank,
 
     sentry: {
-      icon: 'image/icon_operator/difender/r6s-operators-badge-sentry.png',
+      icon: 'image/icon_operator/difender/DEF1_sentry.png',
       gadget1: barbedWire,
       gadget2: bulletProofCamera,
       gadget3: deployableShield,
@@ -381,28 +391,28 @@ DEF: {
     },
 
     smoke: {
-      icon: 'image/icon_operator/difender/Y0R6_BADGE_Smoke_L.png',
+      icon: 'image/icon_operator/difender/DEF2_smoke.png',
       ability: {img: 'image/icon_ability/defender/smoke_remoto_gas_granade.png', abilityName:'remotoGasGranade'},
       gadget1: barbedWire,
       gadget2: proximityAlarm
     },
 
     mute: {
-      icon: 'image/icon_operator/difender/Y0R6_BADGE_Mute_L.png',
+      icon: 'image/icon_operator/difender/DEF3_mute.png',
       ability: {img: 'image/icon_ability/defender/mute_signal_disruptor.png', abilityName:'signalDisruptor'},
       gadget1: bulletProofCamera,
       gadget2: nitroCell
     },
 
     castle: {
-      icon: 'image/icon_operator/difender/Y0R6_BADGE_Castle_L.png',
+      icon: 'image/icon_operator/difender/DEF4_castle.png',
       ability: {img: 'image/icon_ability/defender/castle_armor_panel.png', abilityName:'armorPanel'},
       gadget1: proximityAlarm,
       gadget2: bulletProofCamera
     },
 
     pulse: {
-      icon: 'image/icon_operator/difender/Y0R6_BADGE_Pulse_L.png',
+      icon: 'image/icon_operator/difender/DEF5_pulse.png',
       ability: {img: 'image/icon_ability/defender/pulse_heartbeat_sensor.png', abilityName:'heartbeatSensor'},
       gadget1: nitroCell,
       gadget2: deployableShield,
@@ -410,28 +420,28 @@ DEF: {
     },
 
     doc: {
-      icon: 'image/icon_operator/difender/Y0R6_BADGE_Doc_L.png',
+      icon: 'image/icon_operator/difender/DEF6_doc.png',
       ability: {img: 'image/icon_ability/defender/doc_stim_pistol.png', abilityName:'stimPistol'},
       gadget1: bulletProofCamera,
       gadget2: barbedWire
     },
 
     rook: {
-      icon: 'image/icon_operator/difender/Y0R6_BADGE_Rook_L.png',
+      icon: 'image/icon_operator/difender/DEF7_rook.png',
       ability: {img: 'image/icon_ability/defender/rook_armor_pack.png', abilityName:'armorPack'},
       gadget1: proximityAlarm,
       gadget2: impactGranade
     },
 
     kapkan: {
-      icon: 'image/icon_operator/difender/Y0R6_BADGE_Kapkan_L.png',
+      icon: 'image/icon_operator/difender/DEF8_kapkan.png',
       ability: {img: 'image/icon_ability/defender/kapkan_entry_denial_device.png', abilityName:'entryDenialDevice'},
       gadget1: barbedWire,
       gadget2: bulletProofCamera
     },
 
     tachanka: {
-      icon: 'image/icon_operator/difender/Y0R6_BADGE_Tachanka_L.png',
+      icon: 'image/icon_operator/difender/DEF9_tachanka.png',
       ability: {img: 'image/icon_ability/defender/tachanka_shumikha_launcher.png', abilityName:'shumikhaLauncher'},
       gadget1: barbedWire,
       gadget2: proximityAlarm,
@@ -439,35 +449,35 @@ DEF: {
     },
 
     jager: {
-      icon: 'image/icon_operator/difender/Y0R6_BADGE_Jager_L.png',
+      icon: 'image/icon_operator/difender/DEF10_jager.png',
       ability: {img: 'image/icon_ability/defender/jager_active_difence_system.png', abilityName:'activeDefenceSystem'},
       gadget1: bulletProofCamera,
       gadget2: observationBlocker
     },
 
     bandit: {
-      icon: 'image/icon_operator/difender/Y0R6_BADGE_Bandit_L.png',
+      icon: 'image/icon_operator/difender/DEF11_bandit.png',
       ability: {img: 'image/icon_ability/defender/bandit_shock_wire.png', abilityName:'shockWire'},
       gadget1: barbedWire,
       gadget2: nitroCell
     },
 
     frost: {
-      icon: 'image/icon_operator/difender/Y1S1_BADGE_Frost_L.png',
+      icon: 'image/icon_operator/difender/DEF12_frost.png',
       ability: {img: 'image/icon_ability/defender/frost_welcome_mate.png', abilityName:'welcomeMate'},
       gadget1: bulletProofCamera,
       gadget2: deployableShield
     },
 
     valkyrie: {
-      icon: 'image/icon_operator/difender/Y1S2_BADGE_Valkyrie_L.png',
+      icon: 'image/icon_operator/difender/DEF13_valkyrie.png',
       ability: {img: 'image/icon_ability/defender/valkyrie_black_eye.png', abilityName:'blackEye'},
       gadget1: impactGranade,
       gadget2: nitroCell
     },
 
     caveira: {
-      icon: 'image/icon_operator/difender/Y1S3_BADGE_Caveira_L.png',
+      icon: 'image/icon_operator/difender/DEF14_caveira.png',
       ability: {img: 'image/icon_ability/defender/caveira_silent_step.png', abilityName:'silentStep'},
       gadget1: proximityAlarm,
       gadget2: impactGranade,
@@ -475,28 +485,28 @@ DEF: {
     },
 
     echo: {
-      icon: 'image/icon_operator/difender/Y1S4_BADGE_Echo_L.png',
+      icon: 'image/icon_operator/difender/DEF15_echo.png',
       ability: {img: 'image/icon_ability/defender/echo_yokai.png', abilityName:'yokai'},
       gadget1: impactGranade,
       gadget2: deployableShield, 
     },
 
     mira: {
-      icon: 'image/icon_operator/difender/Y2S1_BADGE_Mira_L.png',
+      icon: 'image/icon_operator/difender/DEF16_mira.png',
       ability: {img: 'image/icon_ability/defender/mira_black_mirror.png', abilityName:'blackMirror'},
       gadget1: proximityAlarm,
       gadget2: nitroCell
     },
 
     lesion: {
-      icon: 'image/icon_operator/difender/Y2S2_BADGE_Lesion_L.png',
+      icon: 'image/icon_operator/difender/DEF17_legion.png',
       ability: {img: 'image/icon_ability/defender/lesion_gu_mine.png', abilityName:'guMine'},
       gadget1: observationBlocker,
       gadget2: bulletProofCamera
     },
 
     ela: {
-      icon: 'image/icon_operator/difender/Y2S3_BADGE_Ela_L.png',
+      icon: 'image/icon_operator/difender/DEF18_ela.png',
       ability: {img: 'image/icon_ability/defender/ela_grzmot_mine.png', abilityName:'grzmotMine'},
       gadget1: barbedWire,
       gadget2: deployableShield,
@@ -504,14 +514,14 @@ DEF: {
     },
 
     vigil: {
-      icon: 'image/icon_operator/difender/Y2S4_BADGE_Vigil_L.png',
+      icon: 'image/icon_operator/difender/DEF19_visil.png',
       ability: {img: 'image/icon_ability/defender/vigil_ERC7.png', abilityName:'ERC7'},
       gadget1: bulletProofCamera,
       gadget2: impactGranade
     },
 
     maestro: {
-      icon: 'image/icon_operator/difender/Y3S2_BADGE_Maestro_L.png',
+      icon: 'image/icon_operator/difender/DEF20_alibi.png',
       ability: {img: 'image/icon_ability/defender/maestro_evil_eye.png', abilityName:'evilEye'},
       gadget1: barbedWire,
       gadget2: impactGranade,
@@ -519,21 +529,21 @@ DEF: {
     },
 
     alibi: {
-      icon: 'image/icon_operator/difender/Y3S2_BADGE_Alibi_L.png',
+      icon: 'image/icon_operator/difender/DEF21_maestro.png',
       ability: {img: 'image/icon_ability/defender/alibi_prisma.png', abilityName:'prisma'},
       gadget1: proximityAlarm,
       gadget2: observationBlocker,
     },
 
     clash: {
-      icon: 'image/icon_operator/difender/Y3S3_BADGE_Clash_L.png',
+      icon: 'image/icon_operator/difender/DEF22_clash.png',
       ability: {img: 'image/icon_ability/defender/clash_CCE_shield.png', abilityName:'CCE_Sield'},
       gadget1: barbedWire,
       gadget2: impactGranade
     },
 
     kaid: {
-      icon: 'image/icon_operator/difender/Y3S4_BADGE_L.png',
+      icon: 'image/icon_operator/difender/DEF23_kaid.png',
       ability: {img: 'image/icon_ability/defender/kaid_rtina_electro_claw.png', abilityName:'rtinaElectroclaw'},
       gadget1: barbedWire,
       gadget2: nitroCell,
@@ -541,7 +551,7 @@ DEF: {
     },
 
     mozzie: {
-      icon: 'image/icon_operator/difender/Y4S1_BADGE_Mozzie_L.png',
+      icon: 'image/icon_operator/difender/DEF24_mozzie.png',
       ability: {img: 'image/icon_ability/defender/mozzie_pest_launcher.png', abilityName:'pestLauncher'},
       gadget1: barbedWire,
       gadget2: nitroCell,
@@ -549,7 +559,7 @@ DEF: {
     },
 
     warden: {
-      icon: 'image/icon_operator/difender/Y4S2_BADGE_Warden_L.png',
+      icon: 'image/icon_operator/difender/DEF25_warden.png',
       ability: {img: 'image/icon_ability/defender/warden_glance_smart_glasses.png', abilityName:'glanceSmartGlasses'},
       gadget1: deployableShield,
       gadget2: nitroCell,
@@ -557,7 +567,7 @@ DEF: {
     },
 
     goyo: {
-      icon: 'image/icon_operator/difender/Y4S3_BADGE_Goyo_L.png',
+      icon: 'image/icon_operator/difender/DEF26_goyo.png',
       ability: {img: 'image/icon_ability/defender/goyo_volcan_shield.png', abilityName:'volcanSield'},
       gadget1: proximityAlarm,
       gadget2: bulletProofCamera,
@@ -565,35 +575,35 @@ DEF: {
     },
 
     wamai: {
-      icon: 'image/icon_operator/difender/Y4S4_BADGE_Wamai_L.png',
+      icon: 'image/icon_operator/difender/DEF27_wamai.png',
       ability: {img: 'image/icon_ability/defender/wamai_magnet_system.png', abilityName:'magnetSystem'},
       gadget1: proximityAlarm,
       gadget2: impactGranade
     },
 
     oryx: {
-      icon: 'image/icon_operator/difender/Y5S1_BADGE_Oryx_L.png',
+      icon: 'image/icon_operator/difender/DEF28_oryx.png',
       ability: {img: 'image/icon_ability/defender/oryx_remah_dash.png', abilityName:'remahDash'},
       gadget1: barbedWire,
       gadget2: proximityAlarm
     },
 
     melusi: {
-      icon: 'image/icon_operator/difender/Y5S2_BADGE_Melusi_L.png',
+      icon: 'image/icon_operator/difender/DEF29_melusi.png',
       ability: {img: 'image/icon_ability/defender/melusi_banshee_sonic_defense.png', abilityName:'bansheeSonicDefense'},
       gadget1: bulletProofCamera,
       gadget2: impactGranade
     },
 
     aruni: {
-      icon: 'image/icon_operator/difender/Y5S4_BADGE_Aruni_L.png',
+      icon: 'image/icon_operator/difender/DEF30_aruni.png',
       ability: {img: 'image/icon_ability/defender/aruni_surya_gate.png', abilityName:'suryaGate'},
       gadget1: bulletProofCamera,
       gadget2: barbedWire
     },
 
     thunderbird: {
-      icon: 'image/icon_operator/difender/r6s-operators-badge-thunderbird.png',
+      icon: 'image/icon_operator/difender/DEF31_thunderbird.png',
       ability: {img: 'image/icon_ability/defender/thunderbird_kona_station.png', abilityName:'konaStation'},
       gadget1: barbedWire,
       gadget2: bulletProofCamera,
@@ -601,49 +611,49 @@ DEF: {
     },
 
     thorn: {
-      icon: 'image/icon_operator/difender/r6s-operators-badge-thorn.png',
+      icon: 'image/icon_operator/difender/DEF32_thorn.png',
       ability: {img: 'image/icon_ability/defender/thorn_razorbloom_shell.png', abilityName:'razorbloomShell'},
       gadget1: deployableShield,
       gadget2: barbedWire
     },
 
     azami: {
-      icon: 'image/icon_operator/difender/r6s-operators-badge-azami.png',
+      icon: 'image/icon_operator/difender/DEF33_azami.png',
       ability: {img: 'image/icon_ability/defender/azami_kiba_barrier.png', abilityName:'kibaBarrier'},
       gadget1: impactGranade,
       gadget2: barbedWire,
     },
 
     solis: {
-      icon: 'image/icon_operator/difender/r6s-operators-badge-solis.png',
+      icon: 'image/icon_operator/difender/DEF34_solis.png',
       ability: {img: 'image/icon_ability/defender/solis_spec-io_electro_sensor.png', abilityName:'spec-io_ElectroSensor'},
       gadget1: bulletProofCamera,
       gadget2: proximityAlarm
     },
 
     fenrir: {
-      icon: 'image/icon_operator/difender/r6s-operators-badge-fenrir.png',
+      icon: 'image/icon_operator/difender/DEF35_fenrir.png',
       ability: {img: 'image/icon_ability/defender/fenrir_F-NATT_dread_mine.png', abilityName:'F-NATT_DreadMine'},
       gadget1: bulletProofCamera,
       gadget2: observationBlocker
     },
 
     tubarao: {
-      icon: 'image/icon_operator/difender/r6s-operators-badge-tubarao.png',
+      icon: 'image/icon_operator/difender/DEF36_tubarao.png',
       ability: {img: 'image/icon_ability/defender/tubarao_zoto_canister.png', abilityName:'ZotoCanister'},
       gadget1: nitroCell,
       gadget2: proximityAlarm
     },
 
     skopos: {
-      icon: 'image/icon_operator/difender/r6s-operators-badge-skopos.png',
+      icon: 'image/icon_operator/difender/DEF37_skopos.png',
       ability: {img: 'image/icon_ability/defender/skopos_V10_pantheon_shells.png', abilityName:'V10_pantheonShells'},
       gadget1: impactGranade,
       gadget2: proximityAlarm
     },
 
     denari: {
-      icon: 'image/icon_operator/difender/r6s-operators-badge-denari.png',
+      icon: 'image/icon_operator/difender/DEF38_denari.png',
       ability: {img: 'image/icon_ability/defender/denari_TRIP_connector.png', abilityName:'T.R.I.P.Connector'},
       gadget1: observationBlocker,
       gadget2: deployableShield

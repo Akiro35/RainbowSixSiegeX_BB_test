@@ -499,7 +499,9 @@ export function applySelectedOperatorGadgetsToSetting(operatorData, containerId,
 
   if(operatorGadgets.length > 6) return;
 
-  for(let i = 3; i < operatorDOMData.gadgets.length; i++) {
+  const gadgetsLength = operatorGadgets.length >= 3 ? operatorGadgets.length : 3;
+
+  for(let i = gadgetsLength; i < operatorDOMData.gadgets.length; i++) {
     operatorDOMData.gadgets[i].style.display = 'none';
   }
 }

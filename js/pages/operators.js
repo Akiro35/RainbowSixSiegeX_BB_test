@@ -1,4 +1,6 @@
-import { SELECTED_OPERATORS, SELECTED_OPERATORS, } from "../data/operator_pool.js";
+import {
+  SELECTED_OPERATORS
+} from "../data/operator_pool.js";
 
 import { 
   clearSelectedMap,

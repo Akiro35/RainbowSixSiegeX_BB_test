@@ -217,9 +217,7 @@ export function applySelectedOperatorToSetting(sideKey) {
   for(let i = 0; i < SELECTED_OPERATORS[sideKey].length; i++) {
     const operatorData = SELECTED_OPERATORS[sideKey][i];
     const settingId = ELEMENT_IDS.operatorSetting.operatorContainer[sideKey] + `${i + 1}`;
-    //const legendId  = ELEMENT_IDS.legend.operatorContainer[sideKey] + `${i + 1}`;
     const operatorDOMData = getOperatorDOM(settingId);
-    //const operatorGadgets = Object.keys(operatorData).filter(key => key.startsWith('gadget'));
 
     applySelectedOperatorIcon(operatorDOMData.icon, operatorData);
     applySelectedOperatorAbility(operatorDOMData.ability, operatorData);

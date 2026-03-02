@@ -347,8 +347,8 @@
         .c-modal__selectedOperator {
           width: 100%;
           display: flex;
-          justify-content: space-between;
           align-items: center;
+          gap: 2dvw;
 
           p {
             width: 5vw;
@@ -360,8 +360,9 @@
           }
 
           img {
-            width: 5vw;
-            max-width: 10dvh;
+            width: 80%;
+            max-width: 5dvw;
+            
             height: auto;
             background-color: var(--white);
           }
@@ -383,11 +384,15 @@
           }
 
           .c-modal__gadgets {
-            width: 18dvw;
+            width: 40%;
             display: flex;
             justify-content: space-between;
+            align-items: center;
 
             .c-modal__gadget {
+              display: flex;
+              justify-content: center;
+              align-items: center;
               position: relative;
 
               &::after {
@@ -412,7 +417,7 @@
           }
 
           .c-modal__selectedGadget {
-            border: 4px solid var(--white);
+            border: 3px solid var(--white);
           }
         }
 
@@ -557,7 +562,6 @@
       }
 
       .c-modal {
-
         &__icons {
         width: 100%;
         height: 100%;
@@ -567,7 +571,7 @@
         }
 
         &__icon {
-          width: 100%;
+          width: 80%;
           position: relative;
           
           img {
