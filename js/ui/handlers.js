@@ -1,5 +1,5 @@
 import {
-  selectedOperators
+  SELECTED_OPERATORS,
 } from "../data/operator_pool.js";
 
 import {
@@ -35,7 +35,7 @@ import {
 
 import {
   adjustMapCenter,
-  checkRectColliding,
+  isRectColliding,
   getPointerLocalPositions,
   updateCanvasScale
 } from "../logic/calculator.js";
@@ -141,13 +141,13 @@ export function handleDocumentClick(e) {
     const data = Object.values(SELECTOR_DATA.legend.playerContainer)[i];
     const playerContainer = document.querySelector(data);
 
-    const isColliding = checkRectColliding(e, playerContainer);
+    const isColliding = isRectColliding(e, playerContainer);
     if(isColliding) {
       isContainerColliding = true;
     }
   }
 
-  const isColliding = checkRectColliding(e, gears);
+  const isColliding = isRectColliding(e, gears);
   if(isColliding) {
     isContainerColliding = true;
   }
@@ -290,9 +290,9 @@ export function handleMapZoomWheelSpin(e) {
 
   const isZoomUp = wheelDelta > 0;
   const isZoomDown = !isZoomUp;
-  const canvasPositions = getPointerLocalPositions(e);
+  const pointerPositionsAtCanvas = getPointerLocalPositions(e);
 
-  updateCanvasScale(CANVAS_DATA, canvasPositions, isZoomUp, isZoomDown);
+  updateCanvasScale(CANVAS_DATA, pointerPositionsAtCanvas, isZoomUp, isZoomDown);
 
   if(state.currentImageScale === setting.minScale) {
     adjustMapCenter(CANVAS_DATA);
@@ -355,7 +355,7 @@ export function handleCanvasPointerMove(e, TOOL_STATE, TOUCH_STATE, CANVAS_DATA)
   const {activePointers} = TOUCH_STATE;
   const {context} = CANVAS_DATA;
   const canvasContainer = context.container;
-  const isCanvasContainerColliding = checkRectColliding(e, canvasContainer);
+  const isCanvasContainerColliding = isRectColliding(e, canvasContainer);
 
   if(!isCanvasContainerColliding) return;
 
@@ -391,7 +391,6 @@ export function handleCanvasPointerMove(e, TOOL_STATE, TOUCH_STATE, CANVAS_DATA)
  */
 export const handleOperatorButtonInLegendClick = (button) => {
   const operatorContainer = button.parentElement;
-  console.log(operatorContainer);
   const operatorId = operatorContainer.dataset.legend;
   const item = operatorContainer.querySelector(SELECTOR_DATA.legend.item);
   const playerColor = getComputedStyle(operatorContainer).borderTopColor;
@@ -522,11 +521,11 @@ export function handleGadgetButtonInSettingClick(operatorData, DOMGadgets, DOMGa
  * @param {String} operatorName 
  */
 export function handleSelectedOperatorRemove(sideKey, operatorName) {
-  const selectedOperatorIndex = selectedOperators[sideKey].findIndex(operator => operator.operatorName === operatorName);
+  const selectedOperatorIndex = SELECTED_OPERATORS[sideKey].findIndex(operator => operator.operatorName === operatorName);
   const operatorIconContainer = getOperatorIconFromSelection(sideKey, operatorName);
   const operatorBlankData = getOperatorDataFromPool('blank', sideKey);
 
-  selectedOperators[sideKey][selectedOperatorIndex] = operatorBlankData;
+  SELECTED_OPERATORS[sideKey][selectedOperatorIndex] = operatorBlankData;
   removeBadge(operatorIconContainer);
   updateSeleceteOperatorIconsToSelection(sideKey);
 }
@@ -541,17 +540,17 @@ export function handleSelectedOperatorReplace(e, sideKey) {
   const clickedOperatorIcon = operatorIconContainer.lastElementChild;
   const operatorName = clickedOperatorIcon.dataset.operatorSelection;
   const operatorData = getOperatorDataFromPool(operatorName, sideKey);
-  const blankIndex = selectedOperators[sideKey].findIndex(operator => operator.operatorName === 'blank');
+  const blankIndex = SELECTED_OPERATORS[sideKey].findIndex(operator => operator.operatorName === 'blank');
   
   if(blankIndex === -1) return;
 
-  selectedOperators[sideKey][blankIndex] = operatorData;
+  SELECTED_OPERATORS[sideKey][blankIndex] = operatorData;
   insertBadge(sideKey, operatorIconContainer, blankIndex);
   updateSeleceteOperatorIconsToSelection(sideKey);
 }
 
 export function handleReturnClick(sideKey) {
-  const operatorNames = selectedOperators[sideKey].map((operator) => operator.operatorName);
+  const operatorNames = SELECTED_OPERATORS[sideKey].map((operator) => operator.operatorName);
   const convertedArray = JSON.stringify(operatorNames);
 
   window.sessionStorage.setItem(`selectedOperator${sideKey}s`, convertedArray);

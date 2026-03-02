@@ -1,19 +1,45 @@
+/**
+ * @typedef {string[]} OperatorList - オペレータオブジェクトの配列
+ */
 
 /**
- * @type {{ATK: [], DEF: []}} - 選択されたオペレータ配列を格納する
+ * オペレータ単体のデータ構造
+ * @typedef {Object} Operator
+ * @property {string} icon - オペレータアイコンのパス
+ * @property {OperatorAbility} [ability] - アビリティのデータ
+ * @property {OperatorGadget} [gadget1] - ガジェット1のデータ
+ * @property {OperatorGadget} [gadget2] - ガジェット2のデータ
+ * @property {OperatorGadget} [gadget3] - ガジェット3のデータ
+ * @property {OperatorGadget} [gadget4] - ガジェット4のデータ
+ * @property {OperatorGadget} [gadget5] - ガジェット5のデータ
+ * @property {OperatorGadget} [gadget6] - ガジェット6のデータ
+ * @property {OperatorGadget} [gadget7] - ガジェット7のデータ
  */
-export const selectedOperators = {
+
+/**
+ * オペレータアビリティのデータ
+ * @typedef {Object} OperatorAbility
+ * @property {string} img - アビリティのアイコンパス
+ * @property {string} abilityName - アビリティ名
+ */
+
+/**
+ * オペレータガジェットのデータ
+ * @typedef {Object} OperatorGadget
+ * @property {string} img - ガジェットアイコンのパス
+ * @property {string} gadgetName - ガジェット名
+ */
+
+
+/**
+ * 選択されたオペレータ配列を格納するオブジェクト
+ * @type {{ATK: import("../logic/factory.js").SelectedOperatorData[], DEF: import("../logic/factory.js").SelectedOperatorData[]}}
+ */
+export const SELECTED_OPERATORS = {
   ATK: [],
   DEF: []
 };
 
-/**
- * オブジェクト
- * @type {
- *   {img:        String},
- *   {gadgetName: String}
- * } ガジェット情報
- */
 
 /*common*/
 const blankGadget = {img: 'image/icon_gadget/gadget__empty.png', gadgetName: 'blank'};
@@ -44,24 +70,12 @@ const nitroCell = {img: 'image/icon_gadget/defender/nitro_cell.png', gadgetName:
 const proximityAlarm = {img: 'image/icon_gadget/defender/proximity_alarm.png', gadgetName: 'proximityAlarm'};
 const observationBlocker = {img: 'image/icon_gadget/defender/observationblocker.png', gadgetName: 'observationBlocker'};
 
-/**
- * @type {
- *   {side: String,
- *     {operatorName: String,
- *       {icon: String},
- *       {gadget1: Object},
- *       {gadget2: Object},
- *       {gadget3: Object},
- *       {gadget4: Object},
- *       {gadget5: Object},
- *       {gadget6: Object},
- *       {gadget7: Object}
- *     }
- *   }
- * }
- */
 
-export const operatorPool = {
+/**
+ * 全オペレータのデータプール
+ * @type {{ATK: Object.<string, Operator>, DEF: Object.<string, Operator>}}
+ */
+export const OPERATOR_POOL = {
   ATK: {
     blank: blank,
 

@@ -1,12 +1,12 @@
-/**データ処理用のフロア名称
- * @type {Array}
+/**
+ * @typedef {('basement2nd'|'basement'|'floor1st'|'floor2nd'|'floor3rd'|'roof')} FloorId
  */
-//export const floors = ['basement2nd', 'basement', 'floor1st', 'floor2nd', 'floor3rd', 'roof']
-
-/**ページ表示用のフロア名称
- * @type {Object}
+/**
+ * ページ表示用のラベル定義
+ * @readonly
+ * @type {Record<FloorId, string>}
  */
-export const floorNamesForDisplay = {
+export const FLOOR_NAMES_FOR_DISPLAY = {
     basement2nd: '2nd basement',
     basement: 'Basement',
     floor1st: '1st floor',
@@ -15,22 +15,23 @@ export const floorNamesForDisplay = {
     roof: 'Roof',
 };
 
+
 /**
- * マップオブジェクト
- * @type {
- *   {mapname: string, 
- *     {img:         string},
- *     {basement2nd: string},
- *     {basement:    string},
- *     {floor1st:    string},
- *     {floor2nd:    string},
- *     {floor3rd:    string},
- *     {roof:        string}
- *   }
- * } マップ情報(階層がない場合はnull)
+ * @typedef {Object} MapFloors
+ * @property {string} img - マップのイメージ画像パス
+ * @property {string} [basement2nd] - 地下2階俯瞰図の画像パス
+ * @property {string} [basement] - 地下1階俯瞰図の画像パス
+ * @property {string} [floor1st] - 1階俯瞰図の画像パス
+ * @property {string} [floor2nd] - 2階俯瞰図の画像パス
+ * @property {string} [floor3rd] - 3階俯瞰図の画像パス
+ * @property {string} [roof] - 屋上俯瞰図の画像パス
  */
 
-export const mapPool = {
+/**
+ * 全マップのリソース管理オブジェクト
+ * @type {Object<string, MapFloors>}
+ */
+export const MAP_POOL = {
     bank: {
         img: 'image/maps/r6-maps-bank-blueprints/R6S_Maps_Bank_EXT.jpg',
         basement: 'image/maps/r6-maps-bank-blueprints/r6-maps-bank-blueprint-3.jpg',

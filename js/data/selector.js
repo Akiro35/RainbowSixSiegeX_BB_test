@@ -1,4 +1,9 @@
 /*****id*****/
+
+/**
+ * 要素のIDデータプール
+ * @type {Object}
+ */
 export const ELEMENT_IDS = {
   selectedMap: 'js-operators__selectedMap',
   operator: {
@@ -15,13 +20,11 @@ export const ELEMENT_IDS = {
     },
     color: {
       picker: 'js-penColor',
-      //display: 'js-colorDisplay',
     },
     opacity: {
       el:        'js-opacity',
       container: 'js-opacityContainer',
       slider:    'js-opacitySlider',
-      //display:   'js-opacityDisplay',
     },
     clear: {
       line:   'js-lineClear',
@@ -77,10 +80,14 @@ export const ELEMENT_IDS = {
       ja: 'js-confirm__message--ja',
       en: 'js-confirm__message--en',
     },
-  
-  }
+  },
 }
 
+
+/**
+ * モーダルIDのデータプール
+ * @type {Object}
+ */
 export const MODAL_IDS = {
   menu:            'js-menu',
   setting:         'js-menu__setting',
@@ -97,6 +104,11 @@ export const MODAL_IDS = {
   confirm:         'js-confirm',
 }
 
+
+/**
+ * ボタンIDのデータプール
+ * @type {Object}
+ */
 export const BUTTON_IDS = {
   whatsSiteFromMenu: 'js-menu__whatsSiteBoard--open',
   howToUse: {
@@ -129,6 +141,11 @@ export const BUTTON_IDS = {
 }
 
 /****className*****/
+
+/**
+ * querySelector用のクラス名データプール
+ * @type {Object}
+ */
 export const SELECTOR_CLASSNAMES = {
   howToUse: {
     contents:     '.p-howToUse__contents',
@@ -144,6 +161,11 @@ export const SELECTOR_CLASSNAMES = {
   floor:          '.js-floorSetting__floorList--floor',
 }
 
+
+/**
+ * 要素等のアクティブ化用クラス名データプール
+ * @type {Object}
+ */
 export const ACTIVE_CLASSNAMES = {
   operatorFilled: 'c-operator__icon--filled',
   menu:     'l-body__menu--active',       //memo: modal
@@ -170,6 +192,11 @@ export const ACTIVE_CLASSNAMES = {
 };
 
 /*****data*****/
+
+/**
+ * querySelector用のデータ属性データプール
+ * @type {Object}
+ */
 export const SELECTOR_DATA = {
   draw: {
     bold: '[data-draw="bold"]',
@@ -209,6 +236,11 @@ export const SELECTOR_DATA = {
   }
 }
 
+
+/**
+ * howToUse用のデータプール
+ * @type {Object}
+ */
 export const HOW_TO_USE_EXPLANATION = {
   page1: [
     {explanation: '.p-howToUse__left--menu',    target: '#js-menu--open', 

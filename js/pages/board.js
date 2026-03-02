@@ -1,4 +1,4 @@
-import { selectedOperators } from "../data/operator_pool.js";
+import { SELECTED_OPERATORS } from "../data/operator_pool.js";
 
 import {
   BUTTON_IDS,
@@ -161,7 +161,7 @@ function loadSelectedFloor() {
  * 選択済みオペレータのロード
  */
 function loadSelectedOperators() {
-  Object.keys(selectedOperators).forEach(sideKey => {
+  Object.keys(SELECTED_OPERATORS).forEach(sideKey => {
     createSelectedOperators(sideKey);
     applySelectedOperatorToLegend(sideKey);
     applySelectedOperatorToSetting(sideKey);
@@ -497,7 +497,7 @@ function initOperatorSetting () {
 
 
 function initOperatorSelections() {
-  Object.keys(selectedOperators).forEach(sideKey => {
+  Object.keys(SELECTED_OPERATORS).forEach(sideKey => {
     const modalId = MODAL_IDS.operatorSelection[sideKey];
     initOpenModal(modalId);
     initCloseModal(modalId);

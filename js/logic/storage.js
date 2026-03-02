@@ -1,7 +1,7 @@
-import { selectedOperators } from "../data/operator_pool.js";
+import { SELECTED_OPERATORS } from "../data/operator_pool.js";
 import { ACTIVE_CLASSNAMES } from "../data/selector.js";
 import { CANVAS_DATA } from "../ui/canvasManager.js";
-import { initHowToUsePositions} from "../ui/controller.js";
+import { initHowToUsePositions } from "../ui/controller.js";
 import { getModalElements } from "../ui/domExtractor.js";
 
 /*****セッション*****/
@@ -37,8 +37,8 @@ export function clearSelectedMap() {
 
 /**
  * 選択済みオペレータ情報をセッションストレージに保存する
- * @param {Array} selectedOperatorsArray - 各サイドの選択済みオペレータ配列
- * @param {String} sideKey - サイドのキー 
+ * @param {string[]} selectedOperatorsArray - 各サイドの選択済みオペレータ配列
+ * @param {'ATK' | 'DEF'} sideKey - サイドのキー 
  */
 export function saveOperatorsToSession(selectedOperatorsArray, sideKey) {
   const array = selectedOperatorsArray.map((value) => value.name);
@@ -48,9 +48,10 @@ export function saveOperatorsToSession(selectedOperatorsArray, sideKey) {
 };
 
 /**
- * セッションから選択済みオペレータを取得
- * @param {String} sideKey 
- * @returns {Array}
+ * セッションから選択済みのオペレータ名を取得
+ * 要素が5つに満たないときは不足分を'blank'で埋めて返す
+ * @param {'ATK' | 'DEF'} sideKey 
+ * @returns {string[]} オペレータ名または'blank'が5つ格納された配列
  */
 export function getOperatorsFromSession(sideKey) {
   const convertedArray = window.sessionStorage.getItem(`selectedOperator${sideKey}s`);
@@ -66,13 +67,12 @@ export function getOperatorsFromSession(sideKey) {
 }
 
 /**
- * 選択済みのオペレータを全クリアする。
+ * セッションから選択済みのオペレータを全クリアする。
  */
-
 export function clearSelectedOperators() {
-  Object.keys(selectedOperators).forEach(sideKey => {
-  window.sessionStorage.removeItem(`selectedOperator${sideKey}s`);
-});
+  Object.keys(SELECTED_OPERATORS).forEach(sideKey => {
+    window.sessionStorage.removeItem(`selectedOperator${sideKey}s`);
+  });
 };
 
 /*****キャッシュ*****/

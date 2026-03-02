@@ -1,10 +1,10 @@
 import { 
-  floorNamesForDisplay
+  FLOOR_NAMES_FOR_DISPLAY
  } from "../data/map_pool.js"
 
 import {
-  operatorPool,
-  selectedOperators,
+  OPERATOR_POOL,
+  SELECTED_OPERATORS,
  } from "../data/operator_pool.js";
  
 import {
@@ -139,7 +139,7 @@ export function displayExistedFloors({map}) {
  */
 export function displayCurrentFloorName({floor}) {
   const mapStatusText = document.getElementById(ELEMENT_IDS.legend.mapStatus.floorName);
-  mapStatusText.textContent = floorNamesForDisplay[floor];
+  mapStatusText.textContent = FLOOR_NAMES_FOR_DISPLAY[floor];
 }
 
 /*****draw*****/
@@ -228,8 +228,8 @@ export function changeSelectedOperatorsIcon(sideKey, emptyArrayNumber) {
   const selectedOperatorIcons = getSelectedOperatorIcons(sideKey);
   const selectedOperatorIcon = selectedOperatorIcons[emptyArrayNumber];
   const selectedOperatorContainer = selectedOperatorIcon.parentNode;
-  const operatorName = selectedOperators[sideKey][emptyArrayNumber].name;
-  const newOperatorIconSrc = operatorPool[sideKey][operatorName].icon;
+  const operatorName = SELECTED_OPERATORS[sideKey][emptyArrayNumber].name;
+  const newOperatorIconSrc = OPERATOR_POOL[sideKey][operatorName].icon;
   const newOperatorIconAlt = `operator_${operatorName}`;
   
   selectedOperatorIcon.setAttribute('src', newOperatorIconSrc);
@@ -260,10 +260,10 @@ export function renumberBadges(sideKey, selectedOperator, index) {
 export function updateSelectedOperatorIcons(sideKey) {
   const selectedOperatorIcons = getSelectedOperatorIcons(sideKey);
 
-  for(let i = 0; i < selectedOperators[sideKey].length; i++) {
-    const operatorName = selectedOperators[sideKey][i].name;
+  for(let i = 0; i < SELECTED_OPERATORS[sideKey].length; i++) {
+    const operatorName = SELECTED_OPERATORS[sideKey][i].name;
     const selectedOperatorContainer = selectedOperatorIcons[i].parentNode;
-    const newOperatorIconSrc = operatorPool[sideKey][operatorName].icon;
+    const newOperatorIconSrc = OPERATOR_POOL[sideKey][operatorName].icon;
     const newOperatorIconAlt = `operator_${operatorName}`;
 
     selectedOperatorIcons[i].setAttribute('src', newOperatorIconSrc);
@@ -271,10 +271,10 @@ export function updateSelectedOperatorIcons(sideKey) {
     selectedOperatorContainer.classList.add(ACTIVE_CLASSNAMES.operatorFilled);
   }
 
-  for(let i = selectedOperators[sideKey].length; i < selectedOperatorIcons.length; i++) {
+  for(let i = SELECTED_OPERATORS[sideKey].length; i < selectedOperatorIcons.length; i++) {
     const selectedOperatorContainer = selectedOperatorIcons[i].parentNode;
     const hasClass = selectedOperatorContainer.classList.contains(ACTIVE_CLASSNAMES.operatorFilled);
-    const blankIconSrc = operatorPool[sideKey].blank.icon;
+    const blankIconSrc = OPERATOR_POOL[sideKey].blank.icon;
     const blankIconAlt = 'operator_blank';
 
     selectedOperatorIcons[i].setAttribute('src', blankIconSrc);
@@ -418,8 +418,8 @@ export function applySelectedOperatorIcon(icon, operatorData) {
  * @param {String} sideKey 
  */
 export function updateSeleceteOperatorIconsToSelection(sideKey) {
-  for(let i = 0; i < selectedOperators[sideKey].length; i++) {
-    const operatorData = selectedOperators[sideKey][i];
+  for(let i = 0; i < SELECTED_OPERATORS[sideKey].length; i++) {
+    const operatorData = SELECTED_OPERATORS[sideKey][i];
     const containerId = ELEMENT_IDS.operatorSelection.selected[sideKey] + `${i + 1}`;
     const operatorDOMData = getOperatorDOM(containerId);
     applySelectedOperatorIcon(operatorDOMData.icon, operatorData);
@@ -517,7 +517,7 @@ export function applyPlayerNameToLegend(playerNameData) {
   const displayName = playerContainer. querySelector(SELECTOR_DATA.legend.playerName);
 
   displayName.textContent = playerNameData.name;
-  selectedOperators[sideKey][selectedOperatorNumber].playerName = playerNameData.name;
+  SELECTED_OPERATORS[sideKey][selectedOperatorNumber].playerName = playerNameData.name;
 };
 
 /**
@@ -545,7 +545,7 @@ export function applyPlayerNameToSetting(playerData) {
   const displayName = playerContainer.querySelector(SELECTOR_DATA.operatorSetting.playerName);
 
   displayName.textContent = playerData.name;
-  selectedOperators[sideKey][selectedOperatorNumber].playerName = playerData.name;
+  SELECTED_OPERATORS[sideKey][selectedOperatorNumber].playerName = playerData.name;
 };
 
 

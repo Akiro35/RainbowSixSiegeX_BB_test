@@ -1,4 +1,4 @@
-import { selectedOperators } from "../data/operator_pool.js";
+import { SELECTED_OPERATORS, SELECTED_OPERATORS, } from "../data/operator_pool.js";
 
 import { 
   clearSelectedMap,
@@ -40,7 +40,7 @@ function initReselectMap () {
 };
 
 function initSelectOperatorModal() {
-  Object.keys(selectedOperators).forEach(sideKey => {
+  Object.keys(SELECTED_OPERATORS).forEach(sideKey => {
     const modalId = `js-selectOperator${sideKey}`;
 
     initOpenModal(modalId);
@@ -49,31 +49,31 @@ function initSelectOperatorModal() {
 };
 
 function initSelectOperators() {
-  Object.keys(selectedOperators).forEach(sideKey => {
+  Object.keys(SELECTED_OPERATORS).forEach(sideKey => {
     OPERATOR_ICON_CONTAINERS[sideKey].forEach(operatorIconContainer => {
       operatorIconContainer.addEventListener('click', (e) => {
-        if(selectedOperators[sideKey].length > 5) return;
+        if(SELECTED_OPERATORS[sideKey].length > 5) return;
 
         const clickedIcon = e.target;
         const operatorData = getSelectedOperatorData(clickedIcon);
-        const selectedOperatorArrayNumber = selectedOperators[sideKey].findIndex((selectedOperator) => {
+        const selectedOperatorArrayNumber = SELECTED_OPERATORS[sideKey].findIndex((selectedOperator) => {
           return selectedOperator.name === operatorData.name;
         });
 
         if(selectedOperatorArrayNumber >= 0 ) {
           removeBadge(operatorData.container);
-          delete selectedOperators[sideKey][selectedOperatorArrayNumber];
-          selectedOperators[sideKey] = getCompactArray(selectedOperators[sideKey]);
-          selectedOperators[sideKey].forEach((selectedOperator, index) => {
+          delete SELECTED_OPERATORS[sideKey][selectedOperatorArrayNumber];
+          SELECTED_OPERATORS[sideKey] = getCompactArray(SELECTED_OPERATORS[sideKey]);
+          SELECTED_OPERATORS[sideKey].forEach((selectedOperator, index) => {
             renumberBadges(sideKey, selectedOperator, index);
           });
           updateSelectedOperatorIcons(sideKey);
           return;
         }
 
-        if(selectedOperators[sideKey].length < 5) {
-          const emptyArrayNumber = getEmptyArrayNumber(selectedOperators, sideKey);
-          selectedOperators[sideKey].push(operatorData);
+        if(SELECTED_OPERATORS[sideKey].length < 5) {
+          const emptyArrayNumber = getEmptyArrayNumber(SELECTED_OPERATORS, sideKey);
+          SELECTED_OPERATORS[sideKey].push(operatorData);
           
           insertBadge(sideKey, operatorData.container, emptyArrayNumber);
           changeSelectedOperatorsIcon(sideKey, emptyArrayNumber);
@@ -91,9 +91,8 @@ function initOperatorSelection () {
   const startButton = document.querySelector('button#js-startBriefing');
   
   startButton.addEventListener('click', () => {
-    Object.keys(selectedOperators).forEach(sideKey => {
-      console.log(selectedOperators[sideKey]);
-      saveOperatorsToSession(selectedOperators[sideKey], sideKey);
+    Object.keys(SELECTED_OPERATORS).forEach(sideKey => {
+      saveOperatorsToSession(SELECTED_OPERATORS[sideKey], sideKey);
     });
     window.location.href = 'page-board.html';
   });

@@ -1,5 +1,5 @@
 import {
-  selectedOperators,
+  SELECTED_OPERATORS,
 } from "../data/operator_pool.js";
 
 import {
@@ -26,8 +26,8 @@ import {
   getPointerLocalPositions,
   viewportToLogical,
   logicalToViewport,
-  checkLineColliding,
-  checkRectColliding,
+  isLineColliding,
+  isRectColliding,
 } from "../logic/calculator.js";
 
 import {
@@ -195,15 +195,15 @@ export function resetToolSelections() {
 
 /*****legend*****/
 export function refreshSelectedOperatorsUI() {
-  Object.keys(selectedOperators).forEach(sideKey => {
+  Object.keys(SELECTED_OPERATORS).forEach(sideKey => {
     applySelectedOperatorToLegend(sideKey);
     applySelectedOperatorToSetting(sideKey);
   });
 }
 
 export function applySelectedOperatorToLegend(sideKey) {
-  for(let i = 0; i < selectedOperators[sideKey].length; i++) {
-    const operatorData = selectedOperators[sideKey][i];
+  for(let i = 0; i < SELECTED_OPERATORS[sideKey].length; i++) {
+    const operatorData = SELECTED_OPERATORS[sideKey][i];
     const containerId = ELEMENT_IDS.legend.operatorContainer[sideKey] + `${i + 1}`;
     const operatorDOMData = getOperatorDOM(containerId);
     
@@ -214,8 +214,8 @@ export function applySelectedOperatorToLegend(sideKey) {
 };
 
 export function applySelectedOperatorToSetting(sideKey) {
-  for(let i = 0; i < selectedOperators[sideKey].length; i++) {
-    const operatorData = selectedOperators[sideKey][i];
+  for(let i = 0; i < SELECTED_OPERATORS[sideKey].length; i++) {
+    const operatorData = SELECTED_OPERATORS[sideKey][i];
     const settingId = ELEMENT_IDS.operatorSetting.operatorContainer[sideKey] + `${i + 1}`;
     //const legendId  = ELEMENT_IDS.legend.operatorContainer[sideKey] + `${i + 1}`;
     const operatorDOMData = getOperatorDOM(settingId);
@@ -228,7 +228,7 @@ export function applySelectedOperatorToSetting(sideKey) {
 };
 
 export function initSelectGadget(sideKey) {
-  for(let i = 0; i < selectedOperators[sideKey].length; i++) {
+  for(let i = 0; i < SELECTED_OPERATORS[sideKey].length; i++) {
     const settingId = ELEMENT_IDS.operatorSetting.operatorContainer[sideKey] + `${i + 1}`;
     const legendId  = ELEMENT_IDS.legend.operatorContainer[sideKey] + `${i + 1}`;
     const operatorDOMData = getOperatorDOM(settingId);
@@ -237,7 +237,7 @@ export function initSelectGadget(sideKey) {
     operatorDOMData.gadgets.forEach(gadget => {
       gadget.addEventListener('click', (e) => {
         const clickedGadget = e.target;
-        const operatorData = selectedOperators[sideKey][i];
+        const operatorData = SELECTED_OPERATORS[sideKey][i];
         handleGadgetButtonInSettingClick(operatorData, DOMGadgets, clickedGadget);
         applySelectedOperatorGadgetsToLegend(operatorData, legendId);
       })
@@ -517,7 +517,7 @@ export function eraseLine(e, CANVAS_DATA) {
       const logicalPoint1 = drawnLine.points[i - 1];
       const logicalPoint2 = drawnLine.points[i];
 
-      const isLineColliding = checkLineColliding(logicalPoint1, logicalPoint2, eraserCenter, eraserRadius);
+      const isLineColliding = isLineColliding(logicalPoint1, logicalPoint2, eraserCenter, eraserRadius);
 
       if(isLineColliding) {
         if(currentSegment.length > 0) {
@@ -568,14 +568,14 @@ export function isCanvasRectColliding(e, CANVAS_DATA) {
   const stampSizePx = window.innerWidth * STAMP_STATE.size / 100;
   const halfStampSize = stampSizePx / 2;
   const adjustment = halfStampSize * -1;
-  const isColliding = checkRectColliding(e, container, adjustment);
+  const isColliding = isRectColliding(e, container, adjustment);
 
   return isColliding;
 }
 
 export function isDeleteRectColliding(e) {
   const deleteContainer = document.getElementById(ELEMENT_IDS.deleteStamp);
-  const isColliding = checkRectColliding(e, deleteContainer);
+  const isColliding = isRectColliding(e, deleteContainer);
 
   return isColliding;
 }
@@ -675,15 +675,15 @@ export function clearSelectedGadgetsToSetting(sideKey, index) {
  * @param {String} sideKey 
  */
 export function buildSelectedOperatorToSelection(sideKey) {
-  for(let i = 0; i < selectedOperators[sideKey].length; i++) {
-    const operatorData = selectedOperators[sideKey][i];
+  for(let i = 0; i < SELECTED_OPERATORS[sideKey].length; i++) {
+    const operatorData = SELECTED_OPERATORS[sideKey][i];
     const containerId = ELEMENT_IDS.operatorSelection.selected[sideKey] + `${i + 1}`;
     const operatorDOMData = getOperatorDOM(containerId);
 
     applySelectedOperatorIcon(operatorDOMData.icon, operatorData);
 
     operatorDOMData.icon.addEventListener('click', () => {
-      const operatorName = selectedOperators[sideKey][i].operatorName;
+      const operatorName = SELECTED_OPERATORS[sideKey][i].operatorName;
       handleSelectedOperatorRemove(sideKey, operatorName);
       clearSelectedGadgetsToSetting(sideKey, i);
       refreshSelectedOperatorsUI();
@@ -700,7 +700,7 @@ export function buildReselectOperatorToSelection(sideKey) {
     const operatorIcon = operatorIconContainer.lastElementChild;
     const iconData = getSelectedOperatorData(operatorIcon);
     
-    const selectedOperatorIndex = selectedOperators[sideKey].findIndex(operator => operator.operatorName === iconData.name);
+    const selectedOperatorIndex = SELECTED_OPERATORS[sideKey].findIndex(operator => operator.operatorName === iconData.name);
     if(selectedOperatorIndex !== -1) {
       insertBadge(sideKey, operatorIconContainer, selectedOperatorIndex);
     }
@@ -708,7 +708,7 @@ export function buildReselectOperatorToSelection(sideKey) {
     operatorIconContainer.addEventListener('click', (e) => {
       const isSelected = operatorIconContainer.firstElementChild.classList.contains('selected');
       const clickedIcon = e.currentTarget.lastElementChild;
-      const index = selectedOperators[sideKey].findIndex(operator => operator.operatorName === clickedIcon.dataset.operatorSelection);
+      const index = SELECTED_OPERATORS[sideKey].findIndex(operator => operator.operatorName === clickedIcon.dataset.operatorSelection);
       if(isSelected) {
         //console.log('remove');
         const operatorName = operatorIconContainer.lastElementChild.dataset.operatorSelection;
