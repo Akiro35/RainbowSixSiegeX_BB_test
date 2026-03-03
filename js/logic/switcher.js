@@ -77,8 +77,12 @@ export function resetActivePointer(e) {
 }
 
 /*****setting*****/
-export function changeMapImageType( {selectedData} , selectedMapImageType) {
+export function changeMapImageType({selectedData}, selectedMapImageType) {
   selectedData.mapType = selectedMapImageType;
+}
+
+export function changeStampSize(STAMP_STATE, stampSize) {
+  STAMP_STATE.size = stampSize;
 }
 
 /*****tools*****/

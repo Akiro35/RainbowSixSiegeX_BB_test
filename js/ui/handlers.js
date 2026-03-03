@@ -26,6 +26,7 @@ import {
   DRAW_STATE,
   TOUCH_STATE,
   changeMapImageType,
+  changeStampSize,
 } from "../logic/switcher.js";
 
 import {
@@ -180,6 +181,14 @@ export function handleMapImageSettingChange(e) {
   const newMapData = getMapDataFromPool(CANVAS_DATA.selectedData.map.mapName);
   CANVAS_DATA.selectedData.map = newMapData;
   loadMapImage(CANVAS_DATA);
+  updateStaticCanvasCache(CANVAS_DATA);
+  updateCanvas(CANVAS_DATA);
+}
+
+export function handleStampSizeSettingChange(e) {
+  const stampSize = e.target.value;
+
+  changeStampSize(STAMP_STATE, stampSize);
   updateStaticCanvasCache(CANVAS_DATA);
   updateCanvas(CANVAS_DATA);
 }

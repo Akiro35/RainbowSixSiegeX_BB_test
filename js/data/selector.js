@@ -141,7 +141,8 @@ export const BUTTON_IDS = {
 }
 
 export const FORM_ID = {
-  mapImageSetting: 'js-mapImageSetting',
+  mapImage: 'js-mapImageSetting',
+  stampSise: 'js-stampSizeSetting',
 }
 
 /****className*****/
