@@ -516,9 +516,9 @@ export function eraseLine(e, CANVAS_DATA) {
       const logicalPoint1 = drawnLine.points[i - 1];
       const logicalPoint2 = drawnLine.points[i];
 
-      const isLineColliding = isLineColliding(logicalPoint1, logicalPoint2, eraserCenter, eraserRadius);
+      const isColliding = isLineColliding(logicalPoint1, logicalPoint2, eraserCenter, eraserRadius);
 
-      if(isLineColliding) {
+      if(isColliding) {
         if(currentSegment.length > 0) {
           const lineData = {
             color: drawnLine.color,
