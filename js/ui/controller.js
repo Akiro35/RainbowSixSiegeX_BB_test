@@ -251,13 +251,14 @@ export function initSelectGadget(sideKey) {
 export function resetLegendOperatorActivations(targetId = null) {
   const operatorButtons = document.querySelectorAll(SELECTOR_CLASSNAMES.operatorButton);
   const operatorContainers = Array.from(operatorButtons).map(operatorButton => operatorButton.parentElement);
-  const operatorClassNameToActivate = ACTIVE_CLASSNAMES.operator;
   const operatorItems = Array.from(document.querySelectorAll(SELECTOR_DATA.legend.item));
-  const itemClassNameToActivate = ACTIVE_CLASSNAMES.item;
+  const itemCloses = Array.from(document.querySelectorAll(SELECTOR_DATA.legend.close));
 
   clearOperatorButtonStateInLegend(targetId);
-  applyElementsDeactivation(operatorContainers,operatorClassNameToActivate);
-  applyElementsDeactivation(operatorItems, itemClassNameToActivate)
+  console.log(OPERATOR_STATE);
+  applyElementsDeactivation(operatorContainers, ACTIVE_CLASSNAMES.operator);
+  applyElementsDeactivation(operatorItems, ACTIVE_CLASSNAMES.item);
+  applyElementsDeactivation(itemCloses, ACTIVE_CLASSNAMES.close);
 }
 
 /**

@@ -195,10 +195,7 @@ export function clearOperatorButtonStateInLegend(targetId = null) {
 
   TOOL_STATE.activeToolId = null;
   OPERATOR_STATE.isOperatorActive = false;
-
-  if(!targetId === OPERATOR_STATE.activeOperatorId) {
-    OPERATOR_STATE.isItemsOpen = false;
-  }
+  OPERATOR_STATE.isItemsOpen = false;
 
   if(isDrawTool) {
     OPERATOR_STATE.activeOperatorId = null;

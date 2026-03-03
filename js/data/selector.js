@@ -161,6 +161,7 @@ export const SELECTOR_CLASSNAMES = {
   operatorButton: '.js-canvas__btn--operator',
   playerColor:    '.js-playerColor',
   playerName:     '.playerName',
+  itemClose:      '.js-item--close',
   stamp:          '.js-stamp',
   map:            '.js-mapSetting__map',
   floor:          '.js-floorSetting__floorList--floor',
@@ -191,6 +192,7 @@ export const ACTIVE_CLASSNAMES = {
   operators:   'p-canvas__legend--active',
   operator:    'p-canvas__operator--active', //memo: legend
   item:        'items--active',              //memo: legend
+  close:       'close--active',
   gear:        'p-canvas__gears--active',    //memo: legend
   deleteStamp: 'p-canvas__stampDelete--active',
   gadget:      'c-modal__selectedGadget',    //memo: operatorSetting
@@ -225,6 +227,7 @@ export const SELECTOR_DATA = {
     gadgetContainer: '[data-legend="gadget-container"]',
     gadget:          '[data-legend="gadget"]',
     item:            '[data-legend="item"]',
+    close:           '[data-legend="close"]',
   },
   canvas: {
     tempStamp: '[data-stamp="stamp--temp"]'

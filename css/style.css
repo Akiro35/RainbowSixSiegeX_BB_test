@@ -2061,6 +2061,9 @@ z-index memo
   border-top-width: 8px;
   margin-bottom: 0.5rem;
 }
+.p-canvas__operator--active:has(.close--active) {
+  margin-bottom: 0;
+}
 .p-canvas__operator--items {
   margin-bottom: 2px;
   display: none;
@@ -2092,6 +2095,14 @@ z-index memo
 }
 .p-canvas__operator .items--active {
   display: flex;
+}
+.p-canvas__operator .close {
+  margin-top: 0.4rem;
+  padding: 0;
+  display: none;
+}
+.p-canvas__operator .close--active {
+  display: block;
 }
 .p-canvas__gears {
   padding: 1dvw;
