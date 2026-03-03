@@ -157,12 +157,6 @@
   &__history {
     display: flex;
     gap: 1svw;
-    /*
-    position: absolute;
-    top: 1rem;
-    left: calc(50% - (10dvh + 0.5svw));
-    z-index: 256;
-    */
   }
 
   &__mapStatus {
@@ -375,6 +369,60 @@
 
     &--active {
       display: grid;
+    }
+  }
+
+  @include responsive(pc) {
+    &__btn {
+      &--zooms {
+        button {
+          img {
+            width: 3dvw;
+          }
+        }
+      }
+
+      &--historys {
+        button {
+          img {
+            width: 3dvw
+          }
+        }
+      }
+    }
+
+    &__mapStatus {
+      min-width: 15dvw;
+    }
+
+    &__legend {
+      img {
+        width: 3dvw;
+      }
+
+      &--gadget {
+        button {
+          img {
+            min-width: 3dvw;
+          }
+        }
+      }
+    }
+
+    &__operator {
+      &--items {
+        .playerName {
+          width: 3dvw;
+          max-height: 2rem;
+        }
+      }
+    }
+
+    &__gears {
+      grid-template-columns: repeat(2, 3dvw);
+      grid-template-rows: repeat(2, 3dvw);
+      top: calc(9.5vw * -1);
+      left: calc(50% - 9vw / 2);
     }
   }
 }

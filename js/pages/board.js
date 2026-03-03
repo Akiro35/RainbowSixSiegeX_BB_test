@@ -103,6 +103,7 @@ import {
   handleReturnClick,
   handleHowToUseButtonClick,
   handleMapImageSettingChange,
+  handleStampSizeSettingChange,
 } from "../ui/handlers.js";
 
 import {
@@ -197,9 +198,14 @@ function initSetting() {
   initClosePreModal(modalId, modalIdToClose, classNameToActivateForClosing);
   initCloseModal(modalId);
 
-  const mapImageSetting = document.getElementById(FORM_ID.mapImageSetting);
+  const mapImageSetting = document.getElementById(FORM_ID.mapImage);
   mapImageSetting.addEventListener('change', (e) => {
     handleMapImageSettingChange(e);
+  })
+
+  const stampSetting = document.getElementById(FORM_ID.stampSise);
+  stampSetting.addEventListener('change', (e) => {
+    handleStampSizeSettingChange(e);
   })
 };
 

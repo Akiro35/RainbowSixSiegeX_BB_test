@@ -60,16 +60,19 @@
   }
 
   &__setting {
-    width: 30dvw;
-    height: 30dvh;
-    padding: 2dvh 5dvw;
+    width: 50dvw;
+    height: 70dvh;
+    padding: 5dvh 5dvw;
     background-color: var(--background--dark);
     display: flex;
-    align-items: center;
     position: fixed;
-    top: calc(50% - 15dvh);
-    left: calc(50% - 15dvw);
+    top: calc(50% - 35dvh);
+    left: calc(50% - 25dvw);
     z-index: 600;
+
+    form {
+      margin: 0.5rem 0;
+    }
 
     h1 {
       color: var(--white);
@@ -85,6 +88,16 @@
 
     input {
       margin: 0 1dvw;
+    }
+
+    select {
+      margin: 0 2dvw;
+    }
+
+    &--contents {
+      display: flex;
+      flex-direction: column;
+      
     }
   }
 

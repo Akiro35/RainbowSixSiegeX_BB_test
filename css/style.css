@@ -425,7 +425,7 @@ dialog::backdrop {
     grid-template-columns: 1fr 7fr 1fr;
     justify-items: center;
     align-items: center;
-    gap: 3vw;
+    gap: 3dvw;
     -webkit-user-select: none;
     -moz-user-select: none;
          user-select: none;
@@ -454,6 +454,17 @@ dialog::backdrop {
     box-sizing: content-box;
     border: 0.5rem solid var(--white);
     position: relative;
+  }
+}
+@media (width >= 1000px) {
+  .l-board {
+    grid-template-columns: 1fr 9fr 1fr;
+  }
+  .l-board__sidebar--left {
+    padding-left: 2dvw;
+  }
+  .l-board__sidebar--right {
+    padding-right: 2dvw;
   }
 }
 
@@ -1072,16 +1083,18 @@ z-index memo
   word-break: keep-all;
 }
 .c-modal__setting {
-  width: 30dvw;
-  height: 30dvh;
-  padding: 2dvh 5dvw;
+  width: 50dvw;
+  height: 70dvh;
+  padding: 5dvh 5dvw;
   background-color: var(--background--dark);
   display: flex;
-  align-items: center;
   position: fixed;
-  top: calc(50% - 15dvh);
-  left: calc(50% - 15dvw);
+  top: calc(50% - 35dvh);
+  left: calc(50% - 25dvw);
   z-index: 600;
+}
+.c-modal__setting form {
+  margin: 0.5rem 0;
 }
 .c-modal__setting h1 {
   color: var(--white);
@@ -1095,6 +1108,13 @@ z-index memo
 }
 .c-modal__setting input {
   margin: 0 1dvw;
+}
+.c-modal__setting select {
+  margin: 0 2dvw;
+}
+.c-modal__setting--contents {
+  display: flex;
+  flex-direction: column;
 }
 .c-modal__penSetting {
   padding: 4dvh 8dvw;
@@ -1913,12 +1933,6 @@ z-index memo
 .p-canvas__history {
   display: flex;
   gap: 1svw;
-  /*
-  position: absolute;
-  top: 1rem;
-  left: calc(50% - (10dvh + 0.5svw));
-  z-index: 256;
-  */
 }
 .p-canvas__mapStatus {
   min-width: 20vw;
@@ -2097,6 +2111,33 @@ z-index memo
 }
 .p-canvas__gears--active {
   display: grid;
+}
+@media (width >= 1000px) {
+  .p-canvas__btn--zooms button img {
+    width: 3dvw;
+  }
+  .p-canvas__btn--historys button img {
+    width: 3dvw;
+  }
+  .p-canvas__mapStatus {
+    min-width: 15dvw;
+  }
+  .p-canvas__legend img {
+    width: 3dvw;
+  }
+  .p-canvas__legend--gadget button img {
+    min-width: 3dvw;
+  }
+  .p-canvas__operator--items .playerName {
+    width: 3dvw;
+    max-height: 2rem;
+  }
+  .p-canvas__gears {
+    grid-template-columns: repeat(2, 3dvw);
+    grid-template-rows: repeat(2, 3dvw);
+    top: -9.5vw;
+    left: calc(50% - 4.5vw);
+  }
 }
 
 .p-howToUse {
@@ -2300,4 +2341,8 @@ z-index memo
 
 .u-layout--mb5vw {
   margin-bottom: 5vw;
+}
+.u-layout--directionRow {
+  display: flex;
+  flex-direction: row;
 }/*# sourceMappingURL=style.css.map */
