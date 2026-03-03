@@ -309,6 +309,10 @@
     &--active {
       border-top-width: 8px;
       margin-bottom: 0.5rem;
+
+      &:has(.close--active) {
+        margin-bottom: 0;
+      }
     }
 
     &--items {
@@ -347,6 +351,16 @@
     
     .items--active {
       display: flex;
+    }
+
+    .close {
+      margin-top: 0.4rem;
+      padding: 0;
+      display: none;
+
+      &--active {
+        display: block;
+      }
     }
   }
 

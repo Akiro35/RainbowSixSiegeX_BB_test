@@ -416,6 +416,7 @@ export const handleOperatorButtonInLegendClick = (button) => {
   const operatorContainer = button.parentElement;
   const operatorId = operatorContainer.dataset.legend;
   const item = operatorContainer.querySelector(SELECTOR_DATA.legend.item);
+  const close = operatorContainer.querySelector(SELECTOR_DATA.legend.close);
   const playerColor = getComputedStyle(operatorContainer).borderTopColor;
   
   resetLegendOperatorActivations(operatorId);
@@ -431,6 +432,7 @@ export const handleOperatorButtonInLegendClick = (button) => {
 
   if(OPERATOR_STATE.isItemsOpen) {
     applyElementActivation(item, ACTIVE_CLASSNAMES.item);
+    applyElementActivation(close, ACTIVE_CLASSNAMES.close);
   } else {
     //applyElementDeactivation(item, itemClassNameToActivate);
   }
@@ -465,6 +467,17 @@ export function handleApplyPlayerNameToSetting(e) {
   applyPlayerNameToSetting(playerNameData);
 }
 
+export function handleItemCloseClick(button) {
+  const operatorContainer = button.parentElement;
+  const operatorId = operatorContainer.dataset.legend;
+  const item = operatorContainer.querySelector(SELECTOR_DATA.legend.item);
+  const close = operatorContainer.querySelector(SELECTOR_DATA.legend.close);
+
+  toggleOperatorButtonStateInLegend(operatorId);
+  applyElementDeactivation(item, ACTIVE_CLASSNAMES.item);
+  applyElementDeactivation(close, ACTIVE_CLASSNAMES.close);
+  returnMode();
+}
 
 /*****gear*****/
 /**

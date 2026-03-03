@@ -104,6 +104,7 @@ import {
   handleHowToUseButtonClick,
   handleMapImageSettingChange,
   handleStampSizeSettingChange,
+  handleItemCloseClick,
 } from "../ui/handlers.js";
 
 import {
@@ -465,13 +466,15 @@ function setupLegend() {
   const gearButton = document.getElementById(BUTTON_IDS.gear);
   const playerColorButtons = document.querySelectorAll(SELECTOR_CLASSNAMES.playerColor);
   const nameForms = document.querySelectorAll(SELECTOR_CLASSNAMES.playerName);
+  const closeButtons = document.querySelectorAll(SELECTOR_CLASSNAMES.itemClose);
+  console.log(closeButtons);
 
   legendButton.addEventListener('click', (e) => {
     handleLegendButtonClick(legendContents);
   });
 
   gearButton.addEventListener('click', (e) => {
-    e.stopPropagation()
+    e.stopPropagation();
     handleGearButtonClick();
   });
 
@@ -480,9 +483,16 @@ function setupLegend() {
       e.stopPropagation();
       handleOperatorButtonInLegendClick(button);
     })
+  });
+
+  closeButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.stopPropagation();
+      handleItemCloseClick(button);
+    })
   })
 
-  //TODO: settingのreturnボタン作る。
+
   playerColorButtons.forEach(button => {
     button.addEventListener('input', (e) => {
       const playerColor = e.target.value;
