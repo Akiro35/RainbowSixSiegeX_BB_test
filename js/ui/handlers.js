@@ -359,6 +359,8 @@ export function handleCanvasPointerDown(e, TOOL_STATE, TOUCH_STATE, CANVAS_DATA)
 export function handleCanvasPointerUp(e, TOOL_STATE, CANVAS_DATA, DRAW_STATE) {
   const {selectedData, drawnContents} = CANVAS_DATA;
   const isPenMode = TOOL_STATE.activeToolId === TOOL_IDS.pen;
+  const isEraserMode = TOOL_STATE.activeToolId === TOOL_IDS.eraser;
+
   if(isPenMode) {
     finishLineDraw(CANVAS_DATA, DRAW_STATE);
     
@@ -369,6 +371,10 @@ export function handleCanvasPointerUp(e, TOOL_STATE, CANVAS_DATA, DRAW_STATE) {
     } else {
       saveHistory(CANVAS_DATA);
     }
+  }
+
+  if(isEraserMode) {
+    saveHistory(CANVAS_DATA);
   }
 
   TOUCH_STATE.press = false;
