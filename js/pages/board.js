@@ -137,6 +137,7 @@ function setupDefaultBehaviors() {
     resizeCanvas(CANVAS_DATA);
     updateStaticCanvasCache(CANVAS_DATA);
     updateCanvas(CANVAS_DATA);
+    initHowToUsePositions();
   })
 }
 

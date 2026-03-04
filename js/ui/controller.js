@@ -294,6 +294,8 @@ export function updateStaticCanvasCache(CANVAS_DATA) {
 
   applyScaleRatio(CANVAS_DATA);
 
+  if(drawnContents.lines[selectedData.floor]) return;
+
   drawnContents.lines[selectedData.floor].forEach(line => {
     cache.ctx.beginPath();
     cache.ctx.lineCap = 'round';
@@ -314,6 +316,9 @@ export function updateStaticCanvasCache(CANVAS_DATA) {
       cache.ctx.stroke();
     }
   });
+
+
+  if(drawnContents.stamps[selectedData.floor]) return;
 
   drawnContents.stamps[selectedData.floor].forEach(stamp => {
     if(stamp.points) {

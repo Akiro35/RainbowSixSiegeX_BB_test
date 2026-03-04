@@ -21,7 +21,8 @@ export function saveMapToSession(mapName) {
  * @returns {{mapName: string}} - マップ情報
 */ 
 export function getMapFromSession() {
-  const mapName = window.sessionStorage.getItem('SELECTED_MAP_NAME');
+  const mapName = window.sessionStorage.getItem('SELECTED_MAP_NAME') ? 
+  window.sessionStorage.getItem('SELECTED_MAP_NAME') : 'bank';
 
   return mapName;
 }
@@ -55,8 +56,10 @@ export function saveOperatorsToSession(selectedOperatorsArray, sideKey) {
  */
 export function getOperatorsFromSession(sideKey) {
   const convertedArray = window.sessionStorage.getItem(`selectedOperator${sideKey}s`);
-  const operators = JSON.parse(convertedArray);
-  let operatorCounter = operators.length;
+  const operators = JSON.parse(convertedArray) ? JSON.parse(convertedArray) : [];
+  const operatorsLength = operators ? operators.length : 0;
+
+  let operatorCounter = operatorsLength;
 
   while(operatorCounter < 5) {
     operators.push('blank');

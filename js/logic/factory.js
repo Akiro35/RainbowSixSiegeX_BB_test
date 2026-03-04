@@ -58,7 +58,7 @@ export function getMapDataFromPool(mapName) {
   const map = {
     blueprint: {}
   };
-
+ 
   const mapType = CANVAS_DATA.selectedData.mapType;
 
   map.mapName               = mapName;
