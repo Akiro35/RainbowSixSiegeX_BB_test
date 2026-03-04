@@ -1,6 +1,7 @@
 import { initMapImageSize } from "../logic/calculator.js";
 import { getMapDataFromPool } from "../logic/factory.js";
 import { saveHistory, updateCanvas, updateStaticCanvasCache } from "./controller.js";
+import { initCanvasContext } from "./domExtractor.js";
 
 /**
  * フロアごとのデータコンテナ
