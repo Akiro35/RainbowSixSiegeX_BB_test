@@ -4,6 +4,7 @@ import {
   SELECTOR_DATA,
   MODAL_IDS,
 } from "../data/selector.js";
+import { CANVAS_DATA } from "./canvasManager.js";
 
 /**選択するオペレータアイコン配列を格納したオブジェクト
  * @type {{ATK: [HTMLElement], DEF: [HTMLElement]}}
@@ -226,3 +227,17 @@ export function identifyStampContainer(e) {
     return modal;
   }
 };
+
+
+export function initCanvasContext() {
+  const container = document.getElementById(ELEMENT_IDS.canvas.container);
+  const mainCanvas = document.getElementById(ELEMENT_IDS.canvas.canvas);
+
+  CANVAS_DATA.context.container = container;
+  CANVAS_DATA.context.main.el = mainCanvas;
+  CANVAS_DATA.context.main.ctx = mainCanvas.getContext('2d');
+
+  const staticCanvas = document.createElement('canvas');
+  CANVAS_DATA.context.cache.el = staticCanvas,
+  CANVAS_DATA.context.cache.ctx = staticCanvas.getContext('2d');
+}
