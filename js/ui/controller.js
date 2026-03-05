@@ -602,6 +602,8 @@ export function returnMode() {
     const playerNumber = OPERATOR_STATE.activeOperatorId.slice(3);
     const playerContainer = document.getElementById(ELEMENT_IDS.legend.operatorContainer[sideKey] + playerNumber);
     applyElementActivation(playerContainer, ACTIVE_CLASSNAMES.operator)
+  } else if(TOOL_STATE.lastToolId === "eraser"){
+    applyElementActivation(eraser, ACTIVE_CLASSNAMES.tool);
   }
 }
 
