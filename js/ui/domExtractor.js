@@ -89,6 +89,20 @@ export function getModalElements(modalId) {
 };
 
 /**
+ * 別の展開ボタンから指定のモーダルを呼び出す。
+ * @param {string} modalId - モーダル読み込むためのID
+ * @param {string} openId - モーダルを開くためのボタンID
+ * @returns {{modal: HTMLElement, open: HTMLElement, close: HTMLElement}}
+ */
+export function externalMoladElementsByOpenId(modalId, openId) {
+  const modal = document.getElementById(`${modalId}`);
+  const open = document.getElementById(`${openId}`);
+  const close = document.getElementById(`${modalId}--close`);
+
+  return{modal, open, close};
+}
+
+/**
  * howToUseで現在開いているページ番号を返す
  * @returns {Number}
  */

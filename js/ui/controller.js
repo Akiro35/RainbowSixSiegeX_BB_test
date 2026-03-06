@@ -49,6 +49,7 @@ import {
 
 import {
   OPERATOR_ICON_CONTAINERS,
+  externalMoladElementsByOpenId,
   getButtonElementsById,
   getModalElements,
   getOperatorDOM,
@@ -95,12 +96,19 @@ export function disableDoubleTouch(e) {
 
 /*****modal*****/
 
-export function initOpenModal(modalId, classNameToActivate = null) {
-  const modalElements = getModalElements(modalId);
+export function initOpenModal({modalId, classNameToActivate = null, otherOpenId = null}) {
+  const modalElements1 = getModalElements(modalId);
+  const modalElements2 = otherOpenId ? externalMoladElementsByOpenId(modalId, otherOpenId) : undefined;
 
-  if(modalElements.open) {
-    modalElements.open.addEventListener('click', () => {
-      showModal(modalElements.modal, classNameToActivate);
+  if(modalElements1.open) {
+    modalElements1.open.addEventListener('click', () => {
+      showModal(modalElements1.modal, classNameToActivate);
+    });
+  }
+
+  if(modalElements2) {
+    modalElements2.open.addEventListener('click', () => {
+      showModal(modalElements2.modal, classNameToActivate);
     });
   }
 };

@@ -183,7 +183,10 @@ function initMenu() {
   const modalId = MODAL_IDS.menu;
   const classNameToActivate = ACTIVE_CLASSNAMES.menu;
 
-  initOpenModal(modalId, classNameToActivate);
+  initOpenModal({
+    modalId: modalId,
+    classNameToActivate: classNameToActivate
+  });
   initCloseModal(modalId, classNameToActivate);
 };
 
@@ -193,10 +196,14 @@ function initMenu() {
  */
 function initSetting() {
   const modalId = MODAL_IDS.setting;
+  const otherOpenId = BUTTON_IDS.setting;
   const modalIdToClose = MODAL_IDS.menu;
   const classNameToActivateForClosing = ACTIVE_CLASSNAMES.menu;
 
-  initOpenModal (modalId);
+  initOpenModal ({
+    modalId: modalId,
+    otherOpenId: otherOpenId,
+  });
   initClosePreModal(modalId, modalIdToClose, classNameToActivateForClosing);
   initCloseModal(modalId);
 
@@ -220,7 +227,10 @@ function setupHowToUse() {
   const modalIdToClose = MODAL_IDS.menu;
   const classNameToActivateForClosing = ACTIVE_CLASSNAMES.menu;
 
-  initOpenModal (modalId, classNameToActivate);
+  initOpenModal ({
+    modalId: modalId,
+    classNameToActivate: classNameToActivate
+  });
   initClosePreModal(modalId, modalIdToClose, classNameToActivateForClosing);
   initCloseModal(modalId, classNameToActivate);
 
@@ -268,7 +278,7 @@ function initWhatsSite() {
     hideModal(modalElements.modal);
   })
 
-  initOpenModal(modalId);
+  initOpenModal({modalId: modalId});
   initCloseModal(modalId);
 };
 
@@ -503,7 +513,7 @@ function setupLegend() {
 function initOperatorSetting () {
   const modalId = MODAL_IDS.operatorSetting;
 
-  initOpenModal(modalId);
+  initOpenModal({modalId: modalId});
   initCloseModal(modalId);
 };
 
@@ -511,7 +521,7 @@ function initOperatorSetting () {
 function initOperatorSelections() {
   Object.keys(SELECTED_OPERATORS).forEach(sideKey => {
     const modalId = MODAL_IDS.operatorSelection[sideKey];
-    initOpenModal(modalId);
+    initOpenModal({modalId: modalId});
     initCloseModal(modalId);
 
     buildSelectedOperatorToSelection(sideKey); //HACK: ここ汚いので、余裕があれば整理。
@@ -526,7 +536,7 @@ function initOperatorSelections() {
 
 function initStampCollection() {
   const modalId = MODAL_IDS.stampCollection;
-  initOpenModal(modalId);
+  initOpenModal({modalId: modalId});
   initCloseModal(modalId);
 }
 
@@ -545,7 +555,7 @@ function initStampBehavior() {
 
 function initMapSelection() {
   const modalId = MODAL_IDS.mapSetting;
-  initOpenModal(modalId);
+  initOpenModal({modalId: modalId});
   initCloseModal(modalId);
 
   const maps = document.querySelectorAll(SELECTOR_CLASSNAMES.map);
@@ -558,7 +568,7 @@ function initMapSelection() {
 
 function initFloorSetting() {
   const modalId = MODAL_IDS.floorSetting;
-  initOpenModal(modalId);
+  initOpenModal({modalId: modalId});
   initCloseModal(modalId);
 
   const floorContainers = document.querySelectorAll(SELECTOR_CLASSNAMES.floor);
