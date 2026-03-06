@@ -138,6 +138,7 @@ export const BUTTON_IDS = {
     cancel: 'js-confirm__button--cancel',
     ok: 'js-confirm__button--ok',
   },
+  setting: 'js-setting--open',
 }
 
 export const FORM_ID = {
