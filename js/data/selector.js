@@ -101,6 +101,7 @@ export const MODAL_IDS = {
   stampCollection: 'js-stampCollection',
   mapSetting:      'js-mapSetting',
   floorSetting:    'js-floorSetting',
+  file:            'js-file',
   confirm:         'js-confirm',
 }
 
@@ -139,6 +140,11 @@ export const BUTTON_IDS = {
     ok: 'js-confirm__button--ok',
   },
   setting: 'js-setting--open',
+  file: {
+    program: 'js-file__button--program',
+    image: 'js-file__button--image',
+    import: 'js-file__button--import',
+  }
 }
 
 export const FORM_ID = {
@@ -197,6 +203,7 @@ export const ACTIVE_CLASSNAMES = {
   gear:        'p-canvas__gears--active',    //memo: legend
   deleteStamp: 'p-canvas__stampDelete--active',
   gadget:      'c-modal__selectedGadget',    //memo: operatorSetting
+  file:        'c-modal__file--areaActive', //memo: fileManager
 };
 
 /*****data*****/

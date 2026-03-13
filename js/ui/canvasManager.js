@@ -1,6 +1,8 @@
 import { initMapImageSize } from "../logic/calculator.js";
 import { getMapDataFromPool } from "../logic/factory.js";
-import { saveHistory, updateCanvas, updateStaticCanvasCache } from "./controller.js";
+import { saveMapToSession } from "../logic/storage.js";
+import { resetAllDrawnContents, saveHistory, updateCanvas, updateStaticCanvasCache } from "./controller.js";
+import { applySelectedMap, displayCurrentFloorName, displayCurrentMapName, displayExistedFloors } from "./domApplier.js";
 import { initCanvasContext } from "./domExtractor.js";
 
 /**
@@ -155,13 +157,13 @@ export function loadMapImage(CANVAS_DATA) {
   const {selectedData, context} = CANVAS_DATA;
   const mapData = selectedData.map ? selectedData.map.blueprint[selectedData.floor] : ''; 
   if(!mapData) return; //memo:URLがない場合は処理しない
+  context.mapImage.crossOrigin = "anonymous";
   context.mapImage.src = mapData;
 
   context.mapImage.onload = () => {
     initMapImageSize(CANVAS_DATA);
     updateStaticCanvasCache(CANVAS_DATA);
     updateCanvas(CANVAS_DATA);
-    saveHistory(CANVAS_DATA);
   };
 }
 
@@ -176,4 +178,42 @@ export function rewriteMapData({selectedData}, mapName) {
 export function rewriteFloorData({selectedData}, floorName = 'floor1st') {
   selectedData.floor = floorName;
   window.sessionStorage.setItem('SELECTED_FLOOR', floorName);
+}
+
+/*****import*****/
+export function applyImportedData(data, CANVAS_DATA) {
+  if(!data) return;
+
+  const {selectedData, drawnContents} = CANVAS_DATA;
+  
+  if(data.map.mapName !== selectedData.map.mapName) {
+    resetAllDrawnContents(CANVAS_DATA);
+  }
+
+  if(data.floor !== undefined) {
+    const targetFloor = data.floor;
+    CANVAS_DATA.drawnContents.lines[targetFloor] = data.contents.lines;
+    CANVAS_DATA.drawnContents.stamps[targetFloor] = data.contents.stamps;
+    selectedData.map = data.map;
+    selectedData.floor = data.floor;
+    rewriteMapData(CANVAS_DATA, selectedData.map.mapName);
+    rewriteFloorData(CANVAS_DATA, selectedData.floor);
+    displayCurrentMapName(selectedData.map.mapName);
+    displayCurrentFloorName(selectedData);
+    displayExistedFloors(selectedData);
+    loadMapImage(CANVAS_DATA);
+  } else {
+    CANVAS_DATA.drawnContents = data.contents;
+    selectedData.map = data.map;
+    selectedData.floor = data.floor;
+    rewriteMapData(CANVAS_DATA, selectedData.map.mapName);
+    rewriteFloorData(CANVAS_DATA);
+    displayCurrentMapName(selectedData.map.mapName);
+    displayCurrentFloorName(CANVAS_DATA.selectedData);
+    displayExistedFloors(selectedData);
+    loadMapImage(CANVAS_DATA);
+  }
+
+  updateStaticCanvasCache(CANVAS_DATA);
+  updateCanvas(CANVAS_DATA);
 }

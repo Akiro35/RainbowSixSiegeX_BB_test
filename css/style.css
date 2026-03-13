@@ -448,6 +448,12 @@ dialog::backdrop {
     align-items: start;
     position: relative;
   }
+  .l-board__sidebar--row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5dvw;
+  }
   .l-board__main {
     width: 100%;
     height: 90dvh;
@@ -1046,7 +1052,10 @@ z-index memo
   z-index: 601;
 }
 .c-modal__confirm {
-  width: 50dvw;
+  padding: 0 2dvw;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 50dvw;
   height: 20dvw;
   background-color: var(--background--dark);
   border: 2px solid var(--white);
@@ -1693,6 +1702,77 @@ z-index memo
 .c-modal__floorSetting .c-modal__floorList button p {
   padding: 2vh 2vw;
 }
+.c-modal__file {
+  width: 80dvw;
+  height: 90dvh;
+  padding: 5dvh 5dvw;
+  background-color: var(--background--dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4dvh;
+  position: fixed;
+  top: calc(50% - 45dvh);
+  left: calc(50% - 40dvw);
+  z-index: 600;
+}
+.c-modal__file--content {
+  display: flex;
+  flex-direction: column;
+  gap: 2dvh;
+}
+.c-modal__file h1 {
+  color: var(--white);
+  font-size: clamp(1.2em, 2vw, 1.8em);
+  font-family: var(--font--ja);
+}
+.c-modal__file--explanation {
+  margin-left: 2dvw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1dvw;
+}
+.c-modal__file--explanation p {
+  color: var(--white);
+  font-size: clamp(0.6em, 1.4vw, 1.5em);
+  font-family: var(--font--ja);
+}
+.c-modal__file--buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 3dvw;
+}
+.c-modal__file--button {
+  width: 10dvw;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  border: 2px solid var(--white);
+  border-top-left-radius: 14vw 2vw;
+  border-top-right-radius: 4vw 20vw;
+  border-bottom-right-radius: 24vw 3vw;
+  border-bottom-left-radius: 8vw 4vw;
+}
+.c-modal__file--button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.c-modal__file--button img {
+  width: 3dvw;
+}
+.c-modal__file--button p {
+  margin: 0;
+  font-size: clamp(1em, 1.2vw, 1.5em);
+  font-family: var(--font--ja);
+}
+.c-modal__file--area {
+  width: 60%;
+  min-width: none;
+  border-style: dashed;
+}
+.c-modal__file--areaActive {
+  background: rgba(255, 255, 255, 0.2);
+}
 
 .p-landscape {
   height: 50vh;
@@ -1737,6 +1817,9 @@ z-index memo
   justify-content: center;
   align-items: center;
 }
+.l-board__sidebar--row .p-board__tools {
+  aspect-ratio: 1/1;
+}
 .p-board__tools--left {
   margin-left: 1vw;
   gap: 3vh;
@@ -1767,6 +1850,11 @@ z-index memo
   -o-object-fit: contain;
      object-fit: contain;
   pointer-events: none;
+}
+.p-board__tools .image--row {
+  width: 2.5dvw;
+  max-width: 5dvh;
+  aspect-ratio: 1/1;
 }
 .p-board__tool {
   display: flex;

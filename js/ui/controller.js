@@ -9,6 +9,7 @@ import {
   BUTTON_IDS,
   SELECTOR_CLASSNAMES,
   HOW_TO_USE_EXPLANATION,
+  MODAL_IDS,
  } from "../data/selector.js";
 
 import {
@@ -31,8 +32,10 @@ import {
 } from "../logic/calculator.js";
 
 import {
+  createExportJSONData,
   createStamp,
-  createStampData
+  createStampData,
+  generateFileName
 } from "../logic/factory.js";
 
 import {
@@ -72,6 +75,7 @@ import {
   toggleHistoryButtonActive,
   setExplanationPosition,
   setHowToUseRectPosition,
+  applyConfirmDialogMessage,
 } from "./domApplier.js";
 
 import { 
@@ -81,6 +85,7 @@ import {
 } from "./handlers.js";
 
 import {
+  applyImportedData,
   CANVAS_DATA
 } from "./canvasManager.js";
 
@@ -133,6 +138,33 @@ export function initClosePreModal(modalId, modalIdToClose, classNameToActivate =
     });
   }
 };
+
+/*****confirm*****/
+export function showConfirmDialog(textJa, textEn) {
+  const modal = document.getElementById(MODAL_IDS.confirm);
+  const cancelButton = document.getElementById(BUTTON_IDS.confirm.cancel);
+  const okButton = document.getElementById(BUTTON_IDS.confirm.ok);
+
+  applyConfirmDialogMessage(textJa, textEn)
+  showModal(modal);
+
+  return new Promise((resolve) => {
+    const newCancelButton = cancelButton.cloneNode(true);
+    const newOkButton = okButton.cloneNode(true);
+    cancelButton.parentNode.replaceChild(newCancelButton, cancelButton);
+    okButton.parentNode.replaceChild(newOkButton, okButton);
+
+    newCancelButton.addEventListener('click', () => {
+      hideModal(modal);
+      resolve(false);
+    });
+
+    newOkButton.addEventListener('click', () => {
+      hideModal(modal);
+      resolve(true);
+    });
+  });
+}
 
 /*****howToUse*****/
 export function initHowToUsePositions() {
@@ -474,6 +506,47 @@ export function moveCanvasImage(e, TOUCH_STATE, CANVAS_DATA) {
 }
 
 /*****canvasDraw*****/
+export function resetAllDrawnContents(CANVAS_DATA) {
+  CANVAS_DATA.drawnContents = {
+    lines: {
+      basement2nd: [],
+      basement: [],
+      floor1st: [],
+      floor2nd: [],
+      floor3rd: [],
+      roof: [],
+    },
+
+    stamps: {
+      basement2nd: [],
+      basement: [],
+      floor1st: [],
+      floor2nd: [],
+      floor3rd: [],
+      roof: [],
+    },
+  }
+}
+
+export function clearDrawnContents(CANVAS_DATA, clearId) {
+  const {selectedData, drawnContents} = CANVAS_DATA;
+  const isLine = clearId === 'lineClear';
+  const isStamp = clearId === 'stampClear';
+  const isAll = clearId === 'allClear';
+  
+  if(isLine) {
+    drawnContents.lines[selectedData.floor] = [];
+  } else if(isStamp) {
+    drawnContents.stamps[selectedData.floor] = [];
+  } else if(isAll) {
+    drawnContents.lines[selectedData.floor] = [];
+    drawnContents.stamps[selectedData.floor] = [];
+  }
+
+  updateStaticCanvasCache(CANVAS_DATA);
+  updateCanvas(CANVAS_DATA);
+}
+
 export function startLineDraw(e) {
   const points = getPointerLocalPositions(e);
   const logicalPoints = viewportToLogical(points.vX, points.vY);
@@ -729,4 +802,191 @@ export function buildReselectOperatorToSelection(sideKey) {
       }
     })
   })
+}
+
+
+/*****JSON*****/
+/*****export*****/
+export async function executeFileSave(blob, fileName, fileTypeDesc, mimeType) {
+  if('showSaveFilePicker' in window && window.isSecureContext) {
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: fileName,
+        types: [{
+          description: fileTypeDesc,
+          accept: { [mimeType]: [`.${fileName.split('.').pop()}`]}
+        }],    
+      });
+      const writable = await handle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+      return true;
+    } catch (error) {
+      if(error.name === 'AbortError') return false;
+      console.warn('Modern save failed, falling back...', error);
+    }
+  }
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => {
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, 100);
+  return true;
+}
+
+export async function saveTacticsJSON(CANVAS_DATA) {
+  const {selectedData} = CANVAS_DATA;
+  const jsonString = createExportJSONData(CANVAS_DATA, "json");
+  const fileName = generateFileName(
+    selectedData.map.mapName || "memo",
+    selectedData.floor ||"",
+    "json"
+  );
+
+  const blob = new Blob([jsonString], { type: "application/json" });
+  
+  return await executeFileSave(blob, fileName, 'JSON Files', 'application/json');
+}
+
+export async function saveTaciticsImageWithMetadata(CANVAS_DATA) {
+  const {selectedData, context} = CANVAS_DATA;
+  const jsonString = createExportJSONData(CANVAS_DATA, "image");
+  const fileName = generateFileName(
+    selectedData.map.mapName || "memo",
+    selectedData.floor || "",
+    "png"
+  );
+
+  try {
+    const imageBlob = await new Promise(resolve => context.main.el.toBlob(resolve, 'image/png'));
+    if(!imageBlob) throw new Error("Canvas blob creation failed");
+
+    const encoder = new TextEncoder();
+    const jsonUnit8 = encoder.encode(jsonString);
+    const identifier = "--R6SX-DATA-START--";
+
+    const conbinedBlob = new Blob([imageBlob, identifier, jsonUnit8], {type: 'image/png'});
+
+    return await executeFileSave(conbinedBlob, fileName, 'PNG Image', 'image/png');  
+  } catch (error) {
+    console.error('Image Export Error:', error);
+    alert('画像の書き出しに失敗しました。');
+    return false;
+  }
+}
+
+/*****import*****/
+export async function importJSONData(file) {
+  const textJa = '読み込んだマップの全フロアに描画を上書きしますか。';
+  const textEn = 'Overwrite all floors with the loaded map drawing?';
+
+  const isConfirmed = await showConfirmDialog(textJa, textEn);
+
+  if(!isConfirmed) return;
+
+  const data = await parseTacticsFile(file);
+  applyImportedData(data, CANVAS_DATA);
+
+  const modalElements = getModalElements(MODAL_IDS.file);
+  hideModal(modalElements.modal);
+}
+
+export async function importPNGData(file) {
+  const textJa = '読み込んだマップの該当するフロアに描画を上書きしますか。';
+  const textEn = 'Overwrite the relevant floors with the loaded map drawing?';
+
+  const isConfirmed = await showConfirmDialog(textJa, textEn);
+
+  if(!isConfirmed) return;
+
+  const data = await parseTacticsFile(file);
+  applyImportedData(data, CANVAS_DATA);
+
+  const modalElements = getModalElements(MODAL_IDS.file);
+  hideModal(modalElements.modal);
+}
+
+export async function pickTacticsFile() {
+  if('showOpenFilePicker' in window && window.isSecureContext) {
+    try {
+      const [handle] = await window.showOpenFilePicker({
+        types: [{ 
+          description: 'Tactics Files (JSON/PNG)',
+          accept: {
+            'application/json': ['.json'],
+            'image/png': ['.png']
+          }
+        }],
+        multiple: false,
+      });
+      return await handle.getFile();
+    } catch (error) {
+      if (error.name === 'AbortError') return null;
+      throw error;
+    }
+  }
+
+  return new Promise((resolve) => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json,application/json,.png,image/png';
+    input.onchange = () => resolve(input.files[0]);
+    input.click();
+  });
+}
+
+export async function extractMetadataFromImage(file) {
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const decoder = new TextDecoder();
+    const content = decoder.decode(arrayBuffer);
+
+    const identifier = "--R6SX-DATA-START--";
+    const index = content.lastIndexOf(identifier);
+
+    if(index === -1) {
+      throw new Error('この画像には作戦データが含まれていません。');
+    }
+
+    const jsonString = content.slice(index + identifier.length);
+    return JSON.parse(jsonString);
+  } catch (error) {
+    throw new Error('画像の解析に失敗しました: ' + error.message);
+  }
+}
+
+export async function parseTacticsFile(file) {
+  if(!file) return null;
+
+  const isJSON = file.type === "application/json" || file.name.endsWith('.json');
+  const isPNG = file.type === "image/png" || file.name.endsWith('.png');
+
+  try {
+    let data;
+
+    if(isJSON) {
+      const text = await file.text();
+      data = JSON.parse(text);
+    } else if(isPNG) {
+      data = await extractMetadataFromImage(file);
+    } else {
+      alert("JSONまたはPNGファイルを選択してください。");
+      return null;
+    }
+
+    if(data.appName !== "R6SX-Briefing-Board") {
+      throw new Error('このアプリのデータではありません。');
+    }
+
+    return data;
+  } catch (error) {
+    alert('読み込みエラー:' + error.message);
+    return null;
+  }
 }
