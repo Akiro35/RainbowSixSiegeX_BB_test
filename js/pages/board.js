@@ -72,6 +72,7 @@ import {
   resetLegendOperatorActivations,
   initHowToUsePositions,
   switchInformation,
+  saveHistory,
 } from "../ui/controller.js";
 
 import {
@@ -95,8 +96,8 @@ import {
   handleMapClick,
   handleFloorClick,
   handleLineClearClick,
-  handleCancelClick,
-  handleOkClick,
+  //handleCancelClick,
+  //handleOkClick,
   handleStampClearClick,
   handleAllClearClick,
   handleHistoryButton,
@@ -106,6 +107,10 @@ import {
   handleMapImageSettingChange,
   handleStampSizeSettingChange,
   handleItemCloseClick,
+  handleProgramButtonClick,
+  handleImageButtonClick,
+  handleImportClick,
+  setupDragAndDrop,
 } from "../ui/handlers.js";
 
 import {
@@ -351,46 +356,24 @@ function initToolSettings() {
   const lineClearButton = document.getElementById(ELEMENT_IDS.tool.clear.line);
   lineClearButton.addEventListener('click', () => {
     const clearId = lineClearButton.dataset.draw;
-    handleLineClearClick();
-    initConfirmDialogButton(clearId, CANVAS_DATA);
+    handleLineClearClick(CANVAS_DATA, clearId);
   });
-
+  
   const stampClearButton = document.getElementById(ELEMENT_IDS.tool.clear.stamp);
   stampClearButton.addEventListener('click', () => {
     const clearId = stampClearButton.dataset.draw;
-    handleStampClearClick();
-    initConfirmDialogButton(clearId, CANVAS_DATA);
+    handleStampClearClick(CANVAS_DATA, clearId);
   });
   
   const allClearButton = document.getElementById(ELEMENT_IDS.tool.clear.all);
   allClearButton.addEventListener('click', () => {
     const clearId = allClearButton.dataset.draw;
-    handleAllClearClick();
-    initConfirmDialogButton(clearId, CANVAS_DATA);
-  });
-
-}
-
-function initConfirmDialogButton(clearId, CANVAS_DATA) {
-  const cancelButton = document.getElementById(BUTTON_IDS.confirm.cancel);
-  const newCancelButton = cancelButton.cloneNode(true);
-  const okButton = document.getElementById(BUTTON_IDS.confirm.ok);
-  const newOkButton = okButton.cloneNode(true);
-
-  cancelButton.parentNode.replaceChild(newCancelButton, cancelButton);
-  okButton.parentNode.replaceChild(newOkButton, okButton);
-
-  newCancelButton.addEventListener('click', () => {
-    handleCancelClick()
-  });
-
-  newOkButton.addEventListener('click', () => {
-    handleOkClick(clearId, CANVAS_DATA)
+    handleAllClearClick(CANVAS_DATA, clearId);
   });
 }
+
 
 /*****canvas*****/
-
 
 function buildCanvas() {
   const {context} = CANVAS_DATA;
@@ -398,6 +381,7 @@ function buildCanvas() {
   initCanvasContext();
   resizeCanvas(CANVAS_DATA);
   loadMapImage(CANVAS_DATA);
+  saveHistory(CANVAS_DATA);
 
   const zoomButtons = getButtonElementsById(BUTTON_IDS.zoom);
 
@@ -579,6 +563,28 @@ function initFloorSetting() {
   })
 }
 
+function initFileManager() {
+  const modalId = MODAL_IDS.file;
+  initOpenModal({modalId: modalId});
+  initCloseModal(modalId);
+
+  const programButton = document.getElementById(BUTTON_IDS.file.program);
+  programButton.addEventListener('click', () => {
+    handleProgramButtonClick(CANVAS_DATA);
+  });
+
+  const imageButton = document.getElementById(BUTTON_IDS.file.image);
+  imageButton.addEventListener('click', () => {
+    handleImageButtonClick(CANVAS_DATA);
+  })
+
+  const importButton = document.getElementById(BUTTON_IDS.file.import);
+  importButton.addEventListener('click', () => {
+    handleImportClick(CANVAS_DATA);
+  });
+
+  setupDragAndDrop(importButton, CANVAS_DATA);
+}
 
 
 function initModals() {
@@ -594,6 +600,7 @@ function initModals() {
   //memo: マップ
   initMapSelection();
   initFloorSetting();
+  initFileManager();
 };
 
 setupDefaultBehaviors();

@@ -90,6 +90,7 @@ export function getCachedImage(src, callback) {
   }
 
   const img = new Image();
+  img.crossOrigin = "anonymous";
 
   img.onload = () => {
     if(callback) callback();

@@ -1470,9 +1470,12 @@
           </div>
         </div>
       </dialog> <!--dialog-->
-      <div>
+      <div class="l-board__sidebar--row">
+        <button class="p-board__tools p-board__tools--rigth" id="js-file--open">
+          <img src="image/materials/file.svg" alt="file" class="image--row">
+        </button>
         <button class="p-board__tools p-board__tools--rigth" id="js-setting--open">
-          <img src="image/materials/setting.svg" alt="setting">
+          <img src="image/materials/setting.svg" alt="setting" class="image--row">
         </button>
       </div>
     </div>
@@ -1508,7 +1511,49 @@
         </div>
       </div>
     </dialog> <!--dialogSetting-->
-    <dialog class="c-modal" id="js-confirm">
+    <dialog class="c-modal" id="js-file"> <!--dialogDownload-->
+      <div class="c-modal__file">
+        <button class="c-modal__close--white" id="js-file--close">
+          <img src="image/materials/menu__close--white.svg">
+        </button>
+        <div class="c-modal__file--content">
+          <h1>書き出し(保存)</h1>
+          <div class="c-modal__file--explanation">
+            <p>編集用データ</p>
+            <p>続きから描画したいときに。また、軽量で共有したいときに。(.json)</p>
+          </div>
+          <div class="c-modal__file--explanation">
+            <p>画像ファイル</p>
+            <p>画像として共有したいときに。このアプリで再度読み込むこともできます(.jpg)</p>
+          </div>
+          <div class="c-modal__file--buttons">
+            <button class="c-modal__file--button" id="js-file__button--program">
+              <img src="image/materials/program.svg" alt="download data">
+              <p>編集用データ</p>
+            </button>
+            <button class="c-modal__file--button" id="js-file__button--image">
+              <img src="image/materials/image.svg" alt="download image">
+              <p>画像ファイル</p>
+            </button>
+          </div>
+        </div>
+        <div class="c-modal__file--content">
+          <h1>読み込み(再開)</h1>
+          <div class="c-modal__file--explanation">
+            <p>ダウンロードしたデータをアップロードすることで再描画できます。<br>
+            jsonはマップ全体、pngは該当のフロアのみに適用されます。</p>
+          </div>
+          <div class="c-modal__file--buttons">
+            <button class="c-modal__file--button c-modal__file--area" id="js-file__button--import">
+              <img src="image/materials/upload.svg" alt="upload">
+              <p>編集再開</p>
+              <p>クリックして保存したファイルを選択か、ここにドラッグ。</p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </dialog> <!--dialogDownload-->
+    <dialog class="c-modal" id="js-confirm"> <!--dialogConfirm-->
       <div class="c-modal__confirm">
         <p class="c-text--jaToEn" id="js-confirm__message--ja">お試しテキスト</p>
         <p class="u-font--en" id="js-confirm__message--en">english</p>
@@ -1517,7 +1562,7 @@
           <button class="u-font--en c-button" id="js-confirm__button--ok" data-confirm="ok">OK</button>
         </div>
       </div>
-    </dialog>
+    </dialog> <!--dialogConfirm-->
     <div class="c-modal p-howToUse" id="js-howToUse">
       <button class="c-modal__close--white p-howToUse__close" id="js-howToUse--close">
         <img src="image/materials/menu__close--white.svg">

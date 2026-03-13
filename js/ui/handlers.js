@@ -106,9 +106,19 @@ import {
   shiftHowToUsePage,
   switchInformation,
   initHowToUsePositions,
+  saveTacticsJSON,
+  saveTaciticsImageWithMetadata,
+  parseTacticsFile,
+  pickTacticsFile,
+  resetAllDrawnContents,
+  showConfirmDialog,
+  clearDrawnContents,
+  importJSONData,
+  importPNGData,
 } from "./controller.js";
 
 import {
+  applyImportedData,
   CANVAS_DATA,
   loadMapImage,
   rewriteFloorData,
@@ -213,57 +223,55 @@ export function handleToolClick(toolId, elements) {
   changeCursorOnCanvas(toolId)
 };
 
-export function handleLineClearClick() {
-  const modal = document.getElementById(MODAL_IDS.confirm);
+export async function handleLineClearClick(CANVAS_DATA, clearId) {
   const textJa = '描画した線をすべて削除しますか？';
   const textEn = 'Are you sure you want to delete all lines?';
 
   applyConfirmDialogMessage(textJa, textEn);
-  showModal(modal);
+
+  const isConfirmed = await showConfirmDialog();
+
+  if(!isConfirmed) return;
+
+  clearDrawnContents(CANVAS_DATA, clearId);
+
+  const eraserSetting = document.getElementById(BUTTON_IDS.toolSetting.eraser);
+  hideModal(eraserSetting, ACTIVE_CLASSNAMES.tool);
 }
 
-export function handleStampClearClick() {
-  const modal = document.getElementById(MODAL_IDS.confirm);
+export async function handleStampClearClick(CANVAS_DATA, clearId) {
   const textJa = '描画したスタンプをすべて削除しますか？';
   const textEn = 'Are you sure you want to delete all stamps?';
 
   applyConfirmDialogMessage(textJa, textEn);
-  showModal(modal);
+
+  const isConfirmed = await showConfirmDialog();
+
+  if(!isConfirmed) return;
+
+  clearDrawnContents(CANVAS_DATA, clearId);
+
+  const eraserSetting = document.getElementById(BUTTON_IDS.toolSetting.eraser);
+  hideModal(eraserSetting, ACTIVE_CLASSNAMES.tool);
 }
 
-export function handleAllClearClick() {
-  const modal = document.getElementById(MODAL_IDS.confirm);
+export async function handleAllClearClick(CANVAS_DATA, clearId) {
   const textJa = 'すべての描画(線とスタンプ)を消去しますか？';
   const textEn = 'Are you sure you want to clear everything?';
 
   applyConfirmDialogMessage(textJa, textEn);
-  showModal(modal);
-}
 
-export function handleCancelClick() {
-  const modal = document.getElementById(MODAL_IDS.confirm);
-  hideModal(modal);
-}
+  const isConfirmed = await showConfirmDialog();
 
-export function handleOkClick(clearId, CANVAS_DATA) {
-  const {selectedData, drawnContents} = CANVAS_DATA;
-  const confirmModal = document.getElementById(MODAL_IDS.confirm);
+  if(!isConfirmed) return;
+
+  clearDrawnContents(CANVAS_DATA, clearId);
+
   const eraserSetting = document.getElementById(BUTTON_IDS.toolSetting.eraser);
-  hideModal(confirmModal);
   hideModal(eraserSetting, ACTIVE_CLASSNAMES.tool);
-
-  if(clearId === 'lineClear') {
-    drawnContents.lines[selectedData.floor] = [];
-  } else if (clearId === 'stampClear') {
-    drawnContents.stamps[selectedData.floor] = [];
-  } else if(clearId === 'allClear') {
-    drawnContents.lines[selectedData.floor] = [];
-    drawnContents.stamps[selectedData.floor] = [];
-  }
-
-  updateStaticCanvasCache(CANVAS_DATA);
-  updateCanvas(CANVAS_DATA);
 }
+
+
 /****LegendInLeftBar*****/
 /**
  * ボールド設定ボタンのハンドル。選択したボールド設定をアクティブ化。
@@ -685,7 +693,7 @@ export function handleMapClick(e, CANVAS_DATA) {
   rewriteFloorData(CANVAS_DATA);
   displayCurrentMapName(mapName);
   loadMapImage(CANVAS_DATA);
-  //CanvasのAllclear
+  resetAllDrawnContents(CANVAS_DATA);
   updateStaticCanvasCache(CANVAS_DATA);
   updateCanvas(CANVAS_DATA);
 
@@ -708,3 +716,81 @@ export function handleFloorClick(e, CANVAS_DATA) {
   const modalElements = getModalElements(MODAL_IDS.floorSetting);
   hideModal(modalElements.modal);
 }
+
+/*****file*****/
+
+/*****export*****/
+export async function handleProgramButtonClick(CANVAS_DATA) {
+  const isSuccess = await saveTacticsJSON(CANVAS_DATA);
+  
+  if(isSuccess) {
+    const modalElements = getModalElements(MODAL_IDS.file);
+    hideModal(modalElements.modal);
+  }
+}
+
+export async function handleImageButtonClick(CANVAS_DATA) {
+  const isSuccess  = await saveTaciticsImageWithMetadata(CANVAS_DATA);
+
+  if(isSuccess) {
+    const modalElements = getModalElements(MODAL_IDS.file);
+    hideModal(modalElements.modal);
+  }
+}
+
+/*****import*****/
+export async function handleImportClick(CANVAS_DATA) {
+  const file = await pickTacticsFile();
+
+  if(!file) return;
+
+  const isJSON = file.type === "application/json" || file.name.endsWith('.json');
+  const isPNG = file.type === "image/png" || file.name.endsWith('.png');
+  
+  if(isJSON) {
+    importJSONData(file);
+  } else if(isPNG) {
+    importPNGData(file);
+  }
+}
+
+export function setupDragAndDrop(dropZoneElement, CANVAS_DATA) {
+  const preventDefaults = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropZoneElement.addEventListener(eventName, preventDefaults, false);
+  });
+  
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropZoneElement.addEventListener(eventName, () => {
+      dropZoneElement.classList.add(ACTIVE_CLASSNAMES.file);
+    }, false);
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropZoneElement.addEventListener(eventName, () => {
+      dropZoneElement.classList.remove(ACTIVE_CLASSNAMES.file);
+    }, false);
+  });
+
+  dropZoneElement.addEventListener('drop', async (e) => {
+    const file = e.dataTransfer.files[0];
+    if(file) {
+      const isJSON = file.type === "application/json" || file.name.endsWith('.json');
+      const isPNG = file.type === "image/png" || file.name.endsWith('.png'); 
+
+      if(isJSON) {
+        importJSONData(file);
+      
+        const modalElements = getModalElements(MODAL_IDS.file);
+        hideModal(modalElements.modal);
+      } else if(isPNG) {
+        importPNGData(file);
+      }
+    }
+  });
+}
+

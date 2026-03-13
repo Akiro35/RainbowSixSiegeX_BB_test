@@ -34,6 +34,13 @@
         align-items: start;
         position: relative;
       }
+
+      &--row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 0.5dvw;
+      }
     }
 
     &__main {
