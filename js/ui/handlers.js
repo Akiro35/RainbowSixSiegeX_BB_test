@@ -784,9 +784,6 @@ export function setupDragAndDrop(dropZoneElement, CANVAS_DATA) {
 
       if(isJSON) {
         importJSONData(file);
-      
-        const modalElements = getModalElements(MODAL_IDS.file);
-        hideModal(modalElements.modal);
       } else if(isPNG) {
         importPNGData(file);
       }
