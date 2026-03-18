@@ -113,7 +113,7 @@ export const MODAL_IDS = {
 export const BUTTON_IDS = {
   whatsSiteFromMenu: 'js-menu__whatsSiteBoard--open',
   howToUse: {
-    back: 'js-howToUse--back',
+    back:    'js-howToUse--back',
     forward: 'js-howToUse--forward',
   },
   tool: {
@@ -137,18 +137,18 @@ export const BUTTON_IDS = {
   gear:   'js-gearButton',
   confirm: {
     cancel: 'js-confirm__button--cancel',
-    ok: 'js-confirm__button--ok',
+    ok:     'js-confirm__button--ok',
   },
   setting: 'js-setting--open',
   file: {
     program: 'js-file__button--program',
-    image: 'js-file__button--image',
-    import: 'js-file__button--import',
+    image:   'js-file__button--image',
+    import:  'js-file__button--import',
   }
 }
 
 export const FORM_ID = {
-  mapImage: 'js-mapImageSetting',
+  mapImage:  'js-mapImageSetting',
   stampSise: 'js-stampSizeSetting',
 }
 
@@ -167,7 +167,7 @@ export const SELECTOR_CLASSNAMES = {
   },
   operatorButton: '.js-canvas__btn--operator',
   playerColor:    '.js-playerColor',
-  playerName:     '.playerName',
+  playerName:     '.js-player-name',
   itemClose:      '.js-item--close',
   stamp:          '.js-stamp',
   map:            '.js-mapSetting__map',
@@ -180,30 +180,30 @@ export const SELECTOR_CLASSNAMES = {
  * @type {Object}
  */
 export const ACTIVE_CLASSNAMES = {
-  operatorFilled: 'c-operator__icon--filled',
-  menu:     'l-body__menu--active',       //memo: modal
+  operatorFilled: 'is-selected',
+  menu:     'is-active',                //memo: modal
   howToUse: {
-    modal: 'p-howToUse--active',         //memo: modal
-    page:  'pageContent--active',        //memo: howToUse
-    indicator: 'pageIndicator--active',  //memo: howToUse
-    button: 'nav--active',
+    modal: 'is-active',                 //memo: modal
+    page:  'is-page--active',           //memo: howToUse
+    indicator: 'is-indicator--active',  //memo: howToUse
+    button: 'is-active',
   },
-  tool:     'p-board__tools--active',     //memo: modal
-  bold: {                                 //memo: pen/eraser Setting
-    pen:    'js-penBoldSelected',
-    eraser: 'js-eraserBoldSelected'
+  tool:     'is-active',                //memo: modal
+  bold: {                               //memo: pen/eraser Setting
+    pen:    'is-pen-bold--selected',
+    eraser: 'is-eraser-bold--selected'
   },
-  opacity:     'js-opacityOpened',           //memo: draw
-  legend:      'p-board__legend--active',
-  mapStatus:   'p-canvas__mapStatus--active',
-  operators:   'p-canvas__legend--active',
-  operator:    'p-canvas__operator--active', //memo: legend
-  item:        'items--active',              //memo: legend
-  close:       'close--active',
-  gear:        'p-canvas__gears--active',    //memo: legend
-  deleteStamp: 'p-canvas__stampDelete--active',
-  gadget:      'c-modal__selectedGadget',    //memo: operatorSetting
-  file:        'c-modal__file--areaActive', //memo: fileManager
+  opacity:     'is-active',             //memo: draw
+  legend:      'is-active',
+  mapStatus:   'is-active',
+  operators:   'is-active',
+  operator:    'is-active',             //memo: legend
+  item:        'is-active',             //memo: legend
+  close:       'is-active',
+  gear:        'is-active',             //memo: legend
+  deleteStamp: 'is-active',
+  gadget:      'is-selected',           //memo: operatorSetting
+  file:        'is-active',             //memo: fileManager
 };
 
 /*****data*****/
@@ -229,7 +229,7 @@ export const SELECTOR_DATA = {
       DEF4: '[data-legend="DEF4"]',
       DEF5: '[data-legend="DEF5"]',
     },
-    playerName: '[data-legend="player-name"]',
+    playerName:      '[data-legend="player-name"]',
     icon:            '[data-legend="icon"]',
     ability:         '[data-legend="ability"]',
     gadgetContainer: '[data-legend="gadget-container"]',
@@ -259,43 +259,43 @@ export const SELECTOR_DATA = {
  */
 export const HOW_TO_USE_EXPLANATION = {
   page1: [
-    {explanation: '.p-howToUse__left--menu',    target: '#js-menu--open', 
+    {explanation: '.js-how-to-use__menu',    target: '#js-menu--open', 
       column:'right', row: 'center'},
-    {explanation: '.p-howToUse__left--move',    target: '#js-moveButton', 
+    {explanation: '.js-how-to-use__move',    target: '#js-moveButton', 
       column:'right', row: 'center'},
-    {explanation: '.p-howToUse__left--draw',    target: '#js-penSetting--open', 
+    {explanation: '.js-how-to-use__draw',    target: '#js-penSetting--open', 
       column:'right', row: 'center'},
-    {explanation: '.p-howToUse__left--erase',   target: '#js-eraserSetting--open', 
+    {explanation: '.js-how-to-use__erase',   target: '#js-eraserSetting--open', 
       column:'right', row: 'center'},
-    {explanation: '.p-howToUse__left--legend',  target: '#js-legendButton', 
+    {explanation: '.js-how-to-use__legend',  target: '#js-legendButton', 
       column:'right', row: 'center'}
   ],
   page2: [
-    {explanation: '.p-howToUse__right--operators',  target: '#js-operatorSetting--open', 
+    {explanation: '.js-how-to-use__operators',  target: '#js-operatorSetting--open', 
       column:'left', row: 'center'},
-    {explanation: '.p-howToUse__right--stamps',     target: '#js-stampCollection--open', 
+    {explanation: '.js-how-to-use__stamps',     target: '#js-stampCollection--open', 
       column:'left', row: 'center'},
-    {explanation: '.p-howToUse__right--maps',       target: '#js-mapSetting--open', 
+    {explanation: '.js-how-to-use__maps',       target: '#js-mapSetting--open', 
       column:'left', row: 'center'},
-    {explanation: '.p-howToUse__right--floors',     target: '#js-floorSetting--open', 
+    {explanation: '.js-how-to-use__floors',     target: '#js-floorSetting--open', 
       column:'left', row: 'center'}
   ],
   page3: [
-    {explanation: '.p-howToUse__canvas--history',         target: '.p-canvas__history', 
+    {explanation: '.js-how-to-use__history',          target: '.p-canvas__history', 
       column:'right', row: 'center'},
-    {explanation: '.p-howToUse__canvas--zoom',            target: '.p-canvas__btn--zooms', 
+    {explanation: '.js-how-to-use__zoom',             target: '.p-canvas__btn--zooms', 
       column:'right', row: 'center'},
-    {explanation: '.p-howToUse__canvas--operatorButton',  target: '#js-legend__operator--ATK1', 
+    {explanation: '.js-how-to-use__operator-button',  target: '#js-legend__operator--ATK1', 
       column:'right', row: 'bottom'}
   ],
   page4: [
-    {explanation: '.p-howToUse__canvas--draw',          target: '[data-legend="player-color"]', 
+    {explanation: '.js-how-to-use__player-color',     target: '[data-legend="player-color"]', 
       column:'right', row: 'center'},
-    {explanation: '.p-howToUse__canvas--name',          target: '[data-legend="player-name"]',
+    {explanation: '.js-how-to-use__player-name',      target: '[data-legend="player-name"]',
       column:'right', row: 'center'},
-    {explanation: '.p-howToUse__canvas--stamp',         target: '[data-legend="gadget-container"]', 
+    {explanation: '.js-how-to-use__operator-gadgets', target: '[data-legend="gadget-container"]', 
       column:'right', row: 'center'},
-    {explanation: '.p-howToUse__canvas--stampOperator', target: '.js-canvas__btn--operator', 
+    {explanation: '.js-how-to-use__operator-stamp',   target: '.js-canvas__btn--operator', 
       column:'right', row: 'center'}
   ]
 }

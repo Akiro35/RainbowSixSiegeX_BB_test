@@ -76,6 +76,7 @@ import {
   setExplanationPosition,
   setHowToUseRectPosition,
   applyConfirmDialogMessage,
+  changeCursorOnCanvas,
 } from "./domApplier.js";
 
 import { 
@@ -686,6 +687,8 @@ export function returnMode() {
   } else if(TOOL_STATE.lastToolId === "eraser"){
     applyElementActivation(eraser, ACTIVE_CLASSNAMES.tool);
   }
+
+  changeCursorOnCanvas(TOOL_STATE.lastToolId);
 }
 
 export function drawStamp(e) {
@@ -720,6 +723,7 @@ export function startStampRelocate(e, CANVAS_DATA) {
   deactivateGears();
   resetLegendOperatorActivations();
   activateStampRelocateState();
+  changeCursorOnCanvas('stamp');
   const deleteContainer = document.getElementById(ELEMENT_IDS.deleteStamp);
   applyElementActivation(deleteContainer, ACTIVE_CLASSNAMES.deleteStamp);
 }
@@ -784,7 +788,7 @@ export function buildReselectOperatorToSelection(sideKey) {
     }
 
     operatorIconContainer.addEventListener('click', (e) => {
-      const isSelected = operatorIconContainer.firstElementChild.classList.contains('selected');
+      const isSelected = operatorIconContainer.firstElementChild.classList.contains('is-selected');
       const clickedIcon = e.currentTarget.lastElementChild;
       const index = SELECTED_OPERATORS[sideKey].findIndex(operator => operator.operatorName === clickedIcon.dataset.operatorSelection);
       if(isSelected) {

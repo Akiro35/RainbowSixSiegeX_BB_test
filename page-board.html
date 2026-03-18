@@ -38,8 +38,8 @@
   <script type="module" src="js/pages/board.js"></script>
 </head>
 <body class="l-body base__body--canvas">
-  <div class="l-body__head--board"></div>
-  <div class="l-body__body--board p-board">
+  <div class="l-body__hero p-hero--board"></div>
+  <div class="l-body__body p-board__landscape">
     <img src="image/logo--large.svg" alt="R6SXBriefingBoard ロゴ" class="l-body__logo--board">
     <div class="p-landscape">
       <div class="p-landscape__indication">
@@ -52,11 +52,11 @@
     </div>
   </div>
   <div class="l-board">
-    <div class="l-board__sidebar l-board__sidebar--left" id="js-sidebar__left">
-      <button class="p-board__tools" id="js-menu--open">
+    <div class="l-board__sidebar l-board__dasidebar--left" id="js-sidebar__left">
+      <button class="p-board__tools p-board__tools--left" id="js-menu--open">
         <img src="image/materials/menu--open.svg" alt="menu" >
       </button>
-      <button class="p-board__tools p-board__tools--left p-board__tools--active" id="js-moveButton" data-tool="move">
+      <button class="p-board__tools p-board__tools--left is-active" id="js-moveButton" data-tool="move">
         <img src="image/materials/move.svg" alt="move">
       </button> 
       <button class="p-board__tools p-board__tools--left js-drawTools" id="js-penSetting--open" data-tool="pen">
@@ -72,37 +72,6 @@
           </div>
         </div>
       </button>
-      <dialog class="c-modal" id="js-penSetting" data-draw="pen">
-        <div class="c-modal__penSetting">
-          <button class="c-modal__close--white" id="js-penSetting--close">
-            <img src="image/materials/menu__close--white.svg">
-          </button>
-          <div class="c-modal__penSetting--bold">
-            <p>Bold</p>
-            <div class="c-modal__penBold">
-              <div class="c-modal__penBold--common js-penBold js-penBoldSelected" data-draw="bold">
-                <div class="c-modal__penBold--2px" data-bold="2"></div>
-              </div>
-              <div class="c-modal__penBold--common js-penBold" data-draw="bold">
-                <div class="c-modal__penBold--4px" data-bold="4"></div>
-              </div>
-              <div class="c-modal__penBold--common js-penBold" data-draw="bold">
-                <div class="c-modal__penBold--8px" data-bold="8"></div>
-              </div>
-            </div>
-          </div>
-          <div class="c-modal__penSetting--color" data-draw="color">
-            <p>Color</p>
-            <input type="color" id="js-penColor">
-          </div>
-          <div class="c-modal__penSetting--opacity" id="js-opacity">
-            <p>Opacity</p>
-            <div class="c-modal__opacity" id="js-opacityContainer">
-              <input type="range" id="js-opacitySlider" min="0" max="100" step="1" value="100">
-            </div>
-          </div>
-        </div>
-      </dialog>
       <button class="p-board__tools p-board__tools--left js-drawTools" id="js-eraserSetting--open" data-tool="eraser">
         <div class="p-board__tool">
           <img src="image/materials/eraser.svg" alt="eraser">
@@ -111,41 +80,11 @@
           </div>
         </div>
       </button>
-      <dialog class="c-modal" id="js-eraserSetting" data-draw="eraser">
-        <div class="c-modal__eraserSetting">
-          <button class="c-modal__close--white" id="js-eraserSetting--close">
-            <img src="image/materials/menu__close--white.svg">
-          </button>
-          <div class="c-modal__eraserSetting--bold">
-            <p>Bold</p>
-            <div class="c-modal__eraserBold">
-              <div class="c-modal__eraserBold--common js-eraserBold" data-draw="bold">
-                <div class="c-modal__eraserBold--2px" data-bold="2"></div>
-              </div>
-              <div class="c-modal__eraserBold--common js-eraserBold" data-draw="bold">
-                <div class="c-modal__eraserBold--4px" data-bold="4"></div>
-              </div>
-              <div class="c-modal__eraserBold--common js-eraserBold js-eraserBoldSelected" data-draw="bold">
-                <div class="c-modal__eraserBold--8px" data-bold="8"></div>
-              </div>
-            </div>
-          </div>
-          <div class="c-modal__eraserSetting--lineDelete" id="js-lineClear" data-draw="lineClear">
-            <p>Line clear</p>
-          </div>
-          <div class="c-modal__eraserSetting--stampDelete" id="js-stampClear" data-draw="stampClear">
-            <p>Stamp clear</p>
-          </div>
-          <div class="c-modal__eraserSetting--allClear" id="js-allClear" data-draw="allClear">
-            <p>All clear</p>
-          </div>
-        </div>
-      </dialog>
-      <button class="p-board__tools p-board__tools--left p-board__legend--active" id="js-legendButton">
+      <button class="p-board__tools p-board__tools--left is-active" id="js-legendButton">
         <p>legend<br><span class="c-text--jaToEn">凡例</span></p>
       </button>
     </div>
-    <nav class="l-body__menu" id="js-menu">
+    <nav class="l-body__menu" id="js-menu"> <!--menu-->
       <button class="c-modal__close--white" id="js-menu--close">
         <img src="image/materials/menu__close--white.svg">
       </button>
@@ -160,9 +99,9 @@
         <p>How to use</p>
       </button>
       <button class="c-button c-button__whatsSite--boardMenu" id="js-menu__whatsSiteBoard--open">
-        <p>当サイトについて</p>
+        <p><span class="u-font--en">BriefingBase</span>について</p>
       </button>
-    </nav>
+    </nav> <!--menu-->
     <div class="l-board__main">
       <div class="p-canvas__canvas" id="js-canvasContainer">
         <canvas class="p-canvas__canvas--map" id="js-canvas"></canvas>
@@ -193,7 +132,7 @@
         </div>
       </div>
       <div class="p-canvas__right">
-        <div class="p-canvas__mapStatus" id="js-mapStatus">
+        <div class="p-canvas__mapStatus is-active" id="js-mapStatus">
           <div class="p-canvas__mapStatus--map">
             <p id="js-mapStatus--map">map</p>
           </div>
@@ -207,7 +146,7 @@
           <img src="image/materials/delete.svg" alt="Stamp_delete">
         </div>
       </div>
-      <div class="p-canvas__legend p-canvas__legend--active" id="js-legendOperator">
+      <div class="p-canvas__legend is-active" id="js-legendOperator">
         <div class="p-canvas__legend--ATK">
           <div class="p-canvas__operator p-canvas__operator--ATK1" id="js-legend__operator--ATK1" data-legend="ATK1">
             <div class="p-canvas__operator--items" data-legend="item">
@@ -215,7 +154,7 @@
                 <img src="image/materials/color.svg" alt="operator_color">
                 <input type="color" class="js-playerColor" id="js-legend__operatorATK1--color">
               </button>
-              <input type="text" name="playerNameATK1" class="playerName" placeholder="user" maxlength="3" data-legend="player-name">
+              <input type="text" name="playerNameATK1" class="p-canvas__player-name js-player-name" placeholder="user" maxlength="3" data-legend="player-name">
               <div class="p-canvas__items--gadgets" data-legend="gadget-container">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget1--empty" class="js-stamp js-stamp--gadget" data-stamp="legendATK1--gadget">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget2--empty" class="js-stamp js-stamp--gadget" data-stamp="legendATK1--gadget">
@@ -241,7 +180,7 @@
                 <img src="image/materials/color.svg" alt="operator_color">
                 <input type="color" class="js-playerColor" id="js-legend__operatorATK2--color">
               </button>
-              <input type="text" name="playerNameATK2" class="playerName" placeholder="user" maxlength="3">
+              <input type="text" name="playerNameATK2" class="p-canvas__player-name js-player-name" placeholder="user" maxlength="3">
               <div class="p-canvas__items--gadgets" data-legend="gadget-container">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget1--empty" class="js-stamp js-stamp--gadget" data-stamp="legendATK2--gadget">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget2--empty" class="js-stamp js-stamp--gadget" data-stamp="legendATK2--gadget">
@@ -267,7 +206,7 @@
                 <img src="image/materials/color.svg" alt="operator_color">
                 <input type="color" class="js-playerColor" id="js-legend__operatorATK3--color">
               </button>
-              <input type="text" name="playerNameATK3" class="playerName" placeholder="user" maxlength="3">
+              <input type="text" name="playerNameATK3" class="p-canvas__player-name js-player-name" placeholder="user" maxlength="3">
               <div class="p-canvas__items--gadgets" data-legend="gadget-container">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget1--empty" class="js-stamp js-stamp--gadget" data-stamp="legendATK3--gadget">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget2--empty" class="js-stamp js-stamp--gadget" data-stamp="legendATK3--gadget">
@@ -293,7 +232,7 @@
                 <img src="image/materials/color.svg" alt="operator_color">
                 <input type="color" class="js-playerColor" id="js-legend__operatorATK4--color">
               </button>
-              <input type="text" name="playerNameATK4" class="playerName" placeholder="user" maxlength="3">
+              <input type="text" name="playerNameATK4" class="p-canvas__player-name js-player-name" placeholder="user" maxlength="3">
               <div class="p-canvas__items--gadgets" data-legend="gadget-container">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget1--empty" class="js-stamp js-stamp--gadget" data-stamp="legendATK4--gadget">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget2--empty" class="js-stamp js-stamp--gadget" data-stamp="legendATK4--gadget">
@@ -319,7 +258,7 @@
                 <img src="image/materials/color.svg" alt="operator_color">
                 <input type="color" class="js-playerColor" id="js-legend__operatorATK5--color">
               </button>
-              <input type="text" name="playerNameATK5" class="playerName" placeholder="user" maxlength="3">
+              <input type="text" name="playerNameATK5" class="p-canvas__player-name js-player-name" placeholder="user" maxlength="3">
               <div class="p-canvas__items--gadgets" data-legend="gadget-container">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget1--empty" class="js-stamp js-stamp--gadget" data-stamp="legendATK5--gadget">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget2--empty" class="js-stamp js-stamp--gadget" data-stamp="legendATK5--gadget">
@@ -340,7 +279,7 @@
             </button>
           </div>
         </div>
-        <div class="p-canvas__legend--gadget">
+        <div class="p-canvas__legend--gears">
           <button class="p-canvas__btn--gears" id="js-gearButton">
             <img src="image/icon_gadget/gadget__empty.png" alt="gadget">
           </button>
@@ -358,7 +297,7 @@
                 <img src="image/materials/color.svg" alt="operator_color">
                 <input type="color" class="js-playerColor" id="js-legend__operatorDEF1--color">
               </button>
-              <input type="text" name="playerNameDEF1" class="playerName" placeholder="user" maxlength="3">
+              <input type="text" name="playerNameDEF1" class="p-canvas__player-name js-player-name" placeholder="user" maxlength="3">
               <div class="p-canvas__items--gadgets" data-legend="gadget-container">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget1--empty" class="js-stamp js-stamp--gadget" data-stamp="legendDEF1--gadget">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget2--empty" class="js-stamp js-stamp--gadget" data-stamp="legendDEF1--gadget">
@@ -384,7 +323,7 @@
                 <img src="image/materials/color.svg" alt="operator_color">
                 <input type="color" class="js-playerColor" id="js-legend__operatorDEF2--color">
               </button>
-              <input type="text" name="playerNameDEF2" class="playerName" placeholder="user" maxlength="3">
+              <input type="text" name="playerNameDEF2" class="p-canvas__player-name js-player-name" placeholder="user" maxlength="3">
               <div class="p-canvas__items--gadgets" data-legend="gadget-container">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget1--empty" class="js-stamp js-stamp--gadget" data-stamp="legendDEF2--gadget">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget2--empty" class="js-stamp js-stamp--gadget" data-stamp="legendDEF2--gadget">
@@ -410,7 +349,7 @@
                 <img src="image/materials/color.svg" alt="operator_color">
                 <input type="color" class="js-playerColor" id="js-legend__operatorDEF3--color">
               </button>
-              <input type="text" name="playerNameDEF3" class="playerName" placeholder="user" maxlength="3">
+              <input type="text" name="playerNameDEF3" class="p-canvas__player-name js-player-name" placeholder="user" maxlength="3">
               <div class="p-canvas__items--gadgets" data-legend="gadget-container">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget1--empty" class="js-stamp js-stamp--gadget" data-stamp="legendDEF3--gadget">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget2--empty" class="js-stamp js-stamp--gadget" data-stamp="legendDEF3--gadget">
@@ -436,7 +375,7 @@
                 <img src="image/materials/color.svg" alt="operator_color">
                 <input type="color" class="js-playerColor" id="js-legend__operatorDEF4--color">
               </button>
-              <input type="text" name="playerNameDEF4" class="playerName" placeholder="user" maxlength="3">
+              <input type="text" name="playerNameDEF4" class="p-canvas__player-name js-player-name" placeholder="user" maxlength="3">
               <div class="p-canvas__items--gadgets" data-legend="gadget-container">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget1--empty" class="js-stamp js-stamp--gadget" data-stamp="legendDEF4--gadget">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget2--empty" class="js-stamp js-stamp--gadget" data-stamp="legendDEF4--gadget">
@@ -462,7 +401,7 @@
                 <img src="image/materials/color.svg" alt="operator_color">
                 <input type="color" class="js-playerColor" id="js-legend__operatorDEF5--color">
               </button>
-              <input type="text" name="playerNameDEF5" class="playerName" placeholder="user" maxlength="3">
+              <input type="text" name="playerNameDEF5" class="p-canvas__player-name js-player-name" placeholder="user" maxlength="3">
               <div class="p-canvas__items--gadgets" data-legend="gadget-container">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget1--empty" class="js-stamp js-stamp--gadget" data-stamp="legendDEF5--gadget">
                 <img src="image/icon_gadget/gadget__empty.png" alt="gadget2--empty" class="js-stamp js-stamp--gadget" data-stamp="legendDEF5--gadget">
@@ -490,986 +429,18 @@
         <p>Operators</p>
         <img src="image/icon_operator/figure.png" alt="operator">
       </button>
-      <dialog class="c-modal" id="js-operatorSetting"> <!--dialogOperatorSetting-->
-        <div class="c-modal__operatorSetting">
-          <button class="c-modal__close--white" id="js-operatorSetting--close">
-            <img src="image/materials/menu__close--white.svg">
-          </button>
-          <div class="c-modal__operatorLists">
-            <div class="c-modal__operatorList"> <!--ATK-->
-              <p>Attackers</p>
-              <div class="c-modal__selectedOperator" id="js-operatorSettingATK1">
-                <p data-operator-setting="player-name">ATK1</p>
-                <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
-                <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
-                <div class="c-modal__gadgets" data-operator-setting="gadget-container">
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK1--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK1--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK1--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK1--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK1--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK1--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK1--gadget" data-operator-setting="gadget">
-                  </div>
-                </div>
-              </div>
-              <div class="c-modal__selectedOperator" id="js-operatorSettingATK2">
-                <p data-operator-setting="player-name">ATK2</p>
-                <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
-                <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
-                <div class="c-modal__gadgets" data-operator-setting="gadget-container">
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK2--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK2--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK2--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK2--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK2--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK2--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK2--gadget" data-operator-setting="gadget">
-                  </div>
-                </div>
-              </div>
-              <div class="c-modal__selectedOperator" id="js-operatorSettingATK3">
-                <p data-operator-setting="player-name">ATK3</p>
-                <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
-                <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
-                <div class="c-modal__gadgets" data-operator-setting="gadget-container">
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK3--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK3--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK3--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK3--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK3--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK3--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK3--gadget" data-operator-setting="gadget">
-                  </div>
-                </div>
-              </div>
-              <div class="c-modal__selectedOperator" id="js-operatorSettingATK4">
-                <p data-operator-setting="player-name">ATK4</p>
-                <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
-                <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
-                <div class="c-modal__gadgets" data-operator-setting="gadget-container">
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK4--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK4--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK4--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK4--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK4--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK4--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK4--gadget" data-operator-setting="gadget">
-                  </div>
-                </div>
-              </div>
-              <div class="c-modal__selectedOperator" id="js-operatorSettingATK5">
-                <p data-operator-setting="player-name">ATK5</p>
-                <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
-                <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
-                <div class="c-modal__gadgets" data-operator-setting="gadget-container">
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK5--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK5--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK5--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK5--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK5--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK5--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK5--gadget" data-operator-setting="gadget">
-                  </div>
-                </div>
-              </div>
-              <div class="c-modal__changeOperator">
-                <button id="js-operatorSelectionATK--open">
-                  <img src="image/icon_operator/operator__change.png" alt="operator_change">
-                </button>
-              </div>
-            </div>
-            <div class="c-modal__operatorList"> <!--DEF-->
-              <p>Difenders</p>
-              <div class="c-modal__selectedOperator" id="js-operatorSettingDEF1">
-                <p data-operator-setting="player-name">DEF1</p>
-                <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
-                <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
-                <div class="c-modal__gadgets" data-operator-setting="gadget-container">
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF1--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF1--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF1--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF1--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF1--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF1--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF1--gadget" data-operator-setting="gadget">
-                  </div>
-                </div>
-              </div>
-              <div class="c-modal__selectedOperator" id="js-operatorSettingDEF2">
-                <p data-operator-setting="player-name">DEF2</p>
-                <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
-                <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
-                <div class="c-modal__gadgets" data-operator-setting="gadget-container">
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF2--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF2--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF2--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF2--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF2--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF2--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF2--gadget" data-operator-setting="gadget">
-                  </div>
-                </div>
-              </div>
-              <div class="c-modal__selectedOperator" id="js-operatorSettingDEF3">
-                <p data-operator-setting="player-name">DEF3</p>
-                <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
-                <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
-                <div class="c-modal__gadgets" data-operator-setting="gadget-container">
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF3--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF3--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF3--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF3--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF3--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF3--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF3--gadget" data-operator-setting="gadget">
-                  </div>
-                </div>
-              </div>
-              <div class="c-modal__selectedOperator" id="js-operatorSettingDEF4">
-                <p data-operator-setting="player-name">DEF4</p>
-                <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
-                <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
-                <div class="c-modal__gadgets" data-operator-setting="gadget-container">
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF4--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF4--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF4--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF4--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF4--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF4--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF4--gadget" data-operator-setting="gadget">
-                  </div>
-                </div>
-              </div>
-              <div class="c-modal__selectedOperator"  id="js-operatorSettingDEF5">
-                <p data-operator-setting="player-name">DEF5</p>
-                <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
-                <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
-                <div class="c-modal__gadgets" data-operator-setting="gadget-container">
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF5--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF5--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF5--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF5--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF5--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF5--gadget" data-operator-setting="gadget">
-                  </div>
-                  <div class="c-modal__gadget">
-                    <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF5--gadget" data-operator-setting="gadget">
-                  </div>
-                </div>
-              </div>
-              <div class="c-modal__changeOperator">
-                <button id="js-operatorSelectionDEF--open">
-                  <img src="image/icon_operator/operator__change.png" alt="operator_change">
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </dialog> <!--dialog-->
-      <dialog class="c-modal" id="js-operatorSelectionATK"> <!--dialog ATKSetting-->
-        <div class="c-modal__iconSetting"> <!--ATKsetting-->
-          <button class="c-modal__close--white" id="js-operatorSelectionATK--close">
-            <img src="image/materials/menu__close--white.svg">
-          </button>
-          <div class="c-modal__iconSetting--left">
-            <div class="c-modal__selectedIconList" id="js-operatorSelection__selectedATK">
-              <p>Selected</p>
-              <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedATK1">
-                <div class="counter">
-                  <p>1</p>
-                </div>
-                <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
-                <p></p>
-              </div>
-              <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedATK2">
-                <div class="counter">
-                  <p>2</p>
-                </div>
-                <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
-                <p></p>
-              </div>
-              <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedATK3">
-                <div class="counter">
-                  <p>3</p>
-                </div>
-                <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
-                <p></p>
-              </div>
-              <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedATK4">
-                <div class="counter">
-                  <p>4</p>
-                </div>
-                <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
-                <p></p>
-              </div>
-              <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedATK5">
-                <div class="counter">
-                  <p>5</p>
-                </div>
-                <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
-                <p></p>
-              </div>
-            </div>
-            <button class="c-modal__return" id="js-operatorSelectionReturnATK">
-              <img src="image/materials/return.svg" alt="return">
-              <p>Return</p>
-            </button>
-          </div>
-          <div class="c-modal__iconSetting--right" id="js-operatorSelection__operatorPool--ATK">
-            <p>Attackers</p>
-            <div class="c-modal__icons">
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK1_striker.png" alt="operator_striker" data-operator-selection="striker">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK2_sledge.png" alt="operator_sledge" data-operator-selection="sledge">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK3_thatcher.png" alt="operator_thatcher" data-operator-selection="thatcher">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK4_ash.png" alt="operator_ash" data-operator-selection="ash">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK5_thermite.png" alt="operator_thermite" data-operator-selection="thermite">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK6_twitch.png" alt="operator_twitch" data-operator-selection="twitch">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK7_montagne.png" alt="operator_montagne" data-operator-selection="montagne">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK8_glaz.png" alt="operator_glaz" data-operator-selection="glaz">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK9_fuze.png" alt="operator_fuze" data-operator-selection="fuze">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK10_blitz.png" alt="operator_blitz" data-operator-selection="blitz">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK11_iq.png" alt="operator_iq" data-operator-selection="iq">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK12_buck.png" alt="operator_buck" data-operator-selection="buck">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK13_blackbeard.png" alt="operator_blackbeard" data-operator-selection="blackbeard">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK14_capitao.png" alt="operator_capitao" data-operator-selection="capitao">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK15_hibana.png" alt="operator_hibana" data-operator-selection="hibana">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK16_jackal.png" alt="operator_jackal" data-operator-selection="jackal">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK17_ying.png" alt="operator_ying" data-operator-selection="ying">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK18_zofia.png" alt="operator_zofia" data-operator-selection="zofia">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK19_dokkaebi.png" alt="operator_dokkaebi" data-operator-selection="dokkaebi">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK20_lion.png" alt="operator_lion" data-operator-selection="lion">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK21_finka.png" alt="operator_finka" data-operator-selection="finka">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK22_maverick.png" alt="operator_maverick" data-operator-selection="maverick">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK23_nomad.png" alt="operator_nomad" data-operator-selection="nomad">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK24_gridlock.png" alt="operator_gridlock" data-operator-selection="gridlock">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK25_nokk.png" alt="operator_nokk" data-operator-selection="nokk">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK26_amaru.png" alt="operator_amaru" data-operator-selection="amaru">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK27_kali.png" alt="operator_kali" data-operator-selection="kali">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK28_iana.png" alt="operator_iana" data-operator-selection="iana">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK29_ace.png" alt="operator_ace" data-operator-selection="ace">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK30_zero.png" alt="operator_zero" data-operator-selection="zero">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK31_flores.png" alt="operator_flores" data-operator-selection="flores">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK32_osa.png" alt="operator_osa" data-operator-selection="osa">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK33_sens.png" alt="operator_sens" data-operator-selection="sens">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK34_grim.png" alt="operator_grim" data-operator-selection="grim">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK35_brava.png" alt="operator_brava" data-operator-selection="brava">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK36_ram.png" alt="operator_ram" data-operator-selection="ram">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK37_deimos.png" alt="operator_deimos" data-operator-selection="deimos">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK38_rauora.png" alt="operator_rauora" data-operator-selection="rauora">
-              </div>
-              <div class="c-modal__icon js-operatorATK">
-                <img src="image/icon_operator/attacker/ATK39_snake.png" alt="operator_solidSnake" data-operator-selection="solidSnake">
-              </div>
-            </div>
-          </div>
-        </div>
-      </dialog> <!--dialog-->
-      <dialog class="c-modal" id="js-operatorSelectionDEF"> <!--dialog DEFSetting-->
-        <div class="c-modal__iconSetting"> <!--DEFsetting-->
-          <button class="c-modal__close--white" id="js-operatorSelectionDEF--close">
-            <img src="image/materials/menu__close--white.svg">
-          </button>
-          <div class="c-modal__iconSetting--left">
-            <div class="c-modal__selectedIconList" id="js-operatorSelection__selectedDEF">
-              <p>Selected</p>
-              <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedDEF1">
-                <div class="counter">
-                  <p>1</p>
-                </div>
-                <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
-                <p></p>
-              </div>
-              <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedDEF2">
-                <div class="counter">
-                  <p>2</p>
-                </div>
-                <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
-                <p></p>
-              </div>
-              <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedDEF3">
-                <div class="counter">
-                  <p>3</p>
-                </div>
-                <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
-                <p></p>
-              </div>
-              <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedDEF4">
-                <div class="counter">
-                  <p>4</p>
-                </div>
-                <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
-                <p></p>
-              </div>
-              <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedDEF5">
-                <div class="counter">
-                  <p>5</p>
-                </div>
-                <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
-                <p></p>
-              </div>
-            </div>
-            <button class="c-modal__return" id="js-operatorSelectionReturnDEF">
-              <img src="image/materials/return.svg" alt="return">
-              <p>Return</p>
-            </button>
-          </div>
-          <div class="c-modal__iconSetting--right" id="js-operatorSelection__operatorPool--DEF">
-            <p>Defenders</p>
-            <div class="c-modal__icons">
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF1_sentry.png" alt="operator_sentry" data-operator-selection="sentry">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF2_smoke.png" alt="operator_smoke" data-operator-selection="smoke">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF3_mute.png" alt="operator_mute" data-operator-selection="mute">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF4_castle.png" alt="operator_castle" data-operator-selection="castle">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF5_pulse.png" alt="operator_pulse" data-operator-selection="pulse">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF6_doc.png" alt="operator_doc" data-operator-selection="doc">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF7_rook.png" alt="operator_rook" data-operator-selection="rook">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF8_kapkan.png" alt="operator_kapkan" data-operator-selection="kapkan">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF9_tachanka.png" alt="operator_tachanka" data-operator-selection="tachanka">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF10_jager.png" alt="operator_jager" data-operator-selection="jager">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF11_bandit.png" alt="operator_bandit" data-operator-selection="bandit">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF12_frost.png" alt="operator_frost" data-operator-selection="frost">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF13_valkyrie.png" alt="operator_valkyrie" data-operator-selection="valkyrie">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF14_caveira.png" alt="operator_caveira" data-operator-selection="caveira">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF15_echo.png" alt="operator_echo" data-operator-selection="echo">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF16_mira.png" alt="operator_mira" data-operator-selection="mira">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF17_legion.png" alt="operator_lesion" data-operator-selection="lesion">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF18_ela.png" alt="operator_ela" data-operator-selection="ela">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF19_visil.png" alt="operator_vigil" data-operator-selection="vigil">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF20_alibi.png" alt="operator_maestro" data-operator-selection="maestro">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF21_maestro.png" alt="operator_alibi" data-operator-selection="alibi">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF22_clash.png" alt="operator_clash" data-operator-selection="clash">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF23_kaid.png" alt="operator_kaid" data-operator-selection="kaid">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF24_mozzie.png" alt="operator_mozzie" data-operator-selection="mozzie">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF25_warden.png" alt="operator_warden" data-operator-selection="warden">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF26_goyo.png" alt="operator_goyo" data-operator-selection="goyo">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF27_wamai.png" alt="operator_wamai" data-operator-selection="wamai">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF28_oryx.png" alt="operator_oryx" data-operator-selection="oryx">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF29_melusi.png" alt="operator_melusi" data-operator-selection="melusi">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF30_aruni.png" alt="operator_aruni" data-operator-selection="aruni">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF31_thunderbird.png" alt="operator_thunderbird" data-operator-selection="thunderbird">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF32_thorn.png" alt="operator_thorn" data-operator-selection="thorn">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF33_azami.png" alt="operator_azami" data-operator-selection="azami">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF34_solis.png" alt="operator_solis" data-operator-selection="solis">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF35_fenrir.png" alt="operator_fenrir" data-operator-selection="fenrir">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF36_tubarao.png" alt="operator_tubarao" data-operator-selection="tubarao">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF37_skopos.png" alt="operator_skopos" data-operator-selection="skopos">
-              </div>
-              <div class="c-modal__icon js-operatorDEF">
-                <img src="image/icon_operator/difender/DEF38_denari.png" alt="operator_denari" data-operator-selection="denari">
-              </div>
-            </div>
-          </div>
-        </div>
-      </dialog> <!--dialog-->
       <button class="p-board__tools p-board__tools--right" id="js-stampCollection--open">
         <p>Stamp</p>
         <img src="image/materials/camera.svg" alt="stamp">
       </button>
-      <dialog class="s-modal" id="js-stampCollection"> <!--dialog Stamp-->
-        <div class="c-modal__stamp">
-          <button class="c-modal__close--white" id="js-stampCollection--close">
-            <img src="image/materials/menu__close--white.svg">
-          </button>
-          <div class="c-modal__stampGroup">
-            <p>Target</p>
-            <div class="c-modal__stamps">
-              <img src="image/stamp/stamp__object--bomb.png" alt="stamp_bomb" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-              <img src="image/stamp/stamp__object--hostage.png" alt="stamp_hostage" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-              <img src="image/stamp/stamp__object--area.png" alt="stamp_area" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-            </div>
-          </div>
-          <div class="c-modal__stampGroup">
-            <p>Destruction</p>
-            <div class="c-modal__stamps">
-              <img src="image/stamp/stamp__destruction--rotate.png" alt="stamp_rotate" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-              <img src="image/stamp/stamp__destruction--peek.png" alt="stamp_peek" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-            </div>
-          </div>
-          <div class="c-modal__stampGroup">
-            <p>Action</p>
-            <div class="c-modal__stamps">
-              <img src="image/stamp/stamp__action--point.png" alt="stamp_action" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-              <img src="image/stamp/stamp__action--caution.png" alt="stamp_caution" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-              <img src="image/stamp/stamp__action--hide.png" alt="stamp_hide" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-            </div>
-          </div>
-          <div class="c-modal__stampGroup">
-            <p>Object</p>
-            <div class="c-modal__stamps">
-              <img src="image/stamp/stamp__object--camera.png" alt="stamp_camera" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-              <img src="image/stamp/stamp__object--cover.png" alt="stamp_cover" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-              <img src="image/stamp/stamp__object--gas_pipe.png" alt="stamp_gaspipe" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-              <img src="image/stamp/stamp__object--extinguisher.png" alt="stamp_extinguisher" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-            </div>
-          </div>
-          <div class="c-modal__stampGroupSub">
-            <div class="c-modal__stampGroup">
-              <p>Direction</p>
-              <div class="c-modal__stamps">
-                <img src="image/stamp/stamp__direction--up.png" alt="stamp_up" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__direction--right.png" alt="stamp_right" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__direction--down.png" alt="stamp_down" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__direction--down_left.png" alt="stamp_left" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__direction--up_right.png" alt="stamp_up-right" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__direction--down_right.png" alt="stamp_down-right" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__direction--down_left.png" alt="stamp_down-left" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__direction--up_left.png" alt="stamp_up-left" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-              </div>
-            </div>
-            <div class="c-modal__stampGroup">
-              <p>Position</p>
-              <div class="c-modal__stamps">
-                <img src="image/stamp/stamp__position--overhead.png" alt="stamp_overhead" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__position--standing.png" alt="stamp_standing" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__position--crouching.png" alt="stamp_crouching" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__position--prone.png" alt="stamp_prone" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__position--hatch.png" alt="stamp_hatch" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__position--floor.png" alt="stamp_floor" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__position--ceiling.png" alt="stamp_ceiling" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__position--stairs.png" alt="stamp_stairs" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-              </div>
-            </div>
-          </div>
-          <div class="c-modal__stampGroupSub">
-            <div class="c-modal__stampGroup">
-              <p>Counter number</p>
-              <div class="c-modal__stamps">
-                <img src="image/stamp/stamp__counter--1.png" alt="stamp_1" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__counter--2.png" alt="stamp_2" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__counter--3.png" alt="stamp_3" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__counter--4.png" alt="stamp_4" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__counter--5.png" alt="stamp_5" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-              </div>
-            </div>
-            <div class="c-modal__stampGroup">
-              <p>Counter alphabet</p>
-              <div class="c-modal__stamps">
-                <img src="image/stamp/stamp__counter--a.png" alt="stamp_a" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__counter--b.png" alt="stamp_b" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__counter--c.png" alt="stamp_c" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__counter--d.png" alt="stamp_d" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-                <img src="image/stamp/stamp__counter--e.png" alt="stamp_e" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
-              </div>
-            </div>
-          </div>
-        </div>
-      </dialog> <!--dialog-->
       <button class="p-board__tools p-board__tools--right" id="js-mapSetting--open">
         <p>Map</p>
         <img src="image/materials/map.svg" alt="map">
       </button>
-      <dialog class="c-modal" id="js-mapSetting"> <!--dialog Map-->
-        <div class="c-modal__mapSetting">
-          <button class="c-modal__close--white" id="js-mapSetting--close">
-            <img src="image/materials/menu__close--white.svg">
-          </button>
-          <div class="c-modal__mapTable">
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Bank" data-map="bank">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-bank-blueprints/R6S_Maps_Bank_EXT.jpg" alt="Bank" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Bank / <span class="u-font--ja">銀行</p>
-              </div>
-            </button>
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Border" data-map="border">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-border-blueprints/R6S_Maps_Border_EXT.jpg" alt="Border" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Border / <span class="u-font--ja">国境</p>
-              </div>
-            </button>
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Chalet" data-map="chalet">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-chalet-blueprints/R6S_Maps_Chalet_EXT.jpg" alt="Chalet" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Chalet / <span class="u-font--ja">山荘</p>
-              </div>
-            </button>
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Clubhouse" data-map="clubhouse">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-clubhouse-blueprints/R6S_Maps_ClubHouse_EXT.jpg" alt="Clubhouse" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Clubhouse / <span class="u-font--ja">クラブハウス</p>
-              </div>
-            </button>
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Coastline" data-map="coastline">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-coastline-blueprints/r6-maps-coastline.jpg" alt="Coastline" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Coastline / <span class="u-font--ja">海岸線</p>
-              </div>
-            </button>
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Consulate" data-map="consulate">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-consulate-blueprints_may23/ModernizedMap_Consulate_keyart.jpg" alt="Consulate" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Consulate / <span class="u-font--ja">領事館</p>
-              </div>
-            </button>
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Emeraldplains" data-map="emeraldplains">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-emeraldplains-blueprints/r6s_maps_emeraldplains__1_.jpg" alt="Emeraldplains" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Emeraldplains / <span class="u-font--ja">エメラルドプレーンズ</p>
-              </div>
-            </button>
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Fortress" data-map="fortress">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-fortress-blueprints/fortress-reworked-thumbnail.avif" alt="Fortress" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Fortress / <span class="u-font--ja">要塞</p>
-              </div>
-            </button>
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Kafe" data-map="kafe">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-kafe-blueprints/R6S_Maps_RussianCafe_EXT.jpg" alt="Kafe" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Kafe / <span class="u-font--ja">カフェ</p>
-              </div>
-            </button>
-            <!-- ランクマップ除外中
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Kanal" data-map="kanal">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-kanal-blueprints/r6-maps-kanal.jpg" alt="Kanal" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Kanal / <span class="u-font--ja">運河</p>
-              </div>
-            </button>
-            -->
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Lair" data-map="lair">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-lair-blueprints/ModernizedMap_Lair_keyart.jpg" alt="Lair" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Liar / <span class="u-font--ja">アジト</p>
-              </div>
-            </button>
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Nighthavenlabs" data-map="nighthavenlabs">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-nighthavenlabs-blueprints/ModernizedMap_Nighthaven_keyart.jpg" alt="Nighthavenlabs" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Nighthavenlabs / <span class="u-font--ja">ナイトヘイヴンラボ</p>
-              </div>
-            </button>
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Oregon" data-map="oregon">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-oregon-blueprints/r6-maps-oregon.jpg" alt="Oregon" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Oregon / <span class="u-font--ja">オレゴン</p>
-              </div>
-            </button>
-            <!-- ランクマップ除外中
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Outback" data-map="outback">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-outback-blueprints/r6-maps-outback.jpg" alt="Outback" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Outback / <span class="u-font--ja">アウトバック</p>
-              </div>
-            </button>
-            -->
-            <!-- ランクマップ除外中
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Skyscraper" data-map="skyscraper">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-skyscraper-blueprints/r6-maps-skyscraper.jpg" alt="Skyscraper" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Skyscraper / <span class="u-font--ja">高層ビル</p>
-              </div>
-            </button>
-            -->
-            <!-- ランクマップ除外中
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Themepark" data-map="themepark">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-themepark-blueprints/rainbow6_maps_theme-park_thumbnail.jpg" alt="Themepark" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Themepark / <span class="u-font--ja">テーマパーク</p>
-              </div>
-            </button>
-            -->
-            <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Villa" data-map="villa">
-              <div class="c-map__shadow">
-                <div class="c-map__shadow--object"></div>
-              </div>
-              <div class="c-map__frame">
-                <img src="image/maps/r6-maps-villa-blueprints/r6-maps-villa.jpg" alt="Villa" class="c-map__img">
-              </div>
-              <div class="c-map__active">
-                <p>Villa / <span class="u-font--ja">ヴィラ</p>
-              </div>
-            </button>
-          </div>
-        </div>
-      </dialog> <!--dialog-->
       <button class="p-board__tools p-board__tools--right" id="js-floorSetting--open">
         <p>Floor</p>
         <img src="image/materials/floor.svg" alt="floor">
       </button>
-      <dialog class="c-modal" id="js-floorSetting"> <!--dialog Floor-->
-        <div class="c-modal__floorSetting">
-          <button class="c-modal__close--white" id="js-floorSetting--close">
-            <img src="image/materials/menu__close--white.svg">
-          </button>
-          <div class="c-modal__floorList">
-            <button class="js-floorSetting__floorList--floor" id="js-floorSetting__floorList--basement2nd" data-floor="basement2nd">
-              <p>2nd basement</p>
-            </button>
-            <button class="js-floorSetting__floorList--floor" id="js-floorSetting__floorList--basement" data-floor="basement">
-              <p>Basement</p>
-            </button>
-            <button class="js-floorSetting__floorList--floor" id="js-floorSetting__floorList--floor1st" data-floor="floor1st">
-              <p>1st floor</p>
-            </button>
-            <button class="js-floorSetting__floorList--floor" id="js-floorSetting__floorList--floor2nd" data-floor="floor2nd">
-              <p>2nd floor</p>
-            </button>
-            <button class="js-floorSetting__floorList--floor" id="js-floorSetting__floorList--floor3rd" data-floor="floor3rd">
-              <p>3rd floor</p>
-            </button>
-            <button class="js-floorSetting__floorList--floor" id="js-floorSetting__floorList--roof" data-floor="roof">
-              <p>Roof</p>
-            </button>
-          </div>
-        </div>
-      </dialog> <!--dialog-->
       <div class="l-board__sidebar--row">
         <button class="p-board__tools p-board__tools--rigth" id="js-file--open">
           <img src="image/materials/file.svg" alt="file" class="image--row">
@@ -1479,91 +450,7 @@
         </button>
       </div>
     </div>
-    <dialog class="c-modal" id="js-menu__setting"> <!--dialogSetting-->
-      <div class="c-modal__setting">
-        <button class="c-modal__close--white" id="js-menu__setting--close">
-          <img src="image/materials/menu__close--white.svg">
-        </button>
-        <div class="c-modal__setting--contents">
-          <form id="js-mapImageSetting">
-            <h1>表示マップ</h1>
-            <div class="c-modal__map-setting--branch">
-              <input type="radio" id="js-raw-map" name="map-type" value="rawMap" checked>
-              <label for="js-raw-map">画像のみ</label>
-            </div>
-            <div class="c-modal__map-setting--branch">
-              <input type="radio" id="js-named-map" name="map-type" value="namedMap">
-              <label for="js-named-map">名前付き画像</label>
-            </div>
-          </form>
-          <form class="u-layout--directionRow" id="js-stampSizeSetting">
-            <h1>スタンプサイズ</h1>
-            <select name="stamp-size" id="js-setting--stampSize">
-              <option value="1.0">1.0</option>
-              <option value="1.5">1.5</option>
-              <option value="2.0">2.0</option>
-              <option value="2.5">2.5</option>
-              <option value="3.0" selected>3.0</option>
-              <option value="3.5">3.5</option>
-              <option value="4.0">4.0</option>
-            </select>
-          </form>
-        </div>
-      </div>
-    </dialog> <!--dialogSetting-->
-    <dialog class="c-modal" id="js-file"> <!--dialogDownload-->
-      <div class="c-modal__file">
-        <button class="c-modal__close--white" id="js-file--close">
-          <img src="image/materials/menu__close--white.svg">
-        </button>
-        <div class="c-modal__file--content">
-          <h1>書き出し(保存)</h1>
-          <div class="c-modal__file--explanation">
-            <p>編集用データ</p>
-            <p>続きから描画したいときに。また、軽量で共有したいときに。(.json)</p>
-          </div>
-          <div class="c-modal__file--explanation">
-            <p>画像ファイル</p>
-            <p>画像として共有したいときに。このアプリで再度読み込むこともできます(.jpg)</p>
-          </div>
-          <div class="c-modal__file--buttons">
-            <button class="c-modal__file--button" id="js-file__button--program">
-              <img src="image/materials/program.svg" alt="download data">
-              <p>編集用データ</p>
-            </button>
-            <button class="c-modal__file--button" id="js-file__button--image">
-              <img src="image/materials/image.svg" alt="download image">
-              <p>画像ファイル</p>
-            </button>
-          </div>
-        </div>
-        <div class="c-modal__file--content">
-          <h1>読み込み(再開)</h1>
-          <div class="c-modal__file--explanation">
-            <p>ダウンロードしたデータをアップロードすることで再描画できます。<br>
-            jsonはマップ全体、pngは該当のフロアのみに適用されます。</p>
-          </div>
-          <div class="c-modal__file--buttons">
-            <button class="c-modal__file--button c-modal__file--area" id="js-file__button--import">
-              <img src="image/materials/upload.svg" alt="upload">
-              <p>編集再開</p>
-              <p>クリックして保存したファイルを選択か、ここにドラッグ。</p>
-            </button>
-          </div>
-        </div>
-      </div>
-    </dialog> <!--dialogDownload-->
-    <dialog class="c-modal" id="js-confirm"> <!--dialogConfirm-->
-      <div class="c-modal__confirm">
-        <p class="c-text--jaToEn" id="js-confirm__message--ja">お試しテキスト</p>
-        <p class="u-font--en" id="js-confirm__message--en">english</p>
-        <div class="c-modal__buttons">
-          <button class="u-font--en c-button" id="js-confirm__button--cancel" data-confirm="cancel">Cancel</button>
-          <button class="u-font--en c-button" id="js-confirm__button--ok" data-confirm="ok">OK</button>
-        </div>
-      </div>
-    </dialog> <!--dialogConfirm-->
-    <div class="c-modal p-howToUse" id="js-howToUse">
+    <div class="c-modal p-howToUse" id="js-howToUse"> <!--howToUse-->
       <button class="c-modal__close--white p-howToUse__close" id="js-howToUse--close">
         <img src="image/materials/menu__close--white.svg">
       </button>
@@ -1575,7 +462,7 @@
       -->
       <div class="p-howToUse__header">
         <div class="p-howToUse__pages">
-          <div class="p-howToUse__pages--pageIndicator pageIndicator--active"></div>
+          <div class="p-howToUse__pages--pageIndicator is-indicator--active"></div>
           <div class="p-howToUse__pages--pageIndicator"></div>
           <div class="p-howToUse__pages--pageIndicator"></div>
           <div class="p-howToUse__pages--pageIndicator"></div>
@@ -1585,29 +472,29 @@
         <button class="p-howToUse__nav nav--left" id="js-howToUse--back" data-how-to-use="back">
           <img src="image/materials/left.svg" alt="back">
         </button>
-        <button class="p-howToUse__nav nav--right nav--active" id="js-howToUse--forward" data-how-to-use="forward">
+        <button class="p-howToUse__nav nav--right is-active" id="js-howToUse--forward" data-how-to-use="forward">
           <img src="image/materials/right.svg" alt="forward">
         </button>
       </div>
       <div class="p-howToUse__contents">
-        <div class="p-howToUse__content p-howToUse__content--page1 pageContent--active" id="js-howToUse--page1" data-how-to-use="page1">
-          <div class="p-howToUse__left--explanation p-howToUse__left--menu">
+        <div class="p-howToUse__content p-howToUse__content--page1 is-page--active" id="js-howToUse--page1" data-how-to-use="page1">
+          <div class="p-howToUse__left--explanation p-howToUse__left--menu js-how-to-use__menu">
             <img src="image/materials/arrow--toLeft1.svg" alt="">
             <p class="u-font--ja">メニュー</p>
           </div>
-          <div class="p-howToUse__left--explanation p-howToUse__left--move">
+          <div class="p-howToUse__left--explanation p-howToUse__left--move js-how-to-use__move">
             <img src="image/materials/arrow--toLeft2.svg" alt="">
             <p class="u-font--ja">マップ移動・ズーム</p>
           </div>
-          <div class="p-howToUse__left--explanation p-howToUse__left--draw">
+          <div class="p-howToUse__left--explanation p-howToUse__left--draw js-how-to-use__draw">
             <img src="image/materials/arrow--toLeft1.svg" alt="">
             <p class="u-font--ja">線の描画(設定あり)</p>
           </div>
-          <div class="p-howToUse__left--explanation p-howToUse__left--erase">
+          <div class="p-howToUse__left--explanation p-howToUse__left--erase js-how-to-use__erase">
             <img src="image/materials/arrow--toLeft2.svg" alt="">
             <p class="u-font--ja">線・スタンプの削除(設定あり)</p>
           </div>
-          <div class="p-howToUse__left--explanation p-howToUse__left--legend">
+          <div class="p-howToUse__left--explanation p-howToUse__left--legend js-how-to-use__legend">
             <img src="image/materials/arrow--toLeft1.svg" alt="">
             <p class="u-font--ja">凡例の<span class="u-font--en">ON/OFF</span></p>
           </div>
@@ -1621,37 +508,37 @@
           </div>
         </div>
         <div class="p-howToUse__content p-howToUse__content--page2" id="js-howToUse--page2" data-how-to-use="page2">
-          <div class="p-howToUse__right--explanation p-howToUse__right--operators">
+          <div class="p-howToUse__right--explanation p-howToUse__right--operators js-how-to-use__operators">
             <img src="image/materials/arrow--toRight1.svg" alt="">
             <p class="u-font--ja">オペレータ等の設定画面を開く<br>
             (オペレータの切り替え・ガジェットの選択)</p>
           </div>
-          <div class="p-howToUse__right--explanation p-howToUse__right--stamps">
+          <div class="p-howToUse__right--explanation p-howToUse__right--stamps js-how-to-use__stamps">
             <img src="image/materials/arrow--toRight2.svg" alt="">
             <p class="u-font--ja">スタンプ選択画面を開く<br>
               (スタンプはクリックしたままスライドして配置)</p>
           </div>
-          <div class="p-howToUse__right--explanation p-howToUse__right--maps">
+          <div class="p-howToUse__right--explanation p-howToUse__right--maps js-how-to-use__maps">
             <img src="image/materials/arrow--toRight1.svg" alt="">
             <p class="u-font--ja">マップ設定画面を開く</p>
           </div>
-          <div class="p-howToUse__right--explanation p-howToUse__right--floors">
+          <div class="p-howToUse__right--explanation p-howToUse__right--floors js-how-to-use__floors">
             <img src="image/materials/arrow--toRight2.svg" alt="">
             <p class="u-font--ja">選択中マップの階層設定画面を開く</p>
           </div>
         </div>
         <div class="p-howToUse__content p-howToUse__content--page3" id="js-howToUse--page3" data-how-to-use="page3">
-          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--history">
+          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--history js-how-to-use__history">
             <img src="image/materials/arrow--toLeft1.svg" alt="">
             <p class="u-font--ja">描画操作の戻る/進むボタン</p>
           </div>
-          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--zoom">
+          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--zoom js-how-to-use__zoom">
             <img src="image/materials/arrow--toLeft1.svg" alt="">
             <p class="u-font--ja">マップの拡大縮小ボタン<br>
               ホイール操作やピンチ(指２本でひろげる)操作でも拡大縮小が可能です。
             </p>
           </div>
-          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--operatorButton">
+          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--operatorButton js-how-to-use__operator-button">
             <img src="image/materials/arrow--toLeft1.svg" alt="">
             <p class="u-font--ja">オペレーターボタン<br>
               1度目のクリックでアクティブ(線描画モード)<br>
@@ -1660,41 +547,42 @@
           </div>
         </div>
         <div class="p-howToUse__content p-howToUse__content--page4" id="js-howToUse--page4" data-how-to-use="page4">
-          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--draw">
+          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--draw js-how-to-use__player-color">
             <img src="image/materials/arrow--toLeft1.svg" alt="">
             <p class="u-font--ja">プレイヤーごとに線描写用の色を設定できます。</p>
           </div>
-          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--name">
+          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--name js-how-to-use__player-name">
             <img src="image/materials/arrow--toLeft1.svg" alt="">
             <p class="u-font--ja">プレイヤーネームを入力できます。３文字まで。</p>
           </div>
-          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--stamp">
+          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--stamp js-how-to-use__operator-gadgets">
             <img src="image/materials/arrow--toLeft1.svg" alt="">
             <p class="u-font--ja">クリックしたままスライドしてスタンプ配置</p>
           </div>
-          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--stampOperator">
+          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--stampOperator js-how-to-use__operator-stamp">
             <img src="image/materials/arrow--toLeft1.svg" alt="">
             <p class="u-font--ja">オペレータもクリックしたままスライドしてスタンプ配置</p>
           </div>
         </div>
       </div>
 
-    </div>
+    </div> <!--howToUse-->
   </div>
-  <footer class="l-footer--board">
+  <footer class="l-footer l-footer--board">
+    <div class="c-instruction__section-line"></div>
     <div class="c-link">
-      <a href="#" class="c-link__logo">
+      <a href="https://www.ubisoft.com/ja-jp/game/rainbow-six/siege" class="c-button c-link__logo">
         <img src="image/R6_Siege_X_Logo_JP.avif" alt="RainbowSixSiegeX__Link">
       </a>
     </div>
     <button class="c-button c-button--whatsSite" id="js-whatsSite--open">
-      <p>当サイトについて</p>
+      <p>BriefingBase<span class="u-font--ja">について</span></p>
     </button>
     <dialog class="c-modal c-modal--whatsSite" id="js-whatsSite">
       <div class="c-modal--stickeyNote">
         <div class="c-modal__header">
           <img src="image/materials/magnet_black.png" class="c-modal__magnet">
-          <p class="u-font--ja">当サイトについて</p>
+          <p class="u-font--ja"><span class="u-font--en">BriefingBase</span>について</p>
           <button class="c-modal__close--black" id="js-whatsSite--close">
             <img src="image/materials/menu__close--black.svg">
           </button>
@@ -1715,5 +603,1129 @@
       </div>
     </dialog>
   </footer>
+  <!--dialog__confirm-->
+  <dialog class="c-modal" id="js-confirm">
+    <div class="c-modal__confirm">
+      <p class="c-text--jaToEn" id="js-confirm__message--ja">お試しテキスト</p>
+      <p class="u-font--en" id="js-confirm__message--en">english</p>
+      <div class="c-modal__buttons">
+        <button class="u-font--en c-button" id="js-confirm__button--cancel" data-confirm="cancel">Cancel</button>
+        <button class="u-font--en c-button" id="js-confirm__button--ok" data-confirm="ok">OK</button>
+      </div>
+    </div>
+  </dialog>
+  <!--dialog__pen-setting-->
+  <dialog class="c-modal" id="js-penSetting" data-draw="pen">
+    <div class="c-modal__penSetting">
+      <button class="c-modal__close--white" id="js-penSetting--close">
+        <img src="image/materials/menu__close--white.svg">
+      </button>
+      <div class="c-modal__penSetting--bold">
+        <p>Bold</p>
+        <div class="c-modal__penBold">
+          <div class="c-modal__penBold--common js-penBold is-pen-bold--selected" data-draw="bold">
+            <div class="c-modal__penBold--2px" data-bold="2"></div>
+          </div>
+          <div class="c-modal__penBold--common js-penBold" data-draw="bold">
+            <div class="c-modal__penBold--4px" data-bold="4"></div>
+          </div>
+          <div class="c-modal__penBold--common js-penBold" data-draw="bold">
+            <div class="c-modal__penBold--8px" data-bold="8"></div>
+          </div>
+        </div>
+      </div>
+      <div class="c-modal__penSetting--color" data-draw="color">
+        <p>Color</p>
+        <input type="color" id="js-penColor">
+      </div>
+      <div class="c-modal__penSetting--opacity" id="js-opacity">
+        <p>Opacity</p>
+        <div class="c-modal__opacity" id="js-opacityContainer">
+          <input type="range" id="js-opacitySlider" min="0" max="100" step="1" value="100">
+        </div>
+      </div>
+    </div>
+  </dialog>
+  <!--dialog__eraser-setting-->
+  <dialog class="c-modal" id="js-eraserSetting" data-draw="eraser">
+    <div class="c-modal__eraserSetting">
+      <button class="c-modal__close--white" id="js-eraserSetting--close">
+        <img src="image/materials/menu__close--white.svg">
+      </button>
+      <div class="c-modal__eraserSetting--bold">
+        <p>Bold</p>
+        <div class="c-modal__eraserBold">
+          <div class="c-modal__eraserBold--common js-eraserBold" data-draw="bold">
+            <div class="c-modal__eraserBold--2px" data-bold="2"></div>
+          </div>
+          <div class="c-modal__eraserBold--common js-eraserBold" data-draw="bold">
+            <div class="c-modal__eraserBold--4px" data-bold="4"></div>
+          </div>
+          <div class="c-modal__eraserBold--common js-eraserBold is-eraser-bold--selected" data-draw="bold">
+            <div class="c-modal__eraserBold--8px" data-bold="8"></div>
+          </div>
+        </div>
+      </div>
+      <div class="c-modal__eraserSetting--lineDelete" id="js-lineClear" data-draw="lineClear">
+        <p>Line clear</p>
+      </div>
+      <div class="c-modal__eraserSetting--stampDelete" id="js-stampClear" data-draw="stampClear">
+        <p>Stamp clear</p>
+      </div>
+      <div class="c-modal__eraserSetting--allClear" id="js-allClear" data-draw="allClear">
+        <p>All clear</p>
+      </div>
+    </div>
+  </dialog>
+  <!--dialog__operator-setting-->
+  <dialog class="c-modal" id="js-operatorSetting">
+    <div class="c-modal__operatorSetting">
+      <button class="c-modal__close--white" id="js-operatorSetting--close">
+        <img src="image/materials/menu__close--white.svg">
+      </button>
+      <div class="c-modal__operatorLists">
+        <div class="c-modal__operatorList"> <!--ATK-->
+          <p>Attackers</p>
+          <div class="c-modal__selectedOperator" id="js-operatorSettingATK1">
+            <p data-operator-setting="player-name">ATK1</p>
+            <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
+            <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
+            <div class="c-modal__gadgets" data-operator-setting="gadget-container">
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK1--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK1--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK1--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK1--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK1--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK1--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK1--gadget" data-operator-setting="gadget">
+              </div>
+            </div>
+          </div>
+          <div class="c-modal__selectedOperator" id="js-operatorSettingATK2">
+            <p data-operator-setting="player-name">ATK2</p>
+            <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
+            <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
+            <div class="c-modal__gadgets" data-operator-setting="gadget-container">
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK2--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK2--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK2--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK2--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK2--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK2--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK2--gadget" data-operator-setting="gadget">
+              </div>
+            </div>
+          </div>
+          <div class="c-modal__selectedOperator" id="js-operatorSettingATK3">
+            <p data-operator-setting="player-name">ATK3</p>
+            <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
+            <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
+            <div class="c-modal__gadgets" data-operator-setting="gadget-container">
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK3--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK3--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK3--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK3--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK3--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK3--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK3--gadget" data-operator-setting="gadget">
+              </div>
+            </div>
+          </div>
+          <div class="c-modal__selectedOperator" id="js-operatorSettingATK4">
+            <p data-operator-setting="player-name">ATK4</p>
+            <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
+            <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
+            <div class="c-modal__gadgets" data-operator-setting="gadget-container">
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK4--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK4--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK4--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK4--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK4--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK4--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK4--gadget" data-operator-setting="gadget">
+              </div>
+            </div>
+          </div>
+          <div class="c-modal__selectedOperator" id="js-operatorSettingATK5">
+            <p data-operator-setting="player-name">ATK5</p>
+            <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
+            <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
+            <div class="c-modal__gadgets" data-operator-setting="gadget-container">
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK5--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK5--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK5--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK5--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK5--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK5--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingATK5--gadget" data-operator-setting="gadget">
+              </div>
+            </div>
+          </div>
+          <div class="c-modal__changeOperator">
+            <button id="js-operatorSelectionATK--open">
+              <img src="image/icon_operator/operator__change.png" alt="operator_change">
+            </button>
+          </div>
+        </div>
+        <div class="c-modal__operatorList"> <!--DEF-->
+          <p>Difenders</p>
+          <div class="c-modal__selectedOperator" id="js-operatorSettingDEF1">
+            <p data-operator-setting="player-name">DEF1</p>
+            <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
+            <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
+            <div class="c-modal__gadgets" data-operator-setting="gadget-container">
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF1--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF1--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF1--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF1--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF1--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF1--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF1--gadget" data-operator-setting="gadget">
+              </div>
+            </div>
+          </div>
+          <div class="c-modal__selectedOperator" id="js-operatorSettingDEF2">
+            <p data-operator-setting="player-name">DEF2</p>
+            <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
+            <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
+            <div class="c-modal__gadgets" data-operator-setting="gadget-container">
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF2--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF2--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF2--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF2--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF2--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF2--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF2--gadget" data-operator-setting="gadget">
+              </div>
+            </div>
+          </div>
+          <div class="c-modal__selectedOperator" id="js-operatorSettingDEF3">
+            <p data-operator-setting="player-name">DEF3</p>
+            <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
+            <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
+            <div class="c-modal__gadgets" data-operator-setting="gadget-container">
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF3--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF3--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF3--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF3--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF3--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF3--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF3--gadget" data-operator-setting="gadget">
+              </div>
+            </div>
+          </div>
+          <div class="c-modal__selectedOperator" id="js-operatorSettingDEF4">
+            <p data-operator-setting="player-name">DEF4</p>
+            <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
+            <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
+            <div class="c-modal__gadgets" data-operator-setting="gadget-container">
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF4--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF4--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF4--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF4--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF4--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF4--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF4--gadget" data-operator-setting="gadget">
+              </div>
+            </div>
+          </div>
+          <div class="c-modal__selectedOperator"  id="js-operatorSettingDEF5">
+            <p data-operator-setting="player-name">DEF5</p>
+            <img src="image/icon_operator/figure.png" alt="operator_blank" data-operator-setting="icon">
+            <img src="image/icon_ability/ability__empty.png" alt="ability_blank" data-operator-setting="ability">
+            <div class="c-modal__gadgets" data-operator-setting="gadget-container">
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF5--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF5--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF5--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF5--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF5--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF5--gadget" data-operator-setting="gadget">
+              </div>
+              <div class="c-modal__gadget">
+                <img src="image/icon_gadget/gadget__empty.png" alt="gadget_blank" class="js-operatorSettingDEF5--gadget" data-operator-setting="gadget">
+              </div>
+            </div>
+          </div>
+          <div class="c-modal__changeOperator">
+            <button id="js-operatorSelectionDEF--open">
+              <img src="image/icon_operator/operator__change.png" alt="operator_change">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+  <!--dialog__ATK-selection-->
+  <dialog class="c-modal" id="js-operatorSelectionATK">
+    <div class="c-modal__iconSetting"> <!--ATKsetting-->
+      <button class="c-modal__close--white" id="js-operatorSelectionATK--close">
+        <img src="image/materials/menu__close--white.svg">
+      </button>
+      <div class="c-modal__iconSetting--left">
+        <div class="c-modal__selectedIconList" id="js-operatorSelection__selectedATK">
+          <p>Selected</p>
+          <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedATK1">
+            <div class="counter">
+              <p>1</p>
+            </div>
+            <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
+            <p></p>
+          </div>
+          <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedATK2">
+            <div class="counter">
+              <p>2</p>
+            </div>
+            <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
+            <p></p>
+          </div>
+          <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedATK3">
+            <div class="counter">
+              <p>3</p>
+            </div>
+            <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
+            <p></p>
+          </div>
+          <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedATK4">
+            <div class="counter">
+              <p>4</p>
+            </div>
+            <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
+            <p></p>
+          </div>
+          <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedATK5">
+            <div class="counter">
+              <p>5</p>
+            </div>
+            <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
+            <p></p>
+          </div>
+        </div>
+        <button class="c-modal__return" id="js-operatorSelectionReturnATK">
+          <img src="image/materials/return.svg" alt="return">
+          <p>Return</p>
+        </button>
+      </div>
+      <div class="c-modal__iconSetting--right" id="js-operatorSelection__operatorPool--ATK">
+        <p>Attackers</p>
+        <div class="c-modal__icons">
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK1_striker.png" alt="operator_striker" data-operator-selection="striker">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK2_sledge.png" alt="operator_sledge" data-operator-selection="sledge">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK3_thatcher.png" alt="operator_thatcher" data-operator-selection="thatcher">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK4_ash.png" alt="operator_ash" data-operator-selection="ash">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK5_thermite.png" alt="operator_thermite" data-operator-selection="thermite">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK6_twitch.png" alt="operator_twitch" data-operator-selection="twitch">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK7_montagne.png" alt="operator_montagne" data-operator-selection="montagne">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK8_glaz.png" alt="operator_glaz" data-operator-selection="glaz">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK9_fuze.png" alt="operator_fuze" data-operator-selection="fuze">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK10_blitz.png" alt="operator_blitz" data-operator-selection="blitz">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK11_iq.png" alt="operator_iq" data-operator-selection="iq">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK12_buck.png" alt="operator_buck" data-operator-selection="buck">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK13_blackbeard.png" alt="operator_blackbeard" data-operator-selection="blackbeard">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK14_capitao.png" alt="operator_capitao" data-operator-selection="capitao">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK15_hibana.png" alt="operator_hibana" data-operator-selection="hibana">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK16_jackal.png" alt="operator_jackal" data-operator-selection="jackal">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK17_ying.png" alt="operator_ying" data-operator-selection="ying">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK18_zofia.png" alt="operator_zofia" data-operator-selection="zofia">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK19_dokkaebi.png" alt="operator_dokkaebi" data-operator-selection="dokkaebi">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK20_lion.png" alt="operator_lion" data-operator-selection="lion">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK21_finka.png" alt="operator_finka" data-operator-selection="finka">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK22_maverick.png" alt="operator_maverick" data-operator-selection="maverick">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK23_nomad.png" alt="operator_nomad" data-operator-selection="nomad">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK24_gridlock.png" alt="operator_gridlock" data-operator-selection="gridlock">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK25_nokk.png" alt="operator_nokk" data-operator-selection="nokk">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK26_amaru.png" alt="operator_amaru" data-operator-selection="amaru">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK27_kali.png" alt="operator_kali" data-operator-selection="kali">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK28_iana.png" alt="operator_iana" data-operator-selection="iana">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK29_ace.png" alt="operator_ace" data-operator-selection="ace">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK30_zero.png" alt="operator_zero" data-operator-selection="zero">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK31_flores.png" alt="operator_flores" data-operator-selection="flores">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK32_osa.png" alt="operator_osa" data-operator-selection="osa">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK33_sens.png" alt="operator_sens" data-operator-selection="sens">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK34_grim.png" alt="operator_grim" data-operator-selection="grim">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK35_brava.png" alt="operator_brava" data-operator-selection="brava">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK36_ram.png" alt="operator_ram" data-operator-selection="ram">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK37_deimos.png" alt="operator_deimos" data-operator-selection="deimos">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK38_rauora.png" alt="operator_rauora" data-operator-selection="rauora">
+          </div>
+          <div class="c-modal__icon js-operatorATK">
+            <img src="image/icon_operator/attacker/ATK39_snake.png" alt="operator_solidSnake" data-operator-selection="solidSnake">
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+  <!--dialog__DEF-selection-->
+  <dialog class="c-modal" id="js-operatorSelectionDEF">
+    <div class="c-modal__iconSetting"> <!--DEFsetting-->
+      <button class="c-modal__close--white" id="js-operatorSelectionDEF--close">
+        <img src="image/materials/menu__close--white.svg">
+      </button>
+      <div class="c-modal__iconSetting--left">
+        <div class="c-modal__selectedIconList" id="js-operatorSelection__selectedDEF">
+          <p>Selected</p>
+          <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedDEF1">
+            <div class="counter">
+              <p>1</p>
+            </div>
+            <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
+            <p></p>
+          </div>
+          <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedDEF2">
+            <div class="counter">
+              <p>2</p>
+            </div>
+            <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
+            <p></p>
+          </div>
+          <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedDEF3">
+            <div class="counter">
+              <p>3</p>
+            </div>
+            <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
+            <p></p>
+          </div>
+          <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedDEF4">
+            <div class="counter">
+              <p>4</p>
+            </div>
+            <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
+            <p></p>
+          </div>
+          <div class="c-modal__selectedIcon js-selectedIcon" id="js-operatorSelection__selectedDEF5">
+            <div class="counter">
+              <p>5</p>
+            </div>
+            <img src="image/icon_operator/figure.png" alt="icon_blank" data-operator-selection="icon">
+            <p></p>
+          </div>
+        </div>
+        <button class="c-modal__return" id="js-operatorSelectionReturnDEF">
+          <img src="image/materials/return.svg" alt="return">
+          <p>Return</p>
+        </button>
+      </div>
+      <div class="c-modal__iconSetting--right" id="js-operatorSelection__operatorPool--DEF">
+        <p>Defenders</p>
+        <div class="c-modal__icons">
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF1_sentry.png" alt="operator_sentry" data-operator-selection="sentry">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF2_smoke.png" alt="operator_smoke" data-operator-selection="smoke">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF3_mute.png" alt="operator_mute" data-operator-selection="mute">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF4_castle.png" alt="operator_castle" data-operator-selection="castle">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF5_pulse.png" alt="operator_pulse" data-operator-selection="pulse">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF6_doc.png" alt="operator_doc" data-operator-selection="doc">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF7_rook.png" alt="operator_rook" data-operator-selection="rook">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF8_kapkan.png" alt="operator_kapkan" data-operator-selection="kapkan">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF9_tachanka.png" alt="operator_tachanka" data-operator-selection="tachanka">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF10_jager.png" alt="operator_jager" data-operator-selection="jager">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF11_bandit.png" alt="operator_bandit" data-operator-selection="bandit">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF12_frost.png" alt="operator_frost" data-operator-selection="frost">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF13_valkyrie.png" alt="operator_valkyrie" data-operator-selection="valkyrie">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF14_caveira.png" alt="operator_caveira" data-operator-selection="caveira">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF15_echo.png" alt="operator_echo" data-operator-selection="echo">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF16_mira.png" alt="operator_mira" data-operator-selection="mira">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF17_legion.png" alt="operator_lesion" data-operator-selection="lesion">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF18_ela.png" alt="operator_ela" data-operator-selection="ela">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF19_visil.png" alt="operator_vigil" data-operator-selection="vigil">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF20_alibi.png" alt="operator_maestro" data-operator-selection="maestro">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF21_maestro.png" alt="operator_alibi" data-operator-selection="alibi">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF22_clash.png" alt="operator_clash" data-operator-selection="clash">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF23_kaid.png" alt="operator_kaid" data-operator-selection="kaid">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF24_mozzie.png" alt="operator_mozzie" data-operator-selection="mozzie">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF25_warden.png" alt="operator_warden" data-operator-selection="warden">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF26_goyo.png" alt="operator_goyo" data-operator-selection="goyo">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF27_wamai.png" alt="operator_wamai" data-operator-selection="wamai">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF28_oryx.png" alt="operator_oryx" data-operator-selection="oryx">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF29_melusi.png" alt="operator_melusi" data-operator-selection="melusi">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF30_aruni.png" alt="operator_aruni" data-operator-selection="aruni">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF31_thunderbird.png" alt="operator_thunderbird" data-operator-selection="thunderbird">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF32_thorn.png" alt="operator_thorn" data-operator-selection="thorn">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF33_azami.png" alt="operator_azami" data-operator-selection="azami">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF34_solis.png" alt="operator_solis" data-operator-selection="solis">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF35_fenrir.png" alt="operator_fenrir" data-operator-selection="fenrir">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF36_tubarao.png" alt="operator_tubarao" data-operator-selection="tubarao">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF37_skopos.png" alt="operator_skopos" data-operator-selection="skopos">
+          </div>
+          <div class="c-modal__icon js-operatorDEF">
+            <img src="image/icon_operator/difender/DEF38_denari.png" alt="operator_denari" data-operator-selection="denari">
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+  <!--dialog__stamp-collection-->
+  <dialog class="s-modal" id="js-stampCollection">
+    <div class="c-modal__stamp">
+      <button class="c-modal__close--white" id="js-stampCollection--close">
+        <img src="image/materials/menu__close--white.svg">
+      </button>
+      <div class="c-modal__stampGroup">
+        <p>Target</p>
+        <div class="c-modal__stamps">
+          <img src="image/stamp/stamp__object--bomb.png" alt="stamp_bomb" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+          <img src="image/stamp/stamp__object--hostage.png" alt="stamp_hostage" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+          <img src="image/stamp/stamp__object--area.png" alt="stamp_area" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+        </div>
+      </div>
+      <div class="c-modal__stampGroup">
+        <p>Destruction</p>
+        <div class="c-modal__stamps">
+          <img src="image/stamp/stamp__destruction--rotate.png" alt="stamp_rotate" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+          <img src="image/stamp/stamp__destruction--peek.png" alt="stamp_peek" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+        </div>
+      </div>
+      <div class="c-modal__stampGroup">
+        <p>Action</p>
+        <div class="c-modal__stamps">
+          <img src="image/stamp/stamp__action--point.png" alt="stamp_action" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+          <img src="image/stamp/stamp__action--caution.png" alt="stamp_caution" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+          <img src="image/stamp/stamp__action--hide.png" alt="stamp_hide" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+        </div>
+      </div>
+      <div class="c-modal__stampGroup">
+        <p>Object</p>
+        <div class="c-modal__stamps">
+          <img src="image/stamp/stamp__object--camera.png" alt="stamp_camera" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+          <img src="image/stamp/stamp__object--cover.png" alt="stamp_cover" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+          <img src="image/stamp/stamp__object--gas_pipe.png" alt="stamp_gaspipe" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+          <img src="image/stamp/stamp__object--extinguisher.png" alt="stamp_extinguisher" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+        </div>
+      </div>
+      <div class="c-modal__stampGroupSub">
+        <div class="c-modal__stampGroup">
+          <p>Direction</p>
+          <div class="c-modal__stamps">
+            <img src="image/stamp/stamp__direction--up.png" alt="stamp_up" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__direction--right.png" alt="stamp_right" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__direction--down.png" alt="stamp_down" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__direction--down_left.png" alt="stamp_left" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__direction--up_right.png" alt="stamp_up-right" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__direction--down_right.png" alt="stamp_down-right" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__direction--down_left.png" alt="stamp_down-left" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__direction--up_left.png" alt="stamp_up-left" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+          </div>
+        </div>
+        <div class="c-modal__stampGroup">
+          <p>Position</p>
+          <div class="c-modal__stamps">
+            <img src="image/stamp/stamp__position--overhead.png" alt="stamp_overhead" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__position--standing.png" alt="stamp_standing" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__position--crouching.png" alt="stamp_crouching" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__position--prone.png" alt="stamp_prone" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__position--hatch.png" alt="stamp_hatch" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__position--floor.png" alt="stamp_floor" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__position--ceiling.png" alt="stamp_ceiling" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__position--stairs.png" alt="stamp_stairs" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+          </div>
+        </div>
+      </div>
+      <div class="c-modal__stampGroupSub">
+        <div class="c-modal__stampGroup">
+          <p>Counter number</p>
+          <div class="c-modal__stamps">
+            <img src="image/stamp/stamp__counter--1.png" alt="stamp_1" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__counter--2.png" alt="stamp_2" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__counter--3.png" alt="stamp_3" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__counter--4.png" alt="stamp_4" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__counter--5.png" alt="stamp_5" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+          </div>
+        </div>
+        <div class="c-modal__stampGroup">
+          <p>Counter alphabet</p>
+          <div class="c-modal__stamps">
+            <img src="image/stamp/stamp__counter--a.png" alt="stamp_a" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__counter--b.png" alt="stamp_b" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__counter--c.png" alt="stamp_c" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__counter--d.png" alt="stamp_d" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+            <img src="image/stamp/stamp__counter--e.png" alt="stamp_e" class="js-stamp js-stamp--stamp" data-stamp="stamp-selection">
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+  <!--dialog__map-selection-->
+  <dialog class="c-modal" id="js-mapSetting">
+    <div class="c-modal__mapSetting">
+      <button class="c-modal__close--white" id="js-mapSetting--close">
+        <img src="image/materials/menu__close--white.svg">
+      </button>
+      <div class="c-modal__mapTable">
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Bank" data-map="bank">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-bank-blueprints/R6S_Maps_Bank_EXT.jpg" alt="Bank" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Bank / <span class="u-font--ja">銀行</p>
+          </div>
+        </button>
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Border" data-map="border">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-border-blueprints/R6S_Maps_Border_EXT.jpg" alt="Border" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Border / <span class="u-font--ja">国境</p>
+          </div>
+        </button>
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Chalet" data-map="chalet">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-chalet-blueprints/R6S_Maps_Chalet_EXT.jpg" alt="Chalet" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Chalet / <span class="u-font--ja">山荘</p>
+          </div>
+        </button>
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Clubhouse" data-map="clubhouse">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-clubhouse-blueprints/R6S_Maps_ClubHouse_EXT.jpg" alt="Clubhouse" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Clubhouse / <span class="u-font--ja">クラブハウス</p>
+          </div>
+        </button>
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Coastline" data-map="coastline">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-coastline-blueprints/r6-maps-coastline.jpg" alt="Coastline" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Coastline / <span class="u-font--ja">海岸線</p>
+          </div>
+        </button>
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Consulate" data-map="consulate">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-consulate-blueprints_may23/ModernizedMap_Consulate_keyart.jpg" alt="Consulate" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Consulate / <span class="u-font--ja">領事館</p>
+          </div>
+        </button>
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Emeraldplains" data-map="emeraldplains">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-emeraldplains-blueprints/r6s_maps_emeraldplains__1_.jpg" alt="Emeraldplains" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Emeraldplains / <span class="u-font--ja">エメラルドプレーンズ</p>
+          </div>
+        </button>
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Fortress" data-map="fortress">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-fortress-blueprints/fortress-reworked-thumbnail.avif" alt="Fortress" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Fortress / <span class="u-font--ja">要塞</p>
+          </div>
+        </button>
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Kafe" data-map="kafe">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-kafe-blueprints/R6S_Maps_RussianCafe_EXT.jpg" alt="Kafe" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Kafe / <span class="u-font--ja">カフェ</p>
+          </div>
+        </button>
+        <!-- ランクマップ除外中
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Kanal" data-map="kanal">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-kanal-blueprints/r6-maps-kanal.jpg" alt="Kanal" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Kanal / <span class="u-font--ja">運河</p>
+          </div>
+        </button>
+        -->
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Lair" data-map="lair">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-lair-blueprints/ModernizedMap_Lair_keyart.jpg" alt="Lair" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Liar / <span class="u-font--ja">アジト</p>
+          </div>
+        </button>
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Nighthavenlabs" data-map="nighthavenlabs">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-nighthavenlabs-blueprints/ModernizedMap_Nighthaven_keyart.jpg" alt="Nighthavenlabs" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Nighthavenlabs / <span class="u-font--ja">ナイトヘイヴンラボ</p>
+          </div>
+        </button>
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Oregon" data-map="oregon">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-oregon-blueprints/r6-maps-oregon.jpg" alt="Oregon" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Oregon / <span class="u-font--ja">オレゴン</p>
+          </div>
+        </button>
+        <!-- ランクマップ除外中
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Outback" data-map="outback">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-outback-blueprints/r6-maps-outback.jpg" alt="Outback" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Outback / <span class="u-font--ja">アウトバック</p>
+          </div>
+        </button>
+        -->
+        <!-- ランクマップ除外中
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Skyscraper" data-map="skyscraper">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-skyscraper-blueprints/r6-maps-skyscraper.jpg" alt="Skyscraper" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Skyscraper / <span class="u-font--ja">高層ビル</p>
+          </div>
+        </button>
+        -->
+        <!-- ランクマップ除外中
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Themepark" data-map="themepark">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-themepark-blueprints/rainbow6_maps_theme-park_thumbnail.jpg" alt="Themepark" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Themepark / <span class="u-font--ja">テーマパーク</p>
+          </div>
+        </button>
+        -->
+        <button class="c-map c-modal__map js-mapSetting__map" id="js-mapSetting--Villa" data-map="villa">
+          <div class="c-map__shadow">
+            <div class="c-map__shadow--object"></div>
+          </div>
+          <div class="c-map__frame">
+            <img src="image/maps/r6-maps-villa-blueprints/r6-maps-villa.jpg" alt="Villa" class="c-map__img">
+          </div>
+          <div class="c-map__active">
+            <p>Villa / <span class="u-font--ja">ヴィラ</p>
+          </div>
+        </button>
+      </div>
+    </div>
+  </dialog>
+  <!--dialog__floor-selection-->
+  <dialog class="c-modal" id="js-floorSetting">
+    <div class="c-modal__floorSetting">
+      <button class="c-modal__close--white" id="js-floorSetting--close">
+        <img src="image/materials/menu__close--white.svg">
+      </button>
+      <div class="c-modal__floorList">
+        <button class="js-floorSetting__floorList--floor" id="js-floorSetting__floorList--basement2nd" data-floor="basement2nd">
+          <p>2nd basement</p>
+        </button>
+        <button class="js-floorSetting__floorList--floor" id="js-floorSetting__floorList--basement" data-floor="basement">
+          <p>Basement</p>
+        </button>
+        <button class="js-floorSetting__floorList--floor" id="js-floorSetting__floorList--floor1st" data-floor="floor1st">
+          <p>1st floor</p>
+        </button>
+        <button class="js-floorSetting__floorList--floor" id="js-floorSetting__floorList--floor2nd" data-floor="floor2nd">
+          <p>2nd floor</p>
+        </button>
+        <button class="js-floorSetting__floorList--floor" id="js-floorSetting__floorList--floor3rd" data-floor="floor3rd">
+          <p>3rd floor</p>
+        </button>
+        <button class="js-floorSetting__floorList--floor" id="js-floorSetting__floorList--roof" data-floor="roof">
+          <p>Roof</p>
+        </button>
+      </div>
+    </div>
+  </dialog>
+  <!--dialog__setting-->
+  <dialog class="c-modal" id="js-menu__setting">
+    <div class="c-modal__setting">
+      <button class="c-modal__close--white" id="js-menu__setting--close">
+        <img src="image/materials/menu__close--white.svg">
+      </button>
+      <div class="c-modal__setting--contents">
+        <form id="js-mapImageSetting">
+          <h1>表示マップ</h1>
+          <div class="c-modal__map-setting--branch">
+            <input type="radio" id="js-raw-map" name="map-type" value="rawMap" checked>
+            <label for="js-raw-map">画像のみ</label>
+          </div>
+          <div class="c-modal__map-setting--branch">
+            <input type="radio" id="js-named-map" name="map-type" value="namedMap">
+            <label for="js-named-map">名前付き画像</label>
+          </div>
+        </form>
+        <form class="u-layout--directionRow" id="js-stampSizeSetting">
+          <h1>スタンプサイズ</h1>
+          <select name="stamp-size" id="js-setting--stampSize">
+            <option value="1.0">1.0</option>
+            <option value="1.5">1.5</option>
+            <option value="2.0">2.0</option>
+            <option value="2.5">2.5</option>
+            <option value="3.0" selected>3.0</option>
+            <option value="3.5">3.5</option>
+            <option value="4.0">4.0</option>
+          </select>
+        </form>
+      </div>
+    </div>
+  </dialog>
+  <!--dialog__file-manager-->
+  <dialog class="c-modal" id="js-file">
+    <div class="c-modal__file">
+      <button class="c-modal__close--white" id="js-file--close">
+        <img src="image/materials/menu__close--white.svg">
+      </button>
+      <div class="c-modal__file--content">
+        <h1>書き出し(保存)</h1>
+        <div class="c-modal__file--explanation">
+          <p>編集用データ</p>
+          <p>続きから描画したいときに。また、軽量で共有したいときに。(.json)</p>
+        </div>
+        <div class="c-modal__file--explanation">
+          <p>画像ファイル</p>
+          <p>画像として共有したいときに。このアプリで再度読み込むこともできます(.jpg)</p>
+        </div>
+        <div class="c-modal__file--buttons">
+          <button class="c-modal__file--button" id="js-file__button--program">
+            <img src="image/materials/program.svg" alt="download data">
+            <p>編集用データ</p>
+          </button>
+          <button class="c-modal__file--button" id="js-file__button--image">
+            <img src="image/materials/image.svg" alt="download image">
+            <p>画像ファイル</p>
+          </button>
+        </div>
+      </div>
+      <div class="c-modal__file--content">
+        <h1>読み込み(再開)</h1>
+        <div class="c-modal__file--explanation">
+          <p>ダウンロードしたデータをアップロードすることで再描画できます。<br>
+          jsonはマップ全体、pngは該当のフロアのみに適用されます。</p>
+        </div>
+        <div class="c-modal__file--buttons">
+          <button class="c-modal__file--button c-modal__file--area" id="js-file__button--import">
+            <img src="image/materials/upload.svg" alt="upload">
+            <p>編集再開</p>
+            <p>クリックして保存したファイルを選択か、ここにドラッグ。</p>
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
 </body>
 </html>

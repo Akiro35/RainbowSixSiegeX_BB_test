@@ -1,58 +1,23 @@
 @use '../foundation' as *;
 
 .l-body {
-  padding-top: 2dvh;
   width: 100dvw;
   height: 100dvh;
   position: relative;
 
-  &__head {
-    &--index {
-      height: 40vh;
-      padding-top: 5vh;
-      background: center / cover no-repeat url("../image/index__bg.jpg");
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      z-index: -2
-    }
-
-    &--operators {
-      height: 40vh;
-      padding-top: 5vh;
-      background: center / cover no-repeat url("../image/operators__bg.jpg");
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      z-index: -2
-    }
-
-    &--board {
-      height: 40vh;
-      padding-top: 5vh;
-      background: center / cover no-repeat url("../image/operators__bg.jpg");
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      z-index: -2;
-
-      @include responsive(tab) {
-        display: none;
-      }
-
-      @include responsive(pc) {
-        display: none;
-      }
-    }
+  &__hero {
+    height: 40vh;
+    padding-top: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: -2;
   }
 
   &__body {
     margin-top: -40vh;
     padding-top: 40vh;
-    padding-bottom: 10vh;
     position: relative;
 
     &::after {
@@ -65,186 +30,65 @@
       background: linear-gradient(184deg, rgba(0, 0, 0, 0), var(--background--dark) 40vh);
       z-index: -1;
     }
+  }
 
-    .l-body__logo {
-      margin: 5vh auto;
-      height: 30vh;
-      max-width: 80%;
-      display: inline-block;
-      position:absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 12;
+  &__maps {
+    padding-top: 5vh;
+    margin: 0 auto;
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    @include responsive(tab) {
+      grid-template-columns: repeat(4, 1fr);
     }
 
-    .l-body__instructions {
-      margin: 0 auto;
-      padding-top: calc(1rem + 5vw);
-      width: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-
-      &--nobtn {
-        opacity: 0.6;
-        pointer-events: none;
-        transform: rotate(-2deg);
-      }
+    @include responsive(pc) {
+      grid-template-columns: repeat(6, 1fr);
     }
 
-    .l-body__maps {
-      padding-top: 5vh;
+    &--selected {
       margin: 0 auto;
-      width: 80%;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-
-      @include responsive(tab) {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      @include responsive(pc) {
-        grid-template-columns: repeat(6, 1fr);
-      }
-
-      &--selected {
-        margin: 0 auto;
-        width: 60%;
-        position: relative;
-
-        @include responsive(pc) {
-          max-width: 20%;
-        }
-
-        &:after {
-          content:'';
-          width: 12%;
-          height: 5%;
-          background: right / contain no-repeat url(../image/materials/line--red.svg);
-          position: absolute;
-          left: 44%;
-          bottom: -10%;
-          z-index: 14;
-          transform: rotate(-80deg);
-
-          @include responsive(pc) {
-            width: 20%;
-            left: 40%;
-            bottom: -15%;
-          }
-        }
-      }
-    }
-
-    .l-body__operators {
-      margin: 0 auto;
-      padding: 0 20%;
-      width: 90vw;
-      padding-top: 2rem;
-      display: flex;
-      justify-content: center;
-      gap: 4vw;
+      width: 60%;
       position: relative;
 
       @include responsive(pc) {
-        padding: 0;
+        max-width: 20%;
       }
     }
-    
-    .l-body__indicatingLine {
-      &--1 {
-        &:before {
-          content: '';
-          width: 3rem;
-          height: 0.5rem;
-          background: top right / contain no-repeat url(../image/materials/line--red.svg);
-          position: absolute;
-          top: 0;
-          left: calc(50% - 2.5rem);
-          z-index: 8;
-          transform: rotate(-40deg);
-          transform-origin: top right;
-        }
+  }
 
-        &:after {
-          content: '';
-          width: 3rem;
-          height: 0.5rem;
-          background: top right / contain no-repeat url(../image/materials/line--red.svg);
-          position: absolute;
-          top: 0;
-          left: calc(50% - 3.5rem);
-          z-index: 8;
-          transform: rotate(-140deg);
-          transform-origin: top right;
-        }
-      }
+  &__operators {
+    margin: 0 auto;
+    padding: 0 20%;
+    width: 90dvw;
+    display: flex;
+    justify-content: center;
+    gap: 4dvw;
+    position: relative;
 
-      &--2 {
-        &:before {
-          content: '';
-          width: 3rem;
-          height: 0.5rem;
-          background: top right / contain no-repeat url(../image/materials/line--red.svg);
-          position: absolute;
-          top: 0;
-          left: calc(50% - 2.5rem);
-          z-index: 8;
-          transform: rotate(-80deg);
-          transform-origin: top right;
-        }
-
-        &:after {
-          content: '';
-          width: 3rem;
-          height: 0.5rem;
-          background: top right / contain no-repeat url(../image/materials/line--red.svg);
-          position: absolute;
-          top: 0;
-          left: calc(50% - 3.5rem);
-          z-index: 8;
-          transform: rotate(-110deg);
-          transform-origin: top right;
-        }
-      }
+    @include responsive(pc) {
+      padding: 0;
     }
+  }
+
+  &__logo {
+    margin: 5vh auto;
+    height: 30vh;
+    max-width: 80%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 12;
 
     &--board {
-      margin-top: -40vh;
-      padding-top: 40vh;
-      padding-bottom: 10vh;
-      position: relative;
-
-      &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(184deg, rgba(0, 0, 0, 0), var(--background--dark) 40vh);
-        z-index: -1;
-      }
-
-      .l-body__logo--board {
-        margin: 5vh auto;
-        height: 30vh;
-        max-width: 80%;
-        display: inline-block;
-        position:absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 12;
-      }
+      @extend .l-body__logo;
 
       @include responsive(tab) {
         display: none;
@@ -270,7 +114,7 @@
       width: 70%;
     }
 
-    &--active {
+    &.is-active {
       display: flex;
     }
   }

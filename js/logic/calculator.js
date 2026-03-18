@@ -219,9 +219,6 @@ export function resizeCanvas({context}) {
 
   main.ctx.setTransform(scaleFactor, 0, 0, scaleFactor, 0, 0);
   cache.ctx.setTransform(scaleFactor, 0, 0, scaleFactor, 0, 0);
-  
-  main.ctx.imageSmoothingEnabled = false;
-  cache.ctx.imageSmoothingEnabled = false;
 };
 
 

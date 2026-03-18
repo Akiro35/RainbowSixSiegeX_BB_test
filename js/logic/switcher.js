@@ -139,9 +139,8 @@ export function changeBoldState(button, settingId) {
   if(settingId === TOOL_IDS.pen) {
     DRAW_STATE.penBoldValue = boldValue;
   } else {
-    DRAW_STATE.penBoldValue = boldValue;
+    DRAW_STATE.eraserBoldValue = boldValue;
   }
-  //console.log(boldValue);
 }
 
 export function changeColor(colorValue) {

@@ -1,17 +1,15 @@
 @use '../../foundation' as *;
 
 .c-link {
-  margin: 5vh 0;
   display: flex;
   justify-content: center;
 
   &__logo {
-    max-width: 60%;
+    width: 30%;
+    min-width: 10rem;
     display: inline-block;
 
     img {
-      width: auto;
-      height: 20vh;
       object-fit: contain;
     }
   }

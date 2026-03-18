@@ -33,6 +33,7 @@ import {
   deleteSelectedGadget,
   replaceSelectedGadget,
   pushSelectedGadget,
+  getStampsAtPointer,
 } from "../logic/collection.js";
 
 import {
@@ -440,7 +441,7 @@ export const handleOperatorButtonInLegendClick = (button) => {
   
   if(OPERATOR_STATE.isOperatorActive) {
     applyElementActivation(operatorContainer, ACTIVE_CLASSNAMES.operator);
-    //console.log(playerColor); //TODO:ここで、rgbで出力される。16進数コードで出力されていないので、エラーの元かも。注意。
+    changeCursorOnCanvas(operatorId);
     updatePlayerColorState(playerColor);
   }
 
@@ -634,6 +635,7 @@ export function handleStampImagePointerDown(e) {
   resetToolSelections();
   resetLegendOperatorActivations();
   activateStampLocateState();
+  changeCursorOnCanvas('stamp');
   const deleteContainer = document.getElementById(ELEMENT_IDS.deleteStamp);
   applyElementActivation(deleteContainer, ACTIVE_CLASSNAMES.deleteStamp);
 }

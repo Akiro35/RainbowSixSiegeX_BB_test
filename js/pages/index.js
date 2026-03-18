@@ -12,7 +12,7 @@ import {
 function initWhatsSite() {
   const modalId = 'js-whatsSite';
 
-  initOpenModal (modalId);
+  initOpenModal ({modalId});
   initCloseModal(modalId);
 }
 
