@@ -197,7 +197,7 @@ export function applyConfirmDialogMessage(textJa, textEn) {
 export function insertBadge(sideKey, operatorIconContainer, index) {
   const operatorNumber = index + 1;
   const badgeHTML = `
-    <div class="selected" id="js-count${sideKey}--${operatorNumber}">
+    <div class="is-selected" id="js-count${sideKey}--${operatorNumber}">
       <p>${operatorNumber}</p>
     </div>
   `;
@@ -213,7 +213,7 @@ export function removeBadge(operatorIconContainer) {
   if(!operatorIconContainer) return;
 
   const badge = operatorIconContainer.firstElementChild;
-  const isBadge = badge.classList.contains('selected');
+  const isBadge = badge.classList.contains('is-selected');
   if(isBadge) {
     badge.remove();
   }
@@ -583,6 +583,16 @@ export function changeCursorOnCanvas(toolId) {
   } else if(toolId === 'pen' || toolId === 'eraser') {
     canvas.addEventListener('mousedown', () => {
       canvas.style.cursor = 'crosshair';
+    });
+  } else if (toolId ==='stamp') {
+    canvas.addEventListener('mouseover', () => {
+      canvas.style.cursor = 'grabbing';
+    });
+    canvas.addEventListener('mousedown', () => {
+      canvas.style.cursor = 'grabbing';
+    });
+    canvas.addEventListener('mouseup', () => {
+      canvas.style.cursor = 'grab';
     });
   }
 };

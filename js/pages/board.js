@@ -55,6 +55,7 @@ import {
   hideFooter,
   applyCurrentColor,
   applyCurrentOpacity,
+  changeCursorOnCanvas,
 } from "../ui/domApplier.js";
 
 import {
@@ -96,8 +97,6 @@ import {
   handleMapClick,
   handleFloorClick,
   handleLineClearClick,
-  //handleCancelClick,
-  //handleOkClick,
   handleStampClearClick,
   handleAllClearClick,
   handleHistoryButton,
@@ -141,7 +140,9 @@ function setupDefaultBehaviors() {
     updateStaticCanvasCache(CANVAS_DATA);
     updateCanvas(CANVAS_DATA);
     initHowToUsePositions();
-  })
+  });
+
+  changeCursorOnCanvas('move');
 }
 
 /**
@@ -434,7 +435,6 @@ function buildCanvas() {
   })
 
   main.el.addEventListener('pointermove', (e) => {
-    //console.log(TOUCH_STATE.press);
     setActivePointer(e);
     handleCanvasPointerMove(e, TOOL_STATE, TOUCH_STATE, CANVAS_DATA);
     updateStaticCanvasCache(CANVAS_DATA);

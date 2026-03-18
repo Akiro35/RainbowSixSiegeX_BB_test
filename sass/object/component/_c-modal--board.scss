@@ -139,6 +139,11 @@
           justify-content: center;
           align-items: center;
           cursor: pointer;
+
+          &.is-pen-bold--selected {
+            border: 2px solid var(--white);
+            border-radius: 0.5rem;
+          }
         }
 
         &--2px {
@@ -165,11 +170,8 @@
           transform: rotate(-45deg);
         }
 
-        .js-penBoldSelected {
-          border: 2px solid var(--white);
-          border-radius: 0.5rem;
-        }
       }
+      
     }
 
     &--color {
@@ -209,7 +211,6 @@
       p {
         cursor: pointer;
       }
-      //border: 1px solid red;
     }
 
     .c-modal__opacity {
@@ -223,10 +224,10 @@
       left: 0;
       right: 0;
       z-index: 616;
-    }
 
-    .js-opacityOpened {
-      display: flex;
+      &.is-active {
+        display: flex;
+      }
     }
   }
 
@@ -266,6 +267,11 @@
           justify-content: center;
           align-items: center;
           cursor: pointer;
+
+          &.is-eraser-bold--selected {
+            border: 2px solid var(--white);
+            border-radius: 0.5rem;
+          }
         }
 
         &--2px {
@@ -292,10 +298,6 @@
           transform: rotate(-45deg);
         }
 
-        .js-eraserBoldSelected {
-          border: 2px solid var(--white);
-          border-radius: 0.5rem;
-        }
       }
     }
 
@@ -447,7 +449,7 @@
             }
           }
 
-          .c-modal__selectedGadget {
+          .is-selected {
             border: 3px solid var(--white);
           }
         }
@@ -542,13 +544,11 @@
               text-shadow: 0 0 3px black;
             }
           }
-          /*
+          
           img {
-            max-width: 80%;
-            max-height: 80%;
-            aspect-ratio: 1 / 1;
+            cursor: pointer;
           }
-          */
+          
           p {
             color: var(--white);
             text-align: center;
@@ -572,6 +572,10 @@
           aspect-ratio: 1 / 1;
           height: auto;
         }
+
+        p {
+          pointer-events: none;
+        }
       }
     }
 
@@ -583,7 +587,6 @@
       @include border-radius--col;
       display: flex;
       flex-direction: column;
-      //justify-content: space-around;
       align-items: center;
       gap: 2dvh;
 
@@ -609,9 +612,10 @@
             width: 16dvh;
             aspect-ratio: 1 / 1;
             display:inline-block;
+            cursor: pointer;
           }
 
-          .selected {
+          .is-selected {
             width: 3dvw;
             aspect-ratio: 1 / 1;
             background: center / contain no-repeat url(../image/materials/magnet_red.png);
@@ -644,7 +648,6 @@
     background-color: var(--background--dark);
     display: flex;
     flex-wrap: wrap;
-    //justify-content: center;
     justify-content: space-around;
     align-items: center;
     column-gap: 2dvw;
@@ -669,7 +672,7 @@
         img {
           width: 5dvw;
           min-width: 2.5rem;
-
+          cursor: pointer;
         }
       }
     }
@@ -729,10 +732,10 @@
 
       button {
         width: 100%;
-        //border: 1px solid #fff;
 
         p {
           padding: 2vh 2vw;
+          pointer-events: none;
         }
       }
     }
@@ -810,10 +813,10 @@
       width: 60%;
       min-width: none;
       border-style: dashed;
-    }
 
-    &--areaActive {
-      background: rgba(255, 255, 255, 0.2);
+      &.is-active {
+        background: rgba(255, 255, 255, 0.2);
+      }
     }
   }
 }

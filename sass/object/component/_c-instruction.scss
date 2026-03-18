@@ -1,0 +1,70 @@
+@use '../../foundation' as *;
+
+.c-instruction {
+  margin: 0 auto;
+  //padding-top: calc(1rem + 5vw);
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  opacity: 0.6;
+  pointer-events: none;
+
+  &:has(button) {
+    opacity: 1.0;
+    pointer-events: auto;
+  }
+
+  &__line-contents {
+    height: 8dvh;
+    max-height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  &__line {    
+    &--left80 {
+      width: 12dvh;
+      max-width: 2.8rem;
+      transform: rotate(-80deg);
+    }
+    
+    &--left40 {
+      width: 10dvh;
+      max-width: 4rem;
+      transform: rotate(-40deg);
+      margin-right: -0.8rem;
+    }
+
+    &--right140 {
+      width: 12dvh;
+      max-width: 4rem;
+      transform: rotate(-140deg);
+      margin-left: -0.8rem;
+    }
+
+    &--left70 {
+      width: 12dvh;
+      max-width: 2.8rem;
+      transform: rotate(-70deg);
+      margin-left: -2.5rem;
+    }
+
+    &--right100 {
+      width: 12dvh;
+      max-width: 2.8rem;
+      transform: rotate(-100deg);
+    }
+  }
+
+  &__section-line {
+    width: 70%;
+    height: 0.5rem;
+    background-image: url(../image/materials/line--red.svg);
+    background-repeat: repeat-x;
+  }
+}

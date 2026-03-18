@@ -1,0 +1,26 @@
+@use '../../foundation' as *;
+
+.p-hero {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &--index {
+    @extend .p-hero;
+    background-image: url("../image/index__bg.jpg");
+  }
+
+  &--operators {
+    @extend .p-hero;
+    background-image: url("../image/operators__bg.jpg");
+  }
+
+  &--board {
+    @extend .p-hero;
+    background-image: url("../image/operators__bg.jpg");
+
+    @include responsive(tab) {
+      display: none;
+    }
+  }
+}

@@ -45,7 +45,7 @@ function initSelectOperatorModal() {
   Object.keys(SELECTED_OPERATORS).forEach(sideKey => {
     const modalId = `js-selectOperator${sideKey}`;
 
-    initOpenModal(modalId);
+    initOpenModal({modalId});
     initCloseModal(modalId);
   });
 };
@@ -103,7 +103,7 @@ function initOperatorSelection () {
 function initWhatsSite() {
   const modalId = 'js-whatsSite';
 
-  initOpenModal (modalId);
+  initOpenModal ({modalId});
   initCloseModal(modalId);
 }
 

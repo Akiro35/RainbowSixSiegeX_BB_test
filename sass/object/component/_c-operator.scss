@@ -16,17 +16,15 @@
 
     .c-operator__icons {
       margin: 2px;
-      padding: 8%;
       border: 2px solid var(--white);
       @include border-radius--col;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 4%;
 
       @include responsive(pc) {
-        padding: 4%;
+        padding: 2%;
         flex-direction: row;
       }
 
@@ -36,6 +34,7 @@
       }
 
       .c-operator__icon {
+        margin: 1.5dvh;
         width: 10vh;
         aspect-ratio: 1 / 1;
         background-color: var(--white);
@@ -70,7 +69,7 @@
           z-index: 8;
         }
 
-        &--filled {
+        &.is-selected {
           &:after {
             background: center / contain no-repeat url(../image/materials/magnet_red.png);
           }
@@ -93,7 +92,7 @@
     justify-content: center;
 
     @include responsive(pc) {
-      grid-template-columns: repeat(auto-fit, 8rem);
+      grid-template-columns: repeat(auto-fit, 5rem);
     }
 
     .c-operator__icon--modal {
@@ -102,7 +101,7 @@
       position: relative;
 
       @include responsive(pc) {
-        width: 8rem;
+        width: 5rem;
       }
 
       img {
@@ -110,7 +109,7 @@
         aspect-ratio: 1 / 1;
       }
 
-      .selected {
+      .is-selected {
         width: 2rem;
         height: 2rem;
         background: center / contain no-repeat url(../image/materials/magnet_red.png);
