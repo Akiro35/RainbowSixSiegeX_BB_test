@@ -77,7 +77,7 @@ export function resetActivePointer(e) {
 }
 
 /*****setting*****/
-export function changeMapImageType({selectedData}, selectedMapImageType) {
+export function changeMapImageTypeState({selectedData}, selectedMapImageType) {
   selectedData.mapType = selectedMapImageType;
 }
 

@@ -29,6 +29,7 @@ import {
   logicalToViewport,
   isLineColliding,
   isRectColliding,
+  changeCanvasScale,
 } from "../logic/calculator.js";
 
 import {
@@ -53,7 +54,7 @@ import {
 import {
   OPERATOR_ICON_CONTAINERS,
   externalMoladElementsByOpenId,
-  getButtonElementsById,
+  getElementArrayById,
   getModalElements,
   getOperatorDOM,
   getSelectedOperatorData,
@@ -77,6 +78,8 @@ import {
   setHowToUseRectPosition,
   applyConfirmDialogMessage,
   changeCursorOnCanvas,
+  applyScaleIntOptions,
+  applyScaleDecOptions,
 } from "./domApplier.js";
 
 import { 
@@ -166,6 +169,28 @@ export function showConfirmDialog(textJa, textEn) {
     });
   });
 }
+/*****setting*****/
+export function initScaleOptions(scaleValues, selectorData, isMinChanged, isMaxChanged) {
+  const isIntChanged = selectorData.endsWith('int');
+
+  if(isIntChanged) {
+    applyScaleIntOptions(scaleValues, isMinChanged, isMaxChanged);
+  }
+  
+  applyScaleDecOptions(scaleValues, isMinChanged, isMaxChanged);
+}
+
+export function applyLoadedSettings(settings, CANVAS_DATA, STAMP_STATE) {
+  const {selectedData, setting} = CANVAS_DATA;
+  selectedData.mapType = settings.mapImageType;
+  setting.maxScale = settings.maxScale;
+  setting.minScale = settings.minScale;
+  STAMP_STATE.size = settings.stampSize;
+
+  updateStaticCanvasCache(CANVAS_DATA);
+  updateCanvas(CANVAS_DATA);
+}
+
 
 /*****howToUse*****/
 export function initHowToUsePositions() {
@@ -229,7 +254,7 @@ export function shiftHowToUsePage(buttonId) {
  * ツールボタンをすべて非アクティブ化。//コントローラでよい。
  */
 export function resetToolSelections() {
-  const toolButtons = getButtonElementsById(BUTTON_IDS.tool);
+  const toolButtons = getElementArrayById(BUTTON_IDS.tool);
   clearToolState();
   applyElementsDeactivation(toolButtons, ACTIVE_CLASSNAMES.tool);
 };
@@ -670,7 +695,7 @@ export function deleteTempStamp(tempStamp, CANVAS_DATA) {
 }
 
 export function returnMode() {
-  const buttons = getButtonElementsById(BUTTON_IDS.tool);
+  const buttons = getElementArrayById(BUTTON_IDS.tool);
   const [move, pen, eraser] = buttons;
 
   TOOL_STATE.activeToolId = TOOL_STATE.lastToolId;

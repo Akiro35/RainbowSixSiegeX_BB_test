@@ -706,6 +706,26 @@ z-index memo
   width: 3rem;
   height: auto;
 }
+.c-button--modal {
+  margin: 5dvh auto 0 auto;
+  border: 2px solid var(--white);
+  border-top-left-radius: 14vw 2vw;
+  border-top-right-radius: 4vw 20vw;
+  border-bottom-right-radius: 24vw 3vw;
+  border-bottom-left-radius: 8vw 4vw;
+}
+.c-button--modal p {
+  width: -moz-fit-content;
+  width: fit-content;
+  pointer-events: none;
+  margin: 0;
+  font-size: clamp(1em, 1.8vw, 2em);
+  font-family: var(--font--ja);
+  letter-spacing: -0.05em;
+}
+.c-button--modal:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
 
 .c-text--jaToEn {
   font-family: var(--font--ja);
@@ -1001,38 +1021,16 @@ z-index memo
   word-break: keep-all;
 }
 .c-modal__setting {
-  width: 50dvw;
+  width: 60dvw;
   height: 70dvh;
   padding: 5dvh 5dvw;
   background-color: var(--background--dark);
   display: flex;
+  flex-direction: column;
   position: fixed;
   top: calc(50% - 35dvh);
-  left: calc(50% - 25dvw);
+  left: calc(50% - 30dvw);
   z-index: 600;
-}
-.c-modal__setting form {
-  margin: 0.5rem 0;
-}
-.c-modal__setting h1 {
-  color: var(--white);
-  font-size: clamp(1.2em, 2vw, 1.8em);
-  font-family: var(--font--ja);
-}
-.c-modal__setting label {
-  color: var(--white);
-  font-size: clamp(1em, 1.5vw, 1.2em);
-  font-family: var(--font--ja);
-}
-.c-modal__setting input {
-  margin: 0 1dvw;
-}
-.c-modal__setting select {
-  margin: 0 2dvw;
-}
-.c-modal__setting--contents {
-  display: flex;
-  flex-direction: column;
 }
 .c-modal__penSetting {
   padding: 4dvh 8dvw;
@@ -2364,6 +2362,45 @@ z-index memo
   display: flex;
   justify-content: center;
   align-items: flex-end;
+}
+
+.p-setting__contents {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+.p-setting__contents::-webkit-scrollbar {
+  display: none;
+}
+.p-setting__contents form {
+  margin: 0.5rem 0;
+  align-items: baseline;
+}
+.p-setting__contents h1 {
+  margin-right: 1dvw;
+  color: var(--white);
+  font-size: clamp(1.2em, 2vw, 1.8em);
+  font-family: var(--font--ja);
+}
+.p-setting__contents label {
+  color: var(--white);
+  font-size: clamp(1em, 1.5vw, 1.2em);
+  font-family: var(--font--ja);
+}
+.p-setting__contents input {
+  margin: 0 1dvw;
+}
+.p-setting__contents p {
+  margin: 0 0.5rem;
+}
+.p-setting__zoom {
+  gap: 1dvw;
+}
+@media (width >= 1000px) {
+  .p-setting__zoom {
+    display: flex;
+  }
 }
 
 .u-font--ja {

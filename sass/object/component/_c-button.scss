@@ -117,4 +117,23 @@
       height: auto;
     }
   }
+
+  &--modal {
+    margin: 5dvh auto 0 auto;
+    border: 2px solid var(--white);
+    @include border-radius--col;
+
+    p {
+      width: fit-content;
+      pointer-events: none;
+      margin: 0;
+      font-size: clamp(1em, 1.8vw, 2em);
+      font-family: var(--font--ja);
+      letter-spacing: -0.05em;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
 }
