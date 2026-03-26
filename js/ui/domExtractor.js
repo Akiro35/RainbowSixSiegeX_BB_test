@@ -3,6 +3,7 @@ import {
   ACTIVE_CLASSNAMES,
   SELECTOR_DATA,
   MODAL_IDS,
+  FORM_ID,
 } from "../data/selector.js";
 import { CANVAS_DATA } from "./canvasManager.js";
 
@@ -54,13 +55,12 @@ export function getOperatorIconFromSelection(sideKey, operatorName) {
   return operatorIcon;
 }
 
-/*****buttons*****/
 /**
- * IDからボタン要素を取得する。
+ * IDオブジェクトから要素を格納した配列を取得する。
  * @param {Object} idObj 
  * @returns {Element[]}
  */
-export function getButtonElementsById(idObj) {
+export function getElementArrayById(idObj) {
   const keyArray = Object.keys(idObj);
   const valueArray = Object.values(idObj);
   const elements = [];
@@ -253,4 +253,25 @@ export function initCanvasContext() {
   const staticCanvas = document.createElement('canvas');
   CANVAS_DATA.context.cache.el = staticCanvas,
   CANVAS_DATA.context.cache.ctx = staticCanvas.getContext('2d');
+}
+
+export function getScaleValue() {
+  const minForm = document.getElementById(FORM_ID.zoomScale.min);
+  const minData = new FormData(minForm);
+  const minInt = minData.get('scale-int');
+  const minDec = minData.get('scale-dec');
+  const min = Number(`${minInt}.${minDec}`);
+  
+  const maxForm = document.getElementById(FORM_ID.zoomScale.max);
+  const maxData = new FormData(maxForm);
+  const maxInt = maxData.get('scale-int');
+  const maxDec = maxData.get('scale-dec');
+  const max = maxInt === '8' ? 8 : Number(`${maxInt}.${maxDec}`);
+  
+  const values = {
+    min: min,
+    max: max,
+  }
+
+  return values;
 }

@@ -606,7 +606,7 @@
   <!--dialog__confirm-->
   <dialog class="c-modal" id="js-confirm">
     <div class="c-modal__confirm">
-      <p class="c-text--jaToEn" id="js-confirm__message--ja">お試しテキスト</p>
+      <p class="c-text--jaToEn" id="js-confirm__message--ja">日本語</p>
       <p class="u-font--en" id="js-confirm__message--en">english</p>
       <div class="c-modal__buttons">
         <button class="u-font--en c-button" id="js-confirm__button--cancel" data-confirm="cancel">Cancel</button>
@@ -1657,8 +1657,8 @@
       <button class="c-modal__close--white" id="js-menu__setting--close">
         <img src="image/materials/menu__close--white.svg">
       </button>
-      <div class="c-modal__setting--contents">
-        <form id="js-mapImageSetting">
+      <div class="p-setting__contents">
+        <form id="js-setting__map-image">
           <h1>表示マップ</h1>
           <div class="c-modal__map-setting--branch">
             <input type="radio" id="js-raw-map" name="map-type" value="rawMap" checked>
@@ -1669,9 +1669,54 @@
             <label for="js-named-map">名前付き画像</label>
           </div>
         </form>
-        <form class="u-layout--directionRow" id="js-stampSizeSetting">
+        <div class="p-setting__zoom">
+          <form class="u-layout--directionRow" id="js-setting__zoom-scale--min">
+            <h1>最小拡大率</h1>
+            <select name="scale-int" id="js-setting__min-scale--int" data-scale-setting="min-int">
+              <option value="1" selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select>
+            <p class="p-setting__decimal-point">.</p>
+            <select name="scale-dec" id="js-setting__min-scale--dec" data-scale-setting="min-dec">
+              <option value="0" selected>0</option>
+              <option value="2">2</option>
+              <option value="4">4</option>
+              <option value="6">6</option>
+              <option value="8">8</option>
+            </select>
+          </form>
+          <!--１の位と小数点を分ける？　フロアを切り替えたときに、拡大率を変更しない。ここから。-->
+          <form class="u-layout--directionRow" id="js-setting__zoom-scale--max">
+            <h1>最大拡大率</h1>
+            <select name="scale-int" id="js-setting__max-scale--int" data-scale-setting="max-int">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8" selected>8</option>
+            </select>
+            <p class="p-setting__decimal-point">.</p>
+            <select name="scale-dec" id="js-setting__max-scale--dec" data-scale-setting="max-dec">
+              <option value="0" selected>0</option>
+              <option value="2">2</option>
+              <option value="4">4</option>
+              <option value="6">6</option>
+              <option value="8">8</option>
+            </select>
+          </form>
+        </div>
+        <form class="u-layout--directionRow" id="js-setting__stamp-size">
           <h1>スタンプサイズ</h1>
-          <select name="stamp-size" id="js-setting--stampSize">
+          <select name="stamp-size">
             <option value="1.0">1.0</option>
             <option value="1.5">1.5</option>
             <option value="2.0">2.0</option>
@@ -1682,6 +1727,9 @@
           </select>
         </form>
       </div>
+      <button class="c-button--modal" id="js-setting--save">
+        <p class="u-font--ja">この設定をデフォルトにする</p>
+      </button>
     </div>
   </dialog>
   <!--dialog__file-manager-->

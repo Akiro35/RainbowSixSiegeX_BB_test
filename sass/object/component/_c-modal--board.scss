@@ -62,45 +62,16 @@
   }
 
   &__setting {
-    width: 50dvw;
+    width: 60dvw;
     height: 70dvh;
     padding: 5dvh 5dvw;
     background-color: var(--background--dark);
     display: flex;
+    flex-direction: column;
     position: fixed;
     top: calc(50% - 35dvh);
-    left: calc(50% - 25dvw);
+    left: calc(50% - 30dvw);
     z-index: 600;
-
-    form {
-      margin: 0.5rem 0;
-    }
-
-    h1 {
-      color: var(--white);
-      font-size: clamp(1.2em, 2vw, 1.8em);
-      font-family: var(--font--ja);
-    }
-
-    label {
-      color: var(--white);
-      font-size: clamp(1em, 1.5vw, 1.2em);
-      font-family: var(--font--ja);
-    }
-
-    input {
-      margin: 0 1dvw;
-    }
-
-    select {
-      margin: 0 2dvw;
-    }
-
-    &--contents {
-      display: flex;
-      flex-direction: column;
-      
-    }
   }
 
   &__penSetting {

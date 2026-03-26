@@ -139,7 +139,10 @@ export const BUTTON_IDS = {
     cancel: 'js-confirm__button--cancel',
     ok:     'js-confirm__button--ok',
   },
-  setting: 'js-setting--open',
+  setting: {
+    open: 'js-setting--open',
+    save: 'js-setting--save',
+  },
   file: {
     program: 'js-file__button--program',
     image:   'js-file__button--image',
@@ -148,8 +151,12 @@ export const BUTTON_IDS = {
 }
 
 export const FORM_ID = {
-  mapImage:  'js-mapImageSetting',
-  stampSise: 'js-stampSizeSetting',
+  mapImage:  'js-setting__map-image',
+  zoomScale: {
+    min: 'js-setting__zoom-scale--min',
+    max: 'js-setting__zoom-scale--max',
+  },
+  stampSize: 'js-setting__stamp-size',
 }
 
 /****className*****/
@@ -213,6 +220,12 @@ export const ACTIVE_CLASSNAMES = {
  * @type {Object}
  */
 export const SELECTOR_DATA = {
+  setting: {
+    minInt: '[data-scale-setting="min-int"]',
+    minDec: '[data-scale-setting="min-dec"]',
+    maxInt: '[data-scale-setting="max-int"]',
+    maxDec: '[data-scale-setting="max-dec"]',
+  },
   draw: {
     bold: '[data-draw="bold"]',
   },

@@ -136,3 +136,28 @@ export const createFirstVisitChecker = (modalId) => {
     }
   }
 }
+
+
+export function saveSettingToLocal(CANVAS_DATA, STAMP_STATE) {
+  const {selectedData, setting} = CANVAS_DATA;
+
+  const settings = {
+    mapImageType: selectedData.mapType,
+    maxScale: setting.maxScale,
+    minScale: setting.minScale,
+    stampSize: STAMP_STATE.size,
+  };
+
+  localStorage.setItem('R6XBB_setting', JSON.stringify(settings));
+}
+
+export function getSettingFromLocal() {
+  const savedData = localStorage.getItem('R6XBB_setting');
+
+  if(savedData) {
+    const settings = JSON.parse(savedData);
+    return settings;
+  } else {
+    console.log('保存された設定はありません。');
+  }
+}

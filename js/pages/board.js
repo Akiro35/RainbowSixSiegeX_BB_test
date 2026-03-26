@@ -18,6 +18,7 @@ import {
 import {
   createFirstVisitChecker,
   getMapFromSession,
+  getSettingFromLocal,
 } from "../logic/storage.js";
 
 import {
@@ -34,12 +35,13 @@ import {
   TOOL_STATE,
   TOUCH_STATE,
   DRAW_STATE,
+  STAMP_STATE,
 } from "../logic/switcher.js";
 
 import {
   getLegendContents,
   getModalElements,
-  getButtonElementsById,
+  getElementArrayById,
   initCanvasContext,
 } from "../ui/domExtractor.js";
 
@@ -56,6 +58,7 @@ import {
   applyCurrentColor,
   applyCurrentOpacity,
   changeCursorOnCanvas,
+  initSettingOptions,
 } from "../ui/domApplier.js";
 
 import {
@@ -74,6 +77,7 @@ import {
   initHowToUsePositions,
   switchInformation,
   saveHistory,
+  applyLoadedSettings,
 } from "../ui/controller.js";
 
 import {
@@ -110,10 +114,13 @@ import {
   handleImageButtonClick,
   handleImportClick,
   setupDragAndDrop,
+  handleZoomScaleSettingChange,
+  handleSettingSaveClick,
 } from "../ui/handlers.js";
 
 import {
   CANVAS_DATA,
+  changeMapType,
   loadMapImage,
 } from "../ui/canvasManager.js";
 
@@ -143,6 +150,7 @@ function setupDefaultBehaviors() {
   });
 
   changeCursorOnCanvas('move');
+  
 }
 
 /**
@@ -180,6 +188,18 @@ function loadSelectedOperators() {
   });
 };
 
+/**
+ * 設定項目のロード
+ */
+function loadSetting() {
+  const settings = getSettingFromLocal();
+  if(settings) {
+    applyLoadedSettings(settings, CANVAS_DATA, STAMP_STATE);
+    initSettingOptions(settings);
+    changeMapType(CANVAS_DATA);
+  }
+}
+
 
 /*****menu*****/
 /**
@@ -198,11 +218,11 @@ function initMenu() {
 
 
 /**
- * セッティング開閉の初期設定
+ * セッティングの初期設定
  */
 function initSetting() {
   const modalId = MODAL_IDS.setting;
-  const otherOpenId = BUTTON_IDS.setting;
+  const otherOpenId = BUTTON_IDS.setting.open;
   const modalIdToClose = MODAL_IDS.menu;
   const classNameToActivateForClosing = ACTIVE_CLASSNAMES.menu;
 
@@ -216,11 +236,26 @@ function initSetting() {
   const mapImageSetting = document.getElementById(FORM_ID.mapImage);
   mapImageSetting.addEventListener('change', (e) => {
     handleMapImageSettingChange(e);
-  })
+  });
 
-  const stampSetting = document.getElementById(FORM_ID.stampSise);
+  const zoomScaleSettings = getElementArrayById(FORM_ID.zoomScale);
+  zoomScaleSettings.forEach(zoomScale => {
+    zoomScale.addEventListener('change', (e) => {
+      handleZoomScaleSettingChange(e, CANVAS_DATA);
+    });
+  });
+
+  const stampSetting = document.getElementById(FORM_ID.stampSize);
   stampSetting.addEventListener('change', (e) => {
     handleStampSizeSettingChange(e);
+  });
+
+  const saveButton = document.getElementById(BUTTON_IDS.setting.save);
+  saveButton.addEventListener('click', () => {
+    handleSettingSaveClick(CANVAS_DATA, STAMP_STATE);
+
+    const modals = getModalElements(modalId)
+    hideModal(modals.modal);
   })
 };
 
@@ -252,7 +287,7 @@ function setupHowToUse() {
     resetLegendOperatorActivations();
   });
 
-  const buttons = getButtonElementsById(BUTTON_IDS.howToUse);
+  const buttons = getElementArrayById(BUTTON_IDS.howToUse);
   buttons.forEach(button => {
     button.addEventListener('click', () => {
       const buttonId = button.dataset.howToUse;
@@ -293,7 +328,7 @@ function initWhatsSite() {
 /*****tools*****/
 
 function initTools() {
-  const toolButtons = getButtonElementsById(BUTTON_IDS.tool);
+  const toolButtons = getElementArrayById(BUTTON_IDS.tool);
 
   toolButtons.forEach(button => {
     const toolId = button.dataset.tool;
@@ -384,7 +419,7 @@ function buildCanvas() {
   loadMapImage(CANVAS_DATA);
   saveHistory(CANVAS_DATA);
 
-  const zoomButtons = getButtonElementsById(BUTTON_IDS.zoom);
+  const zoomButtons = getElementArrayById(BUTTON_IDS.zoom);
 
   zoomButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -397,7 +432,7 @@ function buildCanvas() {
   });
 
 
-  const historyButtons = getButtonElementsById(BUTTON_IDS.history);
+  const historyButtons = getElementArrayById(BUTTON_IDS.history);
   historyButtons.forEach(button => {
     button.addEventListener('click', () => {
       const buttonId = button.dataset.history;
@@ -612,4 +647,5 @@ initTools();
 initToolSettings();
 setupLegend();
 buildCanvas();
+loadSetting();
 initStampBehavior();

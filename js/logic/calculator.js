@@ -254,18 +254,49 @@ export function calculateMapImageSize({context}) {
  * @param {import("../ui/canvasManager.js").FullCanvasDataStructure} CANVAS_DATA 
  */
 export function initMapImageSize(CANVAS_DATA) {
-  const {context, state} = CANVAS_DATA;
+  const {context, state, setting} = CANVAS_DATA;
   const {mapDrawWidth, mapDrawHeight} = calculateMapImageSize(CANVAS_DATA);
 
   state.initialLogicalDraw.width = mapDrawWidth;
   state.initialLogicalDraw.height = mapDrawHeight;
-  state.translate.vX = (context.container.clientWidth  - state.initialLogicalDraw.width)  / 2;
-  state.translate.vY = (context.container.clientHeight - state.initialLogicalDraw.height) / 2;
-  state.currentImageScale = 1;
-  state.imageScaleIndex = 0;
+  
+  state.currentImageScale = setting.minScale;
+  state.imageScaleIndex = Math.round((state.currentImageScale -1) / setting.scaleStep);
+
+  const scaledWidth = state.initialLogicalDraw.width * state.currentImageScale;
+  const scaledHeight = state.initialLogicalDraw.height * state.currentImageScale;
+
+  state.translate.vX = (context.container.clientWidth - scaledWidth) / 2;
+  state.translate.vY = (context.container.clientHeight - scaledHeight) / 2;
+    //設定項目がminScaleに対応していない。
 }
 
 /*****zoom*****/
+
+export function changeCanvasScale(CANVAS_DATA, isMinChanged = true, isMaxChanged = false) {
+  const {context, setting, state} = CANVAS_DATA;
+  let nextScale;
+
+  if(isMinChanged) {
+    nextScale = setting.minScale;
+  } else if (isMaxChanged) {
+    nextScale = setting.maxScale;
+  }
+
+  const scaleRatio = nextScale / state.currentImageScale;
+  const center = {
+    vX: context.container.clientWidth  / 2,
+    vY: context.container.clientHeight / 2
+  };
+
+  let nextTranslateX = center.vX - (center.vX - state.translate.vX) * scaleRatio;
+  let nextTranslateY = center.vY - (center.vY - state.translate.vY) * scaleRatio;
+
+  state.currentImageScale = nextScale;
+  state.imageScaleIndex = Math.round((state.currentImageScale -1) / setting.scaleStep);
+  state.translate.vX = nextTranslateX;
+  state.translate.vY = nextTranslateY;
+};
 
 /**
  * 拡大/縮小を実行するため、CANVAS_DATAの値を更新する
@@ -275,8 +306,8 @@ export function initMapImageSize(CANVAS_DATA) {
  * @param {boolean} isZoomDown - 縮小を実行する場合true
  * @returns {void}
  */
-export function updateCanvasScale(CANVAS_DATA, positions, isZoomUp, isZoomDown ) {
-  const {context, setting, state} = CANVAS_DATA;
+export function updateCanvasScale(CANVAS_DATA, positions, isZoomUp, isZoomDown) {
+  const {setting, state} = CANVAS_DATA;
   let nextScale;
   
   if(isZoomUp) { //memo: 拡大
@@ -305,8 +336,8 @@ export function updateCanvasScale(CANVAS_DATA, positions, isZoomUp, isZoomDown )
  */
 export function adjustMapCenter(CANVAS_DATA) {
   const {context, state} = CANVAS_DATA;
-  state.translate.vX = (context.container.clientWidth - state.initialLogicalDraw.width)  / 2;
-  state.translate.vY = (context.container.clientHeight - state.initialLogicalDraw.height) / 2;
+  state.translate.vX = (context.container.clientWidth - (state.initialLogicalDraw.width * state.currentImageScale))  / 2;
+  state.translate.vY = (context.container.clientHeight - state.initialLogicalDraw.height * state.currentImageScale) / 2;
 }
 
 

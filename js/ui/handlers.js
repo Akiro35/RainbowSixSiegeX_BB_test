@@ -8,6 +8,7 @@ import {
   SELECTOR_DATA,
   MODAL_IDS,
   ELEMENT_IDS,
+  FORM_ID,
 } from "../data/selector.js";
 
 import {
@@ -25,8 +26,8 @@ import {
   setActivePointer,
   DRAW_STATE,
   TOUCH_STATE,
-  changeMapImageType,
   changeStampSize,
+  changeMapImageTypeState,
 } from "../logic/switcher.js";
 
 import {
@@ -40,7 +41,8 @@ import {
   adjustMapCenter,
   isRectColliding,
   getPointerLocalPositions,
-  updateCanvasScale
+  updateCanvasScale,
+  changeCanvasScale
 } from "../logic/calculator.js";
 
 import {
@@ -52,9 +54,10 @@ import {
   getOperatorIconFromSelection,
   getPlayerName,
   getPlayerColor,
-  getButtonElementsById,
+  getElementArrayById,
   identifyStampContainer,
   getModalElements,
+  getScaleValue,
 } from "./domExtractor.js";
 
 import {
@@ -78,6 +81,8 @@ import {
   displayCurrentFloorName,
   applyConfirmDialogMessage,
   toggleHistoryButtonActive,
+  applyScaleIntOptions,
+  applyScaleDecOptions,
 } from "./domApplier.js";
 
 import {
@@ -116,15 +121,18 @@ import {
   clearDrawnContents,
   importJSONData,
   importPNGData,
+  initScaleOptions,
 } from "./controller.js";
 
 import {
   applyImportedData,
   CANVAS_DATA,
+  changeMapType,
   loadMapImage,
   rewriteFloorData,
   rewriteMapData,
 } from "./canvasManager.js";
+import { saveSettingToLocal } from "../logic/storage.js";
 /*****defaultBehaviors*****/
 
 export function handleDoubleTouch(e) {
@@ -147,7 +155,7 @@ export function handleDocumentClick(e) {
   const isGearsActive = gears.classList.contains(ACTIVE_CLASSNAMES.gear);
   const isOperatorItemActive = OPERATOR_STATE.isItemsOpen; 
 
-  if(!isGearsActive && !isOperatorItemActive) return; //gearsがdeactiveできない。
+  if(!isGearsActive && !isOperatorItemActive) return;
 
   let isContainerColliding = false;
 
@@ -188,12 +196,32 @@ export function handleHowToUseButtonClick(buttonId) {
 export function handleMapImageSettingChange(e) {
   const selectedMapImageType = e.target.value;
 
-  changeMapImageType(CANVAS_DATA, selectedMapImageType);
-  const newMapData = getMapDataFromPool(CANVAS_DATA.selectedData.map.mapName);
-  CANVAS_DATA.selectedData.map = newMapData;
-  loadMapImage(CANVAS_DATA);
-  updateStaticCanvasCache(CANVAS_DATA);
-  updateCanvas(CANVAS_DATA);
+  changeMapImageTypeState(CANVAS_DATA, selectedMapImageType);
+  changeMapType(CANVAS_DATA);
+}
+
+export function handleZoomScaleSettingChange(e, CANVAS_DATA) {
+  const {setting, state} = CANVAS_DATA;
+  const selectorData = e.target.dataset.scaleSetting;
+  const scaleValues = getScaleValue();
+  const isMinChanged = selectorData.startsWith('min');
+  const isMaxChanged = selectorData.startsWith('max');
+
+  initScaleOptions(scaleValues, selectorData, isMinChanged, isMaxChanged);
+
+  if(isMinChanged) {
+    setting.minScale = scaleValues.min;
+  } else if(isMaxChanged && scaleValues.max < 8) {
+    setting.maxScale = scaleValues.max;
+  } else if(isMaxChanged && scaleValues.max >= 8) {
+    setting.maxScale = 8;
+  }
+
+  if((state.currentImageScale < scaleValues.min) || (state.currentImageScale > scaleValues.max)) {
+    changeCanvasScale(CANVAS_DATA, isMinChanged, isMaxChanged);
+    updateStaticCanvasCache(CANVAS_DATA);
+    updateCanvas(CANVAS_DATA);
+  }
 }
 
 export function handleStampSizeSettingChange(e) {
@@ -202,6 +230,10 @@ export function handleStampSizeSettingChange(e) {
   changeStampSize(STAMP_STATE, stampSize);
   updateStaticCanvasCache(CANVAS_DATA);
   updateCanvas(CANVAS_DATA);
+}
+
+export function handleSettingSaveClick(CANVAS_DATA, STAMP_STATE) {
+  saveSettingToLocal(CANVAS_DATA, STAMP_STATE);
 }
 
 /****Left*****/
@@ -214,7 +246,7 @@ export function handleStampSizeSettingChange(e) {
  */
 export function handleToolClick(toolId, elements) {
   const classNameToActivate = ACTIVE_CLASSNAMES.tool;
-  const buttons = getButtonElementsById(BUTTON_IDS.tool);
+  const buttons = getElementArrayById(BUTTON_IDS.tool);
   toggleToolState(toolId);
   applyElementsDeactivation(buttons, classNameToActivate);
   applyElementActivation(elements.open, classNameToActivate);
@@ -228,9 +260,7 @@ export async function handleLineClearClick(CANVAS_DATA, clearId) {
   const textJa = '描画した線をすべて削除しますか？';
   const textEn = 'Are you sure you want to delete all lines?';
 
-  applyConfirmDialogMessage(textJa, textEn);
-
-  const isConfirmed = await showConfirmDialog();
+  const isConfirmed = await showConfirmDialog(textJa, textEn);
 
   if(!isConfirmed) return;
 
@@ -244,9 +274,7 @@ export async function handleStampClearClick(CANVAS_DATA, clearId) {
   const textJa = '描画したスタンプをすべて削除しますか？';
   const textEn = 'Are you sure you want to delete all stamps?';
 
-  applyConfirmDialogMessage(textJa, textEn);
-
-  const isConfirmed = await showConfirmDialog();
+  const isConfirmed = await showConfirmDialog(textJa, textEn);
 
   if(!isConfirmed) return;
 
@@ -260,9 +288,7 @@ export async function handleAllClearClick(CANVAS_DATA, clearId) {
   const textJa = 'すべての描画(線とスタンプ)を消去しますか？';
   const textEn = 'Are you sure you want to clear everything?';
 
-  applyConfirmDialogMessage(textJa, textEn);
-
-  const isConfirmed = await showConfirmDialog();
+  const isConfirmed = await showConfirmDialog(textJa, textEn);
 
   if(!isConfirmed) return;
 
@@ -315,7 +341,7 @@ export function handleHistoryButton(buttonId, CANVAS_DATA) {
 }
 
 export function handleMapZoomWheelSpin(e) {
-    const {setting, state} = CANVAS_DATA;
+    const {state} = CANVAS_DATA;
   const wheelDelta = e.deltaY ? - (e.deltaY) : e.wheelDelta;
   //memo:e.deltaYが存在すればe.deltaYの符号を逆転した値が定義。
   //memo:e.deltaYが存在しなければe.wheelDeltaYが定義。(ブラウザ互換性対応)
@@ -326,13 +352,13 @@ export function handleMapZoomWheelSpin(e) {
 
   updateCanvasScale(CANVAS_DATA, pointerPositionsAtCanvas, isZoomUp, isZoomDown);
 
-  if(state.currentImageScale === setting.minScale) {
+  if(state.currentImageScale === 1) {
     adjustMapCenter(CANVAS_DATA);
   }
 }
 
 export function handleZoomButtonClick(buttonId) {
-  const {context, setting, state} = CANVAS_DATA;
+  const {context, state} = CANVAS_DATA;
   const container = context.container;
   const isZoomUp = buttonId === Object.keys(BUTTON_IDS.zoom)[0];
   const isZoomDown = buttonId === Object.keys(BUTTON_IDS.zoom)[1];
@@ -343,7 +369,7 @@ export function handleZoomButtonClick(buttonId) {
 
   updateCanvasScale(CANVAS_DATA, center, isZoomUp, isZoomDown);
 
-  if(state.currentImageScale === setting.minScale) {
+  if(state.currentImageScale === 1) {
     adjustMapCenter(CANVAS_DATA);
   }
 }

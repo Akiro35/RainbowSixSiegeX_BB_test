@@ -174,6 +174,14 @@ export function rewriteMapData({selectedData}, mapName) {
   window.sessionStorage.setItem('SELECTED_MAP_NAME', mapName);
 }
 
+export function changeMapType(CANVAS_DATA) {
+  const newMapData = getMapDataFromPool(CANVAS_DATA.selectedData.map.mapName);
+  CANVAS_DATA.selectedData.map = newMapData;
+  loadMapImage(CANVAS_DATA);
+  updateStaticCanvasCache(CANVAS_DATA);
+  updateCanvas(CANVAS_DATA);
+}
+
 /*****floor*****/
 export function rewriteFloorData({selectedData}, floorName = 'floor1st') {
   selectedData.floor = floorName;
