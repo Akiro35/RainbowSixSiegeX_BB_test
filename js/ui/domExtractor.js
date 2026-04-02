@@ -113,6 +113,39 @@ export function getActiveHowToUsePage() {
   return activePageData;
 }
 
+/*****spin*****/
+export function getCompass() {
+  const compassContainer = document.getElementById(ELEMENT_IDS.compass);
+  const compassImage = compassContainer.querySelector(SELECTOR_DATA.canvas.compass.image);
+  const topSlot = compassContainer.querySelector(SELECTOR_DATA.canvas.compass.top);
+  const rightSlot = compassContainer.querySelector(SELECTOR_DATA.canvas.compass.right);
+  const bottomSlot = compassContainer.querySelector(SELECTOR_DATA.canvas.compass.bottom);
+  const leftSlot = compassContainer.querySelector(SELECTOR_DATA.canvas.compass.left);
+
+  const compass = {
+    image: compassImage,
+    top: {
+      slot: topSlot,
+      direction: topSlot.textContent,
+    },
+    right: {
+      slot: rightSlot,
+      direction: rightSlot.textContent,
+    },
+    bottom: {
+      slot: bottomSlot,
+      direction: bottomSlot.textContent,
+    },
+    left: {
+      slot: leftSlot,
+      direction: leftSlot.textContent,
+    },
+    allSlots: [topSlot, rightSlot, bottomSlot, leftSlot]
+  }
+  
+  return compass;
+}
+
 /**
  * 凡例としてON/OFFを有効にする要素を取得。
  * @param {HTMLElement} button - ON/OFFを切り替える要素。

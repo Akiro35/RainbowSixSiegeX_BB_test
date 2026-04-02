@@ -54,6 +54,7 @@ import {
 import {
   OPERATOR_ICON_CONTAINERS,
   externalMoladElementsByOpenId,
+  getCompass,
   getElementArrayById,
   getModalElements,
   getOperatorDOM,
@@ -80,6 +81,8 @@ import {
   changeCursorOnCanvas,
   applyScaleIntOptions,
   applyScaleDecOptions,
+  applyCompassImageSpin,
+  applyCompassDirectionSpin,
 } from "./domApplier.js";
 
 import { 
@@ -341,6 +344,16 @@ export function updateStaticCanvasCache(CANVAS_DATA) {
 
   cache.ctx.clearRect(0, 0, cache.el.width, cache.el.height);
 
+  cache.ctx.save();
+
+  const centerX = cache.el.width / 2;
+  const centerY = cache.el.height / 2;
+  const angle = (state.angleIndex * 90 * Math.PI) / 180;
+
+  cache.ctx.translate(centerX, centerY);
+  cache.ctx.rotate(angle);
+  cache.ctx.translate(-centerX, -centerY);
+
   const destX = state.translate.vX;
   const destY = state.translate.vY;
   const destWidth = state.initialLogicalDraw.width * state.currentImageScale;
@@ -369,11 +382,11 @@ export function updateStaticCanvasCache(CANVAS_DATA) {
     cache.ctx.globalAlpha = line.opacity;
 
     if(line.points.length > 0) {
-      let startPoint = logicalToViewport(line.points[0].lX, line.points[0].lY);
+      let startPoint = logicalToViewport(line.points[0].lX, line.points[0].lY, CANVAS_DATA, true);
       cache.ctx.moveTo(startPoint.vX, startPoint.vY);
 
       for(let i = 1; i < line.points.length; i++) {
-        let nextPoint = logicalToViewport(line.points[i].lX, line.points[i].lY);
+        let nextPoint = logicalToViewport(line.points[i].lX, line.points[i].lY, CANVAS_DATA, true);
         cache.ctx.lineTo(nextPoint.vX, nextPoint.vY);
       }
 
@@ -391,21 +404,30 @@ export function updateStaticCanvasCache(CANVAS_DATA) {
       if(img) {
         const stampSizePx = window.innerWidth * STAMP_STATE.size / 100;
         const halfStampSize = stampSizePx / 2;
-        const stampPoints = logicalToViewport(stamp.points.lX, stamp.points.lY);
+        const stampPoints = logicalToViewport(stamp.points.lX, stamp.points.lY, CANVAS_DATA, true);
+
+        cache.ctx.save();
+        cache.ctx.translate(stampPoints.vX, stampPoints.vY);
+        cache.ctx.rotate(-angle);
 
         cache.ctx.drawImage(
           img,
-          stampPoints.vX - halfStampSize,
-          stampPoints.vY - halfStampSize,
+          -halfStampSize,
+          -halfStampSize,
           stampSizePx,
           stampSizePx
         );
+
+        cache.ctx.restore();
       }
     }
   });
+
+  cache.ctx.restore();
 };
 
-export function updateCanvas({context, state}) {
+export function updateCanvas(CANVAS_DATA) {
+  const {context, state} = CANVAS_DATA;
   const {container, main, cache} = context;
   const {tempDraw} = state;
   
@@ -422,11 +444,11 @@ export function updateCanvas({context, state}) {
     main.ctx.strokeStyle = DRAW_STATE.currentColor;
     main.ctx.globalAlpha = DRAW_STATE.currentOpacity;
 
-    const startPoint = logicalToViewport(tempDraw.linePoints[0].lX, tempDraw.linePoints[0].lY);
+    const startPoint = logicalToViewport(tempDraw.linePoints[0].lX, tempDraw.linePoints[0].lY, CANVAS_DATA);
     main.ctx.moveTo(startPoint.vX, startPoint.vY);
 
     for(let i = 1; i < tempDraw.linePoints.length; i++) {
-      const nextPoint = logicalToViewport(tempDraw.linePoints[i].lX, tempDraw.linePoints[i].lY);
+      const nextPoint = logicalToViewport(tempDraw.linePoints[i].lX, tempDraw.linePoints[i].lY, CANVAS_DATA);
       main.ctx.lineTo(nextPoint.vX, nextPoint.vY);
     }
 
@@ -470,6 +492,31 @@ export function applyHistory(CANVAS_DATA) {
 
   updateStaticCanvasCache(CANVAS_DATA);
   updateCanvas(CANVAS_DATA);
+}
+
+/*****canvasSpin*****/
+export function spinCompassLeft(buttonId, CANVAS_DATA) {
+  if(CANVAS_DATA.state.angleIndex === 0) {
+    CANVAS_DATA.state.angleIndex = 4;
+  }
+  CANVAS_DATA.state.angleIndex--;
+
+  const compass = getCompass();
+  
+  applyCompassImageSpin(compass, CANVAS_DATA);
+  applyCompassDirectionSpin(buttonId, compass);
+}
+
+export function spinCompassRight(buttonId, CANVAS_DATA) {
+  CANVAS_DATA.state.angleIndex++;
+  if(CANVAS_DATA.state.angleIndex === 4) {
+    CANVAS_DATA.state.angleIndex = 0;
+  }
+
+  const compass = getCompass();
+
+  applyCompassImageSpin(compass, CANVAS_DATA);
+  applyCompassDirectionSpin(buttonId, compass);
 }
 
 /*****canvasZoom*****/
@@ -523,11 +570,20 @@ export function moveCanvasImage(e, TOUCH_STATE, CANVAS_DATA) {
   if(TOUCH_STATE.press) {
     draggedPoint.vX = e.clientX - rect.left;
     draggedPoint.vY = e.clientY - rect.top;
-    state.translate.vX = state.translateBuf.vX - (point.vX - draggedPoint.vX);
-    state.translate.vY = state.translateBuf.vY - (point.vY - draggedPoint.vY);
+
+    const dx = draggedPoint.vX - point.vX;
+    const dy = draggedPoint.vY - point.vY;
+
+    const angle = (-state.angleIndex * 90 * Math.PI) / 180;
+
+    const rotatedDx = dx * Math.cos(angle) - dy * Math.sin(angle);
+    const rotatedDy = dx * Math.sin(angle) + dy * Math.cos(angle);
+
+    state.translate.vX = state.translateBuf.vX + rotatedDx;
+    state.translate.vY = state.translateBuf.vY + rotatedDy;
   } else {
-    point.vX =  e.clientX - rect.left;
-    point.vY =  e.clientY - rect.top;
+    point.vX = e.clientX - rect.left;
+    point.vY = e.clientY - rect.top;
   }
 }
 
@@ -575,15 +631,15 @@ export function clearDrawnContents(CANVAS_DATA, clearId) {
 
 export function startLineDraw(e) {
   const points = getPointerLocalPositions(e);
-  const logicalPoints = viewportToLogical(points.vX, points.vY);
-
+  const logicalPoints = viewportToLogical(points.vX, points.vY, CANVAS_DATA);
+  console.log(logicalPoints);
   CANVAS_DATA.state.tempDraw.linePoints = [logicalPoints];
 }
 
 export function drawLine(e) {
   if(TOUCH_STATE.press) {
   const points = getPointerLocalPositions(e);
-  const logicalPoints = viewportToLogical(points.vX, points.vY);
+  const logicalPoints = viewportToLogical(points.vX, points.vY, CANVAS_DATA);
 
   CANVAS_DATA.state.tempDraw.linePoints.push(logicalPoints);
   }

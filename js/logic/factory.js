@@ -154,7 +154,7 @@ export function createStamp(e ,currentStamp = null) {
  */
 export function createStampData(e, tempStamp) {
   const stampPositions = getStampPositionsToRecord(e);
-  const logicalPositions = viewportToLogical(stampPositions.vX, stampPositions.vY);
+  const logicalPositions = viewportToLogical(stampPositions.vX, stampPositions.vY, CANVAS_DATA);
   const stampData = {
     id: tempStamp.id,
     img: tempStamp.src,
