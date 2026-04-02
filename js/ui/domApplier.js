@@ -760,6 +760,45 @@ export function toggleHistoryButtonActive(CANVAS_DATA) {
   }
 }
 
+export function applyCompassImageSpin(compass, CANVAS_DATA) {
+  switch (CANVAS_DATA.state.angleIndex) {
+    case 0:
+      compass.image.style.transform = "rotate(0deg)";
+      break;
+    case 1:
+      compass.image.style.transform = "rotate(90deg)";
+      break;
+    case 2:
+      compass.image.style.transform = "rotate(180deg)";
+      break;
+    case 3:
+      compass.image.style.transform = "rotate(270deg)";
+      break;
+  }
+}
+
+export function applyCompassDirectionSpin(buttonId, compass) {
+  if(buttonId === 'left') {
+    compass.left.slot.textContent = compass.top.direction;
+    compass.bottom.slot.textContent = compass.left.direction;
+    compass.right.slot.textContent = compass.bottom.direction;
+    compass.top.slot.textContent = compass.right.direction;
+  } else if(buttonId === 'right') {
+    compass.right.slot.textContent = compass.top.direction;
+    compass.bottom.slot.textContent = compass.right.direction;
+    compass.left.slot.textContent = compass.bottom.direction;
+    compass.top.slot.textContent = compass.left.direction;
+  }
+
+  compass.allSlots.forEach(slot => {
+    slot.style.color = '';
+    if(slot.textContent === 'N') {
+      slot.style.color = '#ff3d2d';
+    }
+  });
+}
+
+
 export function applyScaleRatio({setting, state}) {
   const scaleRatioEl = document.getElementById(ELEMENT_IDS.scaleRatio);
   const scaleRatioForDisplay = Math.floor((state.imageScaleIndex * setting.scaleStep + 1) * 10) / 10;

@@ -116,6 +116,7 @@ import {
   setupDragAndDrop,
   handleZoomScaleSettingChange,
   handleSettingSaveClick,
+  handleSpinButtonClick,
 } from "../ui/handlers.js";
 
 import {
@@ -410,6 +411,7 @@ function initToolSettings() {
 
 
 /*****canvas*****/
+let lotateNumber = 0; //仮で挿入
 
 function buildCanvas() {
   const {context} = CANVAS_DATA;
@@ -439,6 +441,36 @@ function buildCanvas() {
       handleHistoryButton(buttonId, CANVAS_DATA);
     })
   });
+
+  const spinButtons = getElementArrayById(BUTTON_IDS.spin);
+  spinButtons.forEach(spinButton => {
+    spinButton.addEventListener('click', () => {
+      const buttonId = spinButton.dataset.spin;
+      handleSpinButtonClick(buttonId, CANVAS_DATA);
+    });
+  });
+  
+  /*
+  rotateButton.addEventListener('click', () => {
+    console.log('実行')
+    const compass = document.getElementById('direction');
+    lotateNumber++;
+
+    if(lotateNumber === 4) {
+      lotateNumber = 0;
+    }
+
+    if(lotateNumber === 0) {
+      compass.style.transform = 'rotate(0deg)';
+    } else if(lotateNumber === 1) {
+      compass.style.transform = 'rotate(90deg)';
+    } else if(lotateNumber === 2) {
+      compass.style.transform = 'rotate(180deg)';
+    } else if(lotateNumber === 3) {
+      compass.style.transform = 'rotate(270deg)';
+    }
+  });
+  */
 
   main.el.addEventListener('wheel', (e) => {
     e.preventDefault();

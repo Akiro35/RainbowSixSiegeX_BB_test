@@ -1831,7 +1831,6 @@ z-index memo
   top: 1rem;
   left: 1rem;
   z-index: 256;
-  pointer-events: none;
 }
 .p-canvas__canvas {
   width: 100%;
@@ -1849,6 +1848,7 @@ z-index memo
   z-index: 128;
 }
 .p-canvas__zoom {
+  width: 4dvw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1861,6 +1861,30 @@ z-index memo
   word-break: keep-all;
   text-shadow: 0 0 4px black;
   pointer-events: none;
+}
+.p-canvas__btn--spins {
+  height: 4dvw;
+  max-height: 3rem;
+  background-color: var(--background--dark);
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1vh;
+}
+.p-canvas__btn--spins button {
+  padding: 0;
+}
+.p-canvas__btn--spins button img {
+  width: 80%;
+  pointer-events: none;
+}
+.p-canvas__btn--spins .spin--left {
+  transform: rotate(-120deg);
+}
+.p-canvas__btn--spins .spin--right {
+  transform: scale(-1, 1) rotate(-120deg);
 }
 .p-canvas__btn--zooms {
   background-color: var(--background--dark);
@@ -1876,9 +1900,6 @@ z-index memo
   padding: 0;
 }
 .p-canvas__btn--zooms button img {
-  width: 10dvh;
-  max-width: 8dvw;
-  height: auto;
   pointer-events: none;
 }
 .p-canvas__btn--zoom {
@@ -1887,12 +1908,16 @@ z-index memo
 .p-canvas__btn--zoom:active {
   background: rgba(255, 255, 255, 0.2);
 }
-.p-canvas__btn--zoomLine {
+.p-canvas__btn--horizontal-line {
   width: 70%;
-  height: 2px;
+  height: 1px;
   background-color: var(--white);
 }
 .p-canvas__btn--historys {
+  width: 8dvw;
+  max-width: 6rem;
+  height: 4dvw;
+  max-height: 3rem;
   background-color: var(--background--dark);
   border: 2px solid var(--white);
   border-radius: 0.5rem;
@@ -1906,10 +1931,7 @@ z-index memo
   padding: 0;
 }
 .p-canvas__btn--historys button img {
-  padding: 1.5svh;
-  width: 10svh;
-  max-width: 8dvw;
-  height: auto;
+  width: 80%;
   pointer-events: none;
 }
 .p-canvas__btn--history {
@@ -1918,8 +1940,8 @@ z-index memo
 .p-canvas__btn--history:active {
   background: rgba(255, 255, 255, 0.2);
 }
-.p-canvas__btn--historyLine {
-  width: 2px;
+.p-canvas__btn--vertical-line {
+  width: 1px;
   height: 70%;
   background-color: var(--white);
 }
@@ -1958,6 +1980,76 @@ z-index memo
 .p-canvas__history {
   display: flex;
   gap: 1svw;
+}
+.p-canvas__spin {
+  width: 8dvw;
+  max-width: 6rem;
+  background-color: var(--background--dark);
+  border: 2px solid var(--white);
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.p-canvas__compass {
+  width: 90%;
+  margin: 0.4rem 0;
+  aspect-ratio: 1/1;
+  border: 1px solid var(--white);
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.p-canvas__compass img {
+  width: 50%;
+  pointer-events: none;
+}
+.p-canvas__compass .p-canvas__directions {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 128;
+}
+.p-canvas__compass .p-canvas__directions p {
+  font-size: clamp(0.8em, 1.8vw, 1.4em);
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.p-canvas__compass .p-canvas__directions .p-canvas__direction--top {
+  padding-top: 8%;
+  width: 100%;
+  position: absolute;
+  top: -2%;
+  left: 2%;
+}
+.p-canvas__compass .p-canvas__directions .p-canvas__direction--right {
+  padding-top: 5%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 6%;
+}
+.p-canvas__compass .p-canvas__directions .p-canvas__direction--left {
+  padding-top: 5%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 6%;
+}
+.p-canvas__compass .p-canvas__directions .p-canvas__direction--bottom {
+  padding-top: 5%;
+  width: 100%;
+  position: absolute;
+  left: 2%;
+  bottom: -2%;
 }
 .p-canvas__mapStatus {
   min-width: 20vw;
@@ -2146,9 +2238,6 @@ z-index memo
 }
 @media (width >= 1000px) {
   .p-canvas__btn--zooms button img {
-    width: 3dvw;
-  }
-  .p-canvas__btn--historys button img {
     width: 3dvw;
   }
   .p-canvas__mapStatus {

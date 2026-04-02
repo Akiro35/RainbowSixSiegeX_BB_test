@@ -48,6 +48,7 @@ import { initCanvasContext } from "./domExtractor.js";
  * @property {import("../logic/calculator.js").viewportPositions} translateBuf - 移動量のバッファ
  * @property {number} currentImageScale - 現在の倍率
  * @property {number} imageScaleIndex - 倍率のインデックス
+ * @property {number} angle - 角度のインデックス
  * @property {TempDrawData} tempDraw - 描画中の一時データ
  * @property {Object} history - 履歴の管理データ
  * @property {any[]} history.stack - 操作時点での線とスタンプのデータ
@@ -118,6 +119,7 @@ export const CANVAS_DATA = {
     },
     currentImageScale: 1,
     imageScaleIndex: 0,
+    angleIndex: 0,
     tempDraw: {
       linePoints: [],
       imageCache: {},

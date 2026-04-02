@@ -122,6 +122,8 @@ import {
   importJSONData,
   importPNGData,
   initScaleOptions,
+  spinCompassLeft,
+  spinCompassRight,
 } from "./controller.js";
 
 import {
@@ -338,6 +340,17 @@ export function handleHistoryButton(buttonId, CANVAS_DATA) {
     applyHistory(CANVAS_DATA);
     toggleHistoryButtonActive(CANVAS_DATA);
   }
+}
+
+export function handleSpinButtonClick(buttonId, CANVAS_DATA) {
+  if(buttonId === 'left') {
+    spinCompassLeft(buttonId, CANVAS_DATA);
+  } else if(buttonId === 'right') {
+    spinCompassRight(buttonId, CANVAS_DATA);
+  }
+  
+  updateStaticCanvasCache(CANVAS_DATA);
+  updateCanvas(CANVAS_DATA);
 }
 
 export function handleMapZoomWheelSpin(e) {

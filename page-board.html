@@ -112,9 +112,30 @@
             <button class="p-canvas__btn--history" id="js-undo" data-history="undo">
               <img src="image/materials/left.svg" alt="undo">
             </button>
-            <div class="p-canvas__btn--historyLine"></div>
+            <div class="p-canvas__btn--vertical-line"></div>
             <button class="p-canvas__btn--history" id="js-redo" data-history="redo">
               <img src="image/materials/right.svg" alt="redo">
+            </button>
+          </div>
+        </div>
+        <div class="p-canvas__spin">
+          <div class="p-canvas__compass" id="js-compass">
+            <img src="image/materials/compass.svg" style="transform: rotate(0deg);" data-compass="compass-img">
+            <div class="p-canvas__directions">
+              <p class="p-canvas__direction--top"><span style="color: #ff3d2d;" data-compass="top">N</span></p>
+              <p class="p-canvas__direction--right"><span data-compass="right">E</span></p>
+              <p class="p-canvas__direction--bottom"><span data-compass="bottom">S</span></p>
+              <p class="p-canvas__direction--left"><span data-compass="left">W</span></p>
+            </div>
+          </div>
+          <div class="p-canvas__btn--horizontal-line"></div>
+          <div class="p-canvas__btn--spins">
+            <button class="p-canvas__btn--spin" id="js-spin--left" data-spin="left">
+              <img src="image/materials/spin.svg" alt="spinLeft" class="spin--left">
+            </button>
+            <div class="p-canvas__btn--vertical-line"></div>
+            <button class="p-canvas__btn--spin" id="js-spin--right" data-spin="right">
+              <img src="image/materials/spin.svg" alt="spinRight" class="spin--right">
             </button>
           </div>
         </div>
@@ -123,7 +144,7 @@
             <button class="p-canvas__btn--zoom" id="js-zoomUp" data-zoom="up">
               <img src="image/materials/zoom--plus.svg" alt="zoom--plus">
             </button>
-            <div class="p-canvas__btn--zoomLine"></div>
+            <div class="p-canvas__btn--horizontal-line"></div>
             <button class="p-canvas__btn--zoom" id="js-zoomDown" data-zoom="down">
               <img src="image/materials/zoom--minus.svg" alt="zoom--minus">
             </button>

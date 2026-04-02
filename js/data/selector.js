@@ -36,6 +36,7 @@ export const ELEMENT_IDS = {
     container: 'js-canvasContainer',
     canvas:    'js-canvas',
   },
+  compass: 'js-compass',
   legend: {
     mapStatus: {
       container: 'js-mapStatus',
@@ -133,6 +134,10 @@ export const BUTTON_IDS = {
   history: {
     undo: 'js-undo',
     redo: 'js-redo',
+  },
+  spin: {
+    left: 'js-spin--left',
+    right: 'js-spin--right'
   },
   gear:   'js-gearButton',
   confirm: {
@@ -251,6 +256,13 @@ export const SELECTOR_DATA = {
     close:           '[data-legend="close"]',
   },
   canvas: {
+    compass: {
+      image: '[data-compass="compass-img"]',
+      top: '[data-compass="top"]',
+      right: '[data-compass="right"]',
+      bottom: '[data-compass="bottom"]',
+      left: '[data-compass="left"]',
+    },
     tempStamp: '[data-stamp="stamp--temp"]'
   },
   operatorSetting: {

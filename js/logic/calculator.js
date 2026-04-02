@@ -99,8 +99,8 @@ export function isStampColliding(stampHitbox, pointerCenter, pointerRadius) {
  * @returns {boolean} - 線分が消しゴムの円内に入っていればtrue
  */
 export function isLineColliding(logicalPoint1, logicalPoint2, eraserCenter, eraserRadius) {
-  const localPoint1 = logicalToViewport(logicalPoint1.lX, logicalPoint1.lY);
-  const localPoint2 = logicalToViewport(logicalPoint2.lX, logicalPoint2.lY);
+  const localPoint1 = logicalToViewport(logicalPoint1.lX, logicalPoint1.lY, CANVAS_DATA);
+  const localPoint2 = logicalToViewport(logicalPoint2.lX, logicalPoint2.lY, CANVAS_DATA);
   const distSquared1 = Math.pow(localPoint1.vX - eraserCenter.vX, 2) + Math.pow(localPoint1.vY - eraserCenter.vY, 2);
   const distSquared2 = Math.pow(localPoint2.vX - eraserCenter.vX, 2) + Math.pow(localPoint2.vY - eraserCenter.vY, 2);
   const radiusSquared = Math.pow(eraserRadius, 2);
@@ -134,16 +134,35 @@ export function isLineColliding(logicalPoint1, logicalPoint2, eraserCenter, eras
  * @param {Number} vY - viewportにおけるY座標
  * @returns {logicalPositions} - 変換後の論理座標 
  */
-export function viewportToLogical(vX, vY) {
-  const {initialLogicalDraw, translate, currentImageScale} = CANVAS_DATA.state;
-  const drawX = vX - translate.vX;
-  const drawY = vY - translate.vY;
+export function viewportToLogical(vX, vY, CANVAS_DATA) {
+  const {state, context } = CANVAS_DATA;
+  
+  let targetX = vX;
+  let targetY = vY;
 
-  const scaledX = drawX / currentImageScale;
-  const scaledY = drawY / currentImageScale;
+  if(state.angleIndex !== 0) {
+    const angle = (-state.angleIndex * 90 * Math.PI) / 180;
+    const centerX = context.cache.el.width / 2;
+    const centerY = context.cache.el.height / 2;
 
-  const lX = scaledX / initialLogicalDraw.width;
-  const lY = scaledY / initialLogicalDraw.height;
+    const relX = targetX - centerX;
+    const relY = targetY - centerY;
+
+    const unRotatedX = relX * Math.cos(angle) - relY * Math.sin(angle);
+    const unRotatedY = relX * Math.sin(angle) + relY * Math.cos(angle);
+
+    targetX = unRotatedX + centerX;
+    targetY = unRotatedY + centerY;
+  }
+
+  const drawX = targetX - state.translate.vX;
+  const drawY = targetY - state.translate.vY;
+
+  const scaledX = drawX / state.currentImageScale;
+  const scaledY = drawY / state.currentImageScale;
+
+  const lX = scaledX / state.initialLogicalDraw.width;
+  const lY = scaledY / state.initialLogicalDraw.height;
 
   return {lX: lX, lY: lY};
 }
@@ -154,17 +173,27 @@ export function viewportToLogical(vX, vY) {
  * @param {Number} lY - 論理Y座標
  * @returns {viewportPositions} - 変換後のviewport座標
  */
-export function logicalToViewport(lX, lY) {
-  const {initialLogicalDraw, translate, currentImageScale} = CANVAS_DATA.state;
-  const scaledX = lX * initialLogicalDraw.width;
-  const scaledY = lY * initialLogicalDraw.height;
+export function logicalToViewport(lX, lY, CANVAS_DATA, ignoreRotation = false) {
+  const {state, context} = CANVAS_DATA;
 
-  const drawX = scaledX * currentImageScale;
-  const drawY = scaledY * currentImageScale;
+  let vX = (lX * state.initialLogicalDraw.width) * state.currentImageScale + state.translate.vX;
+  let vY = (lY * state.initialLogicalDraw.height) * state.currentImageScale + state.translate.vY;
 
-  const vX = drawX + translate.vX;
-  const vY = drawY + translate.vY;
+  if(state.angleIndex !== 0 && !ignoreRotation) {
+    const angle = (state.angleIndex * 90 * Math.PI) / 180;
+    const centerX = context.cache.el.width / 2;
+    const centerY = context.cache.el.height / 2;
 
+    const relX = vX - centerX;
+    const relY = vY - centerY;
+
+    const rotatedX = relX * Math.cos(angle) - relY * Math.sin(angle);
+    const rotatedY = relX * Math.sin(angle) + relY * Math.cos(angle);
+
+    vX = rotatedX + centerX;
+    vY = rotatedY + centerY;
+  }
+  
   return {vX: vX, vY: vY};
 }
 
@@ -351,7 +380,7 @@ export function adjustMapCenter(CANVAS_DATA) {
 export function getStampHitbox(drawnStamp) {
   const stampSizePx = window.innerWidth * STAMP_STATE.size / 100;
   const halfStampSize = stampSizePx / 2;
-  const stampPoints = logicalToViewport(drawnStamp.points.lX, drawnStamp.points.lY);
+  const stampPoints = logicalToViewport(drawnStamp.points.lX, drawnStamp.points.lY, CANVAS_DATA);
   const stampHitbox = {}
 
   stampHitbox.vX = stampPoints.vX - halfStampSize;
