@@ -136,35 +136,31 @@ export function isLineColliding(logicalPoint1, logicalPoint2, eraserCenter, eras
  */
 export function viewportToLogical(vX, vY, CANVAS_DATA) {
   const {state, context } = CANVAS_DATA;
-  
-  let targetX = vX;
-  let targetY = vY;
+
+  const centerX = context.container.clientWidth / 2;
+  const centerY = context.container.clientHeight / 2;
+
+  let relX = vX - centerX;
+  let relY = vY - centerY;
 
   if(state.angleIndex !== 0) {
-    const angle = (-state.angleIndex * 90 * Math.PI) / 180;
-    const centerX = context.cache.el.width / 2;
-    const centerY = context.cache.el.height / 2;
+    const angle = (state.angleIndex * 90 * Math.PI) / 180;
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
 
-    const relX = targetX - centerX;
-    const relY = targetY - centerY;
-
-    const unRotatedX = relX * Math.cos(angle) - relY * Math.sin(angle);
-    const unRotatedY = relX * Math.sin(angle) + relY * Math.cos(angle);
-
-    targetX = unRotatedX + centerX;
-    targetY = unRotatedY + centerY;
+    const unRotatedX = relX * cos + relY * sin;
+    const unRotatedY = -relX * sin + relY * cos;
+    relX = unRotatedX;
+    relY = unRotatedY;
   }
 
-  const drawX = targetX - state.translate.vX;
-  const drawY = targetY - state.translate.vY;
+  const destWidth = state.initialLogicalDraw.width * state.currentImageScale;
+  const destHeight = state.initialLogicalDraw.height * state.currentImageScale;
 
-  const scaledX = drawX / state.currentImageScale;
-  const scaledY = drawY / state.currentImageScale;
+  const lX = (relX - state.translate.vX) / destWidth + 0.5;
+  const lY = (relY - state.translate.vY) / destHeight + 0.5;
 
-  const lX = scaledX / state.initialLogicalDraw.width;
-  const lY = scaledY / state.initialLogicalDraw.height;
-
-  return {lX: lX, lY: lY};
+  return {lX, lY};
 }
 
 /**
@@ -175,26 +171,31 @@ export function viewportToLogical(vX, vY, CANVAS_DATA) {
  */
 export function logicalToViewport(lX, lY, CANVAS_DATA, ignoreRotation = false) {
   const {state, context} = CANVAS_DATA;
+  
+  const centerX = context.container.clientWidth / 2;
+  const centerY = context.container.clientHeight / 2;
 
-  let vX = (lX * state.initialLogicalDraw.width) * state.currentImageScale + state.translate.vX;
-  let vY = (lY * state.initialLogicalDraw.height) * state.currentImageScale + state.translate.vY;
+  const destWidth = state.initialLogicalDraw.width * state.currentImageScale;
+  const destHeight = state.initialLogicalDraw.height * state.currentImageScale;
+
+  let vX = (lX - 0.5) * destWidth + state.translate.vX;
+  let vY = (lY - 0.5) * destHeight + state.translate.vY;
 
   if(state.angleIndex !== 0 && !ignoreRotation) {
-    const angle = (state.angleIndex * 90 * Math.PI) / 180;
-    const centerX = context.cache.el.width / 2;
-    const centerY = context.cache.el.height / 2;
+    const angle =(state.angleIndex * 90 * Math.PI) / 180;
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
 
-    const relX = vX - centerX;
-    const relY = vY - centerY;
-
-    const rotatedX = relX * Math.cos(angle) - relY * Math.sin(angle);
-    const rotatedY = relX * Math.sin(angle) + relY * Math.cos(angle);
-
-    vX = rotatedX + centerX;
-    vY = rotatedY + centerY;
+    const rotatedX = vX * cos - vY * sin;
+    const rotatedY = vX * sin + vY * cos;
+    vX = rotatedX;
+    vY = rotatedY;
   }
-  
-  return {vX: vX, vY: vY};
+
+  return {
+    vX: vX + centerX,
+    vY: vY + centerY
+  };
 }
 
 
@@ -291,13 +292,11 @@ export function initMapImageSize(CANVAS_DATA) {
   
   state.currentImageScale = setting.minScale;
   state.imageScaleIndex = Math.round((state.currentImageScale -1) / setting.scaleStep);
-
-  const scaledWidth = state.initialLogicalDraw.width * state.currentImageScale;
-  const scaledHeight = state.initialLogicalDraw.height * state.currentImageScale;
-
-  state.translate.vX = (context.container.clientWidth - scaledWidth) / 2;
-  state.translate.vY = (context.container.clientHeight - scaledHeight) / 2;
-    //設定項目がminScaleに対応していない。
+  
+  state.translate.vX = 0;
+  state.translate.vY = 0;
+  state.translateBuf.vX = 0;
+  state.translateBuf.vY = 0;
 }
 
 /*****zoom*****/
@@ -345,8 +344,8 @@ export function updateCanvasScale(CANVAS_DATA, positions, isZoomUp, isZoomDown) 
     nextScale = Math.max(setting.minScale, state.currentImageScale - setting.scaleStep);
   }
 
-  if(isZoomUp && state.imageScaleIndex >= setting.maxScale * 5) return;
-  if(isZoomDown && state.imageScaleIndex <= 0) return;
+  if(isZoomUp && state.currentImageScale >= setting.maxScale) return;
+  if(isZoomDown && state.currentImageScale <= setting.minScale) return;
 
   const scaleRatio = nextScale / state.currentImageScale;
 
@@ -365,8 +364,10 @@ export function updateCanvasScale(CANVAS_DATA, positions, isZoomUp, isZoomDown) 
  */
 export function adjustMapCenter(CANVAS_DATA) {
   const {context, state} = CANVAS_DATA;
-  state.translate.vX = (context.container.clientWidth - (state.initialLogicalDraw.width * state.currentImageScale))  / 2;
-  state.translate.vY = (context.container.clientHeight - state.initialLogicalDraw.height * state.currentImageScale) / 2;
+  state.translate.vX = 0;
+  state.translate.vY = 0;
+  state.translateBuf.vX = 0;
+  state.translateBuf.vY = 0; 
 }
 
 

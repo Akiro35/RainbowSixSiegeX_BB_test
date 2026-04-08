@@ -157,6 +157,7 @@ export const BUTTON_IDS = {
 
 export const FORM_ID = {
   mapImage:  'js-setting__map-image',
+  spin: 'js-setting__spin', 
   zoomScale: {
     min: 'js-setting__zoom-scale--min',
     max: 'js-setting__zoom-scale--max',
@@ -303,10 +304,16 @@ export const HOW_TO_USE_EXPLANATION = {
     {explanation: '.js-how-to-use__maps',       target: '#js-mapSetting--open', 
       column:'left', row: 'center'},
     {explanation: '.js-how-to-use__floors',     target: '#js-floorSetting--open', 
+      column:'left', row: 'center'},
+    {explanation: '.js-how-to-use__file-setting',     target: '#js-file--open', 
       column:'left', row: 'center'}
   ],
   page3: [
     {explanation: '.js-how-to-use__history',          target: '.p-canvas__history', 
+      column:'right', row: 'center'},
+    {explanation: '.js-how-to-use__compass',          target: '#js-compass', 
+      column:'right', row: 'center'},
+    {explanation: '.js-how-to-use__spin',          target: '#js-spin--right', 
       column:'right', row: 'center'},
     {explanation: '.js-how-to-use__zoom',             target: '.p-canvas__btn--zooms', 
       column:'right', row: 'center'},

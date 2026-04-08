@@ -547,11 +547,23 @@
             <img src="image/materials/arrow--toRight2.svg" alt="">
             <p class="u-font--ja">選択中マップの階層設定画面を開く</p>
           </div>
+          <div class="p-howToUse__right--explanation p-howToUse__right--file-setting js-how-to-use__file-setting">
+            <img src="image/materials/arrow--toRight2.svg" alt="">
+            <p class="u-font--ja">ファイル管理 / 設定に関する画面を開く</p>
+          </div>
         </div>
         <div class="p-howToUse__content p-howToUse__content--page3" id="js-howToUse--page3" data-how-to-use="page3">
           <div class="p-howToUse__canvas--explanation p-howToUse__canvas--history js-how-to-use__history">
             <img src="image/materials/arrow--toLeft1.svg" alt="">
             <p class="u-font--ja">描画操作の戻る/進むボタン</p>
+          </div>
+          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--compass js-how-to-use__compass">
+            <img src="image/materials/arrow--toLeft1.svg" alt="">
+            <p class="u-font--ja">現在の方角</p>
+          </div>
+          <div class="p-howToUse__canvas--explanation p-howToUse__canvas--spin js-how-to-use__spin">
+            <img src="image/materials/arrow--toLeft1.svg" alt="">
+            <p class="u-font--ja">マップを回転</p>
           </div>
           <div class="p-howToUse__canvas--explanation p-howToUse__canvas--zoom js-how-to-use__zoom">
             <img src="image/materials/arrow--toLeft1.svg" alt="">
@@ -586,7 +598,6 @@
           </div>
         </div>
       </div>
-
     </div> <!--howToUse-->
   </div>
   <footer class="l-footer l-footer--board">
@@ -1690,6 +1701,15 @@
             <label for="js-named-map">名前付き画像</label>
           </div>
         </form>
+        <form class="u-layout--directionRow" id="js-setting__spin">
+          <h1>マップの回転(右)</h1>
+          <select name="map-spin">
+            <option value="0" selected>0&deg;</option>
+            <option value="1">90&deg;</option>
+            <option value="2">180&deg;</option>
+            <option value="3">270&deg;</option>
+          </select>
+        </form>
         <div class="p-setting__zoom">
           <form class="u-layout--directionRow" id="js-setting__zoom-scale--min">
             <h1>最小拡大率</h1>
@@ -1712,7 +1732,6 @@
               <option value="8">8</option>
             </select>
           </form>
-          <!--１の位と小数点を分ける？　フロアを切り替えたときに、拡大率を変更しない。ここから。-->
           <form class="u-layout--directionRow" id="js-setting__zoom-scale--max">
             <h1>最大拡大率</h1>
             <select name="scale-int" id="js-setting__max-scale--int" data-scale-setting="max-int">

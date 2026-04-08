@@ -28,6 +28,7 @@ import {
   TOUCH_STATE,
   changeStampSize,
   changeMapImageTypeState,
+  changeMapAngleState,
 } from "../logic/switcher.js";
 
 import {
@@ -42,7 +43,9 @@ import {
   isRectColliding,
   getPointerLocalPositions,
   updateCanvasScale,
-  changeCanvasScale
+  changeCanvasScale,
+  resizeCanvas,
+  initMapImageSize
 } from "../logic/calculator.js";
 
 import {
@@ -83,6 +86,7 @@ import {
   toggleHistoryButtonActive,
   applyScaleIntOptions,
   applyScaleDecOptions,
+  initCompass,
 } from "./domApplier.js";
 
 import {
@@ -124,11 +128,13 @@ import {
   initScaleOptions,
   spinCompassLeft,
   spinCompassRight,
+  initSpinSettingOptions,
 } from "./controller.js";
 
 import {
   applyImportedData,
   CANVAS_DATA,
+  changeMapAngle,
   changeMapType,
   loadMapImage,
   rewriteFloorData,
@@ -200,6 +206,15 @@ export function handleMapImageSettingChange(e) {
 
   changeMapImageTypeState(CANVAS_DATA, selectedMapImageType);
   changeMapType(CANVAS_DATA);
+}
+
+export function handleMapAngleSettingChange(e) {
+  const selectedMapAngle = e.target.value;
+
+  changeMapAngleState(CANVAS_DATA, selectedMapAngle);
+  changeMapAngle(CANVAS_DATA);
+  initCompass(CANVAS_DATA);
+
 }
 
 export function handleZoomScaleSettingChange(e, CANVAS_DATA) {
@@ -348,22 +363,47 @@ export function handleSpinButtonClick(buttonId, CANVAS_DATA) {
   } else if(buttonId === 'right') {
     spinCompassRight(buttonId, CANVAS_DATA);
   }
-  
+
   updateStaticCanvasCache(CANVAS_DATA);
   updateCanvas(CANVAS_DATA);
+
+  initSpinSettingOptions(CANVAS_DATA);
 }
 
 export function handleMapZoomWheelSpin(e) {
-    const {state} = CANVAS_DATA;
+    const {state, context} = CANVAS_DATA;
   const wheelDelta = e.deltaY ? - (e.deltaY) : e.wheelDelta;
   //memo:e.deltaYが存在すればe.deltaYの符号を逆転した値が定義。
   //memo:e.deltaYが存在しなければe.wheelDeltaYが定義。(ブラウザ互換性対応)
 
   const isZoomUp = wheelDelta > 0;
   const isZoomDown = !isZoomUp;
-  const pointerPositionsAtCanvas = getPointerLocalPositions(e);
+  let pos = getPointerLocalPositions(e);
 
-  updateCanvasScale(CANVAS_DATA, pointerPositionsAtCanvas, isZoomUp, isZoomDown);
+  const centerX = context.container.clientWidth / 2;
+  const centerY = context.container.clientHeight / 2;
+
+  let relX = pos.vX - centerX;
+  let relY = pos.vY - centerY;
+
+  if(state.angleIndex !== 0) {
+    const angle = (state.angleIndex * 90 * Math.PI) / 180;
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+
+    const unRotatedX = relX * cos + relY * sin; 
+    const unRotatedY = -relX * sin + relY * cos;
+
+    relX = unRotatedX;
+    relY = unRotatedY;
+  }
+  
+  const adjustedPos = {
+    vX: relX,
+    vY: relY
+  };
+  
+  updateCanvasScale(CANVAS_DATA, adjustedPos, isZoomUp, isZoomDown);
 
   if(state.currentImageScale === 1) {
     adjustMapCenter(CANVAS_DATA);
