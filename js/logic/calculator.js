@@ -292,11 +292,6 @@ export function initMapImageSize(CANVAS_DATA) {
   
   state.currentImageScale = setting.minScale;
   state.imageScaleIndex = Math.round((state.currentImageScale -1) / setting.scaleStep);
-  
-  state.translate.vX = 0;
-  state.translate.vY = 0;
-  state.translateBuf.vX = 0;
-  state.translateBuf.vY = 0;
 }
 
 /*****zoom*****/
