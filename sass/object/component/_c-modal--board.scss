@@ -1,6 +1,8 @@
 @use '../../foundation' as *;
 
 .c-modal {
+  -webkit-user-select: none; /* Safari用 */
+  user-select: none;         /* 標準プロパティ */
 
   p {
     cursor: default;
@@ -22,6 +24,7 @@
   }
 
   &__confirm {
+    @extend .c-modal;
     padding: 0 2dvw;
     width: fit-content;
     min-width: 50dvw;
@@ -62,6 +65,7 @@
   }
 
   &__setting {
+    @extend .c-modal;
     width: 60dvw;
     height: 70dvh;
     padding: 5dvh 5dvw;
@@ -75,6 +79,7 @@
   }
 
   &__penSetting {
+    @extend .c-modal;
     padding: 4dvh 8dvw;
     background-color: var(--background--dark);
     display: flex;
@@ -203,6 +208,7 @@
   }
 
   &__eraserSetting {
+    @extend .c-modal;
     padding: 4dvh 8dvw;
     background-color: var(--background--dark);
     display: flex;
@@ -319,6 +325,7 @@
   }
 
   &__operatorSetting {
+    @extend .c-modal;
     padding: 10dvh 5dvw;
     width: 96dvw;
     height: 96dvh;
@@ -445,6 +452,7 @@
   }
 
   &__iconSetting {
+    @extend .c-modal;
     width: 96dvw;
     height: 96dvh;
     padding-right: 7dvw;
@@ -613,6 +621,7 @@
   }
 
   &__stamp {
+    @extend .c-modal;
     width: 96dvw;
     height: 96dvh;
     padding: 2dvh 7dvw 2dvh 2dvw;
@@ -650,6 +659,7 @@
   }
 
   &__mapSetting {
+    @extend .c-modal;
     width: 96dvw;
     height: 96dvh;
     padding: 2dvh 5dvw 2dvh 5dvw;
@@ -686,6 +696,7 @@
   }
 
   &__floorSetting {
+    @extend .c-modal;
     padding: 4dvh 8dvw;
     background-color: var(--background--dark);
     display: flex;
@@ -713,6 +724,7 @@
   }
 
   &__file {
+    @extend .c-modal;
     width: 80dvw;
     height: 90dvh;
     padding: 5dvh 5dvw;
