@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html {
   color: #000;
   background: #FFF;
@@ -967,7 +968,12 @@ z-index memo
   text-shadow: 0 0 3px black;
 }
 
-.c-modal p {
+.c-modal, .c-modal__file, .c-modal__floorSetting, .c-modal__mapSetting, .c-modal__stamp, .c-modal__iconSetting, .c-modal__operatorSetting, .c-modal__eraserSetting, .c-modal__penSetting, .c-modal__setting, .c-modal__confirm {
+  -webkit-user-select: none; /* Safari用 */
+  -moz-user-select: none;
+       user-select: none; /* 標準プロパティ */
+}
+.c-modal p, .c-modal__file p, .c-modal__floorSetting p, .c-modal__mapSetting p, .c-modal__stamp p, .c-modal__iconSetting p, .c-modal__operatorSetting p, .c-modal__eraserSetting p, .c-modal__penSetting p, .c-modal__setting p, .c-modal__confirm p {
   cursor: default;
 }
 .c-modal__close--white {
