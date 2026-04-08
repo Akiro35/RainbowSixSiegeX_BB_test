@@ -81,6 +81,10 @@ export function changeMapImageTypeState({selectedData}, selectedMapImageType) {
   selectedData.mapType = selectedMapImageType;
 }
 
+export function changeMapAngleState({state, setting}, selectedMapAngle) {
+  state.angleIndex = selectedMapAngle;
+}
+
 export function changeStampSize(STAMP_STATE, stampSize) {
   STAMP_STATE.size = stampSize;
 }

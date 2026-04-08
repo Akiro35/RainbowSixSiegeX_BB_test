@@ -59,6 +59,7 @@ import {
   applyCurrentOpacity,
   changeCursorOnCanvas,
   initSettingOptions,
+  initCompass,
 } from "../ui/domApplier.js";
 
 import {
@@ -117,6 +118,7 @@ import {
   handleZoomScaleSettingChange,
   handleSettingSaveClick,
   handleSpinButtonClick,
+  handleMapAngleSettingChange,
 } from "../ui/handlers.js";
 
 import {
@@ -198,6 +200,7 @@ function loadSetting() {
     applyLoadedSettings(settings, CANVAS_DATA, STAMP_STATE);
     initSettingOptions(settings);
     changeMapType(CANVAS_DATA);
+    initCompass(CANVAS_DATA);
   }
 }
 
@@ -238,6 +241,11 @@ function initSetting() {
   mapImageSetting.addEventListener('change', (e) => {
     handleMapImageSettingChange(e);
   });
+
+  const mapSpinSetting = document.getElementById(FORM_ID.spin);
+  mapSpinSetting.addEventListener('change', (e) => {
+    handleMapAngleSettingChange(e);
+  })
 
   const zoomScaleSettings = getElementArrayById(FORM_ID.zoomScale);
   zoomScaleSettings.forEach(zoomScale => {
@@ -411,8 +419,6 @@ function initToolSettings() {
 
 
 /*****canvas*****/
-let lotateNumber = 0; //仮で挿入
-
 function buildCanvas() {
   const {context} = CANVAS_DATA;
   const {main} = context;
@@ -433,7 +439,6 @@ function buildCanvas() {
     });
   });
 
-
   const historyButtons = getElementArrayById(BUTTON_IDS.history);
   historyButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -449,28 +454,6 @@ function buildCanvas() {
       handleSpinButtonClick(buttonId, CANVAS_DATA);
     });
   });
-  
-  /*
-  rotateButton.addEventListener('click', () => {
-    console.log('実行')
-    const compass = document.getElementById('direction');
-    lotateNumber++;
-
-    if(lotateNumber === 4) {
-      lotateNumber = 0;
-    }
-
-    if(lotateNumber === 0) {
-      compass.style.transform = 'rotate(0deg)';
-    } else if(lotateNumber === 1) {
-      compass.style.transform = 'rotate(90deg)';
-    } else if(lotateNumber === 2) {
-      compass.style.transform = 'rotate(180deg)';
-    } else if(lotateNumber === 3) {
-      compass.style.transform = 'rotate(270deg)';
-    }
-  });
-  */
 
   main.el.addEventListener('wheel', (e) => {
     e.preventDefault();

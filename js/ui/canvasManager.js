@@ -98,7 +98,8 @@ export const CANVAS_DATA = {
     mapImage: new Image(),
   },
 
-  setting: { 
+  setting: {
+    spinAngle: 0,
     maxScale: 8.0,
     minScale: 1.0,
     scaleStep: 0.2
@@ -180,6 +181,12 @@ export function changeMapType(CANVAS_DATA) {
   const newMapData = getMapDataFromPool(CANVAS_DATA.selectedData.map.mapName);
   CANVAS_DATA.selectedData.map = newMapData;
   loadMapImage(CANVAS_DATA);
+  updateStaticCanvasCache(CANVAS_DATA);
+  updateCanvas(CANVAS_DATA);
+}
+
+export function changeMapAngle(CANVAS_DATA) {
+  
   updateStaticCanvasCache(CANVAS_DATA);
   updateCanvas(CANVAS_DATA);
 }

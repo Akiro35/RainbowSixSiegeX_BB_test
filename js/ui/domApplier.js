@@ -28,6 +28,7 @@ import {
 } from "../logic/switcher.js";
 
 import {
+  getCompass,
   getElementArrayById,
   getOperatorDOM,
   getSelectedOperatorIcons,
@@ -299,6 +300,11 @@ export function initSettingOptions(settings) {
     }
   });
 
+  //回転角度
+  const angleSetting = document.getElementById(FORM_ID.spin);
+  const angleSelect = angleSetting.querySelector('select');
+  angleSelect.value = settings.spinAngle;
+
   //最小・最大拡大率
   const zoomScaleSettings = getElementArrayById(FORM_ID.zoomScale);
   zoomScaleSettings.forEach(zoomScale => {
@@ -340,6 +346,13 @@ export function initSettingOptions(settings) {
       option.setAttribute('selected', '');
     }
   });
+}
+
+export function applySpinOptions(CANVAS_DATA) {
+  const spinForm = document.getElementById(FORM_ID.spin);
+  const spinSelect = spinForm.querySelector('select');
+
+  spinSelect.value = CANVAS_DATA.state.angleIndex;
 }
 
 export function applyScaleIntOptions(scaleValues, isMinChanged = true, isMaxChanged = true) {
@@ -761,7 +774,7 @@ export function toggleHistoryButtonActive(CANVAS_DATA) {
 }
 
 export function applyCompassImageSpin(compass, CANVAS_DATA) {
-  switch (CANVAS_DATA.state.angleIndex) {
+  switch (Number(CANVAS_DATA.state.angleIndex)) {
     case 0:
       compass.image.style.transform = "rotate(0deg)";
       break;
@@ -789,6 +802,41 @@ export function applyCompassDirectionSpin(buttonId, compass) {
     compass.left.slot.textContent = compass.bottom.direction;
     compass.top.slot.textContent = compass.left.direction;
   }
+  
+  compass.allSlots.forEach(slot => {
+    slot.style.color = '';
+    if(slot.textContent === 'N') {
+      slot.style.color = '#ff3d2d';
+    }
+  });
+}
+
+export function initCompass(CANVAS_DATA) {
+  const compass = getCompass();
+  
+  applyCompassImageSpin(compass, CANVAS_DATA);
+  
+  let directions;
+
+  switch(Number(CANVAS_DATA.state.angleIndex)) {
+    case 0:
+      directions = ["N", "E", "S", "W"];
+      break;
+    case 1:
+      directions = ["W", "N", "E", "S"];
+      break;
+    case 2:
+      directions = ["S", "W", "N", "E"];
+      break;
+    case 3:
+      directions = ["E", "S", "W", "N"];
+      break;
+  }
+
+  compass.top.slot.textContent = directions[0];
+  compass.right.slot.textContent = directions[1];
+  compass.bottom.slot.textContent = directions[2];
+  compass.left.slot.textContent = directions[3];
 
   compass.allSlots.forEach(slot => {
     slot.style.color = '';

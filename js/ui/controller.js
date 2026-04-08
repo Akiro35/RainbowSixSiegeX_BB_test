@@ -83,6 +83,7 @@ import {
   applyScaleDecOptions,
   applyCompassImageSpin,
   applyCompassDirectionSpin,
+  applySpinOptions,
 } from "./domApplier.js";
 
 import { 
@@ -183,9 +184,14 @@ export function initScaleOptions(scaleValues, selectorData, isMinChanged, isMaxC
   applyScaleDecOptions(scaleValues, isMinChanged, isMaxChanged);
 }
 
+export function initSpinSettingOptions(CANVAS_DATA) {
+  applySpinOptions(CANVAS_DATA);
+}
+
 export function applyLoadedSettings(settings, CANVAS_DATA, STAMP_STATE) {
-  const {selectedData, setting} = CANVAS_DATA;
+  const {selectedData, state, setting} = CANVAS_DATA;
   selectedData.mapType = settings.mapImageType;
+  state.angleIndex = settings.spinAngle;
   setting.maxScale = settings.maxScale;
   setting.minScale = settings.minScale;
   STAMP_STATE.size = settings.stampSize;
@@ -341,23 +347,23 @@ export function deactivateGears() {
 export function updateStaticCanvasCache(CANVAS_DATA) {
   const {selectedData, context, state, drawnContents} = CANVAS_DATA;
   const {cache, mapImage} = context;
-
   cache.ctx.clearRect(0, 0, cache.el.width, cache.el.height);
 
   cache.ctx.save();
 
-  const centerX = cache.el.width / 2;
-  const centerY = cache.el.height / 2;
+  const centerX = context.container.clientWidth / 2;
+  const centerY = context.container.clientHeight / 2;
   const angle = (state.angleIndex * 90 * Math.PI) / 180;
 
   cache.ctx.translate(centerX, centerY);
   cache.ctx.rotate(angle);
-  cache.ctx.translate(-centerX, -centerY);
 
-  const destX = state.translate.vX;
-  const destY = state.translate.vY;
   const destWidth = state.initialLogicalDraw.width * state.currentImageScale;
   const destHeight = state.initialLogicalDraw.height * state.currentImageScale;
+
+  const drawX = state.translate.vX - (destWidth / 2);
+  const drawY = state.translate.vY - (destHeight / 2);
+
 
   cache.ctx.drawImage(
     mapImage,
@@ -365,11 +371,13 @@ export function updateStaticCanvasCache(CANVAS_DATA) {
     0,                //memo:描画開始Y座標
     mapImage.width,   //memo:描画サイズ横
     mapImage.height,  //memo:描画サイズ縦
-    destX,            //memo:画像の切り抜き開始X座標
-    destY,            //memo:画像の切り抜き開始Y座標
+    drawX,            //memo:画像の切り抜き開始X座標
+    drawY,            //memo:画像の切り抜き開始Y座標
     destWidth,        //memo:画像の切り抜きサイズ横
     destHeight        //memo:画像の切り抜きサイズ縦
   );
+
+  cache.ctx.restore();
 
   applyScaleRatio(CANVAS_DATA);
 
@@ -382,11 +390,11 @@ export function updateStaticCanvasCache(CANVAS_DATA) {
     cache.ctx.globalAlpha = line.opacity;
 
     if(line.points.length > 0) {
-      let startPoint = logicalToViewport(line.points[0].lX, line.points[0].lY, CANVAS_DATA, true);
+      let startPoint = logicalToViewport(line.points[0].lX, line.points[0].lY, CANVAS_DATA, false);
       cache.ctx.moveTo(startPoint.vX, startPoint.vY);
 
       for(let i = 1; i < line.points.length; i++) {
-        let nextPoint = logicalToViewport(line.points[i].lX, line.points[i].lY, CANVAS_DATA, true);
+        let nextPoint = logicalToViewport(line.points[i].lX, line.points[i].lY, CANVAS_DATA, false);
         cache.ctx.lineTo(nextPoint.vX, nextPoint.vY);
       }
 
@@ -395,20 +403,24 @@ export function updateStaticCanvasCache(CANVAS_DATA) {
   });
 
   drawnContents.stamps[selectedData.floor].forEach(stamp => {
-    if(stamp.points) {
+    if('lX' in stamp.points && 'lY' in stamp.points) {
       const img = getCachedImage(stamp.img, () => {
         updateStaticCanvasCache(CANVAS_DATA);
         updateCanvas(CANVAS_DATA);
       });
 
+      
       if(img) {
         const stampSizePx = window.innerWidth * STAMP_STATE.size / 100;
         const halfStampSize = stampSizePx / 2;
-        const stampPoints = logicalToViewport(stamp.points.lX, stamp.points.lY, CANVAS_DATA, true);
+        const stampPoints = logicalToViewport(stamp.points.lX, stamp.points.lY, CANVAS_DATA, false);
 
         cache.ctx.save();
+
+        cache.ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
+        cache.ctx.shadowBlur = 6;
+        
         cache.ctx.translate(stampPoints.vX, stampPoints.vY);
-        cache.ctx.rotate(-angle);
 
         cache.ctx.drawImage(
           img,
@@ -422,8 +434,6 @@ export function updateStaticCanvasCache(CANVAS_DATA) {
       }
     }
   });
-
-  cache.ctx.restore();
 };
 
 export function updateCanvas(CANVAS_DATA) {
@@ -522,14 +532,29 @@ export function spinCompassRight(buttonId, CANVAS_DATA) {
 /*****canvasZoom*****/
 export function pinchCanvasZoom(TOUCH_STATE, CANVAS_DATA) { //HACK: calculatorなどに分割できそう
   const {activePointers, lastPinchDistance, lastPinchCenter} = TOUCH_STATE;
-  const {setting, state} = CANVAS_DATA;
+  const {context, setting, state} = CANVAS_DATA;
   const [p1, p2] = Array.from(activePointers.values());
   const canvasContainer = CANVAS_DATA.context.container;
   const rect = canvasContainer.getBoundingClientRect();
+
+  const centerX = context.container.clientWidth / 2;
+  const centerY = context.container.clientHeight / 2;
+  
   const currentDistance = Math.hypot(p2.clientX - p1.clientX, p2.clientY - p1.clientY);
-  const currentCenter = {
-    vX: (p1.clientX + p2.clientX) / 2 - rect.left,
-    vY: (p1.clientY + p2.clientY) / 2 - rect.top
+  let currentCenter = {
+    vX: (p1.clientX + p2.clientX) / 2 - centerX - rect.left,
+    vY: (p1.clientY + p2.clientY) / 2 - centerY - rect.top
+  }
+
+  if(state.angleIndex !== 0) {
+    const angle = (state.angleIndex * 90 * Math.PI) / 180;
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+
+    const unRotatedX = currentCenter.vX * cos + currentCenter.vY * sin; 
+    const unRotatedY = -currentCenter.vX * sin + currentCenter.vY * cos;
+
+    currentCenter = {vX: unRotatedX, vY: unRotatedY};
   }
   
   if(lastPinchDistance && lastPinchCenter) {
@@ -632,7 +657,6 @@ export function clearDrawnContents(CANVAS_DATA, clearId) {
 export function startLineDraw(e) {
   const points = getPointerLocalPositions(e);
   const logicalPoints = viewportToLogical(points.vX, points.vY, CANVAS_DATA);
-  console.log(logicalPoints);
   CANVAS_DATA.state.tempDraw.linePoints = [logicalPoints];
 }
 
@@ -710,7 +734,6 @@ export function eraseLine(e, CANVAS_DATA) {
 
 /*****canvasStamp*****/
 export function createStampFollowedMouse(e, CANVAS_DATA, currentStamp) {
-  const {selectedData, drawnContents} = CANVAS_DATA;
   const tempStamp = createStamp(e, currentStamp);
   CANVAS_DATA.context.container.appendChild(tempStamp);
 }
